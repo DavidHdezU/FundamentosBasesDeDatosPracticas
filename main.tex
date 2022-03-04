@@ -1,0 +1,123 @@
+\documentclass{article}
+
+% Símbolos
+\usepackage{recycle}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{float}
+\restylefloat{table}
+
+% Figuras
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+% Colores
+\usepackage{xcolor}
+
+% Márgenes
+\addtolength{\voffset}{-1cm}
+\addtolength{\hoffset}{-1.5cm}
+\addtolength{\textwidth}{3cm}
+\addtolength{\textheight}{2cm}
+
+% Encabezados y Pies de Página
+\usepackage{fancyhdr}
+% Información del Encabezado
+\lhead{Universidad Nacional Autonoma de Mexico}
+     \rhead{Práctica 01: Preguntas DVDSJ}
+\pagenumbering{gobble}
+% Estilo
+\pagestyle{fancyplain}
+
+\begin{document}
+\begin{itemize}
+    \item[1.]¿Qu\'e otros SMBD existen actualmente en el mercado?
+\end{itemize}
+\begin{itemize}
+    \item Microsoft Access (relacional) 
+    \item Microsoft SQL Server (relacional) 
+    \item MySQL (relacional) 
+    \item Oracle Database (relacional) 
+    \item CouchDB (orientado a documentos) 
+    \item MongoDB (orientado a documentos) 
+    \item PostgreSQL (combina relacional y orientado a objetos) 
+\end{itemize}
+
+\begin{itemize}
+    \item[2.]¿C\'uales son las principales diferencias con PostgreSQL?
+\end{itemize}
+\begin{itemize}
+    \item PostgreSQL es un sistema de gestión de bases de datos relacionales de objetos. 
+    \item Postgre es compatible con Windows, Mac OS X, Linux y BSD pero no con UNIX, z/OS, Symbian, AmigaOS. 
+    \item PostgreSQL es altamente extensible. 
+    \item En PostgreSQL, la herramienta pgAdmin proporciona GUI. 
+    \item PostgresSQL proporciona respaldo en línea. 
+    \item PostgreSQL proporciona una tabla temporal y una vista materializada. 
+    \item PostgreSQL proporciona el objeto de dominio de datos. 
+\end{itemize}
+    
+\begin{itemize}
+    \item[3.]¿Por qu\'e una empresa deber\'ia escoger una base de datos open source?
+\end{itemize}
+Las bases de datos de código abierto almacenan información vital en software que la organización puede controlar. Una base de datos de código abierto permite a los usuarios crear un sistema basado en sus requisitos únicos y necesidades comerciales. Es gratis y también se puede compartir. El código fuente se puede modificar para que coincida con cualquier preferencia del usuario. 
+
+Las bases de datos de código abierto abordan la necesidad de analizar datos de un número creciente de aplicaciones nuevas a un costo menor.  Los datos solo tienen valor si una empresa puede analizarlos para encontrar patrones útiles o información en tiempo real. Pero los datos contienen grandes cantidades de información que pueden sobrecargar una base de datos tradicional. La flexibilidad y rentabilidad del software de base de datos de código abierto ha revolucionado los sistemas de administración de bases de datos. 
+
+Las bases de datos de código abierto más comunes incluyen: 
+\begin{itemize}
+    \item Bases de datos de valores clave: almacene datos de valores y claves en la memoria para una búsqueda rápida. 
+    \item Bases de datos de documentos: almacene información de documentos. 
+    \item Bases de datos de almacenamiento de columnas anchas: similar al valor clave con una gran cantidad de columnas. Son muy adecuados para analizar grandes conjuntos de datos.
+\end{itemize}
+    
+\begin{itemize}
+    \item[4.]¿C\'uales son las ventajas, para un DBA el trabajar con un SMBD, open source?
+\end{itemize}
+     
+     
+    
+\begin{itemize}
+    \item[5.]Describir a detalle q\'ue es y para que sirve Docker y dar al menos 2 ejemplos de como podemos utilizar esta herramienta.
+\end{itemize}
+La tecnología Docker utiliza el kernel de linux y sus funciones, como los grupos de control y los espacios de nombre, para dividir los procesos y ejecutarlos de manera independiente. El propósito de los contenedores es ejecutar varios procesos y aplicaciones por separado para que se pueda aprovechar mejor la infraestructura y, al mismo tiempo, conservar la seguridad que se obtendría con los sistemas individuales. 
+
+Las herramientas de contenedores, como Docker, proporcionan un modelo de implementación basado en imágenes, que permite compartir una aplicación o un conjunto de servicios con todas sus dependencias en varios entornos. Docker también automatiza la implementación de las aplicaciones (o los conjuntos de procesos que las constituyen) en el entorno de contenedores. 
+
+Estas herramientas están diseñadas a partir de los contenedores de Linux, por eso la tecnología Docker es sencilla y única. Además, ofrecen a los usuarios acceso sin precedentes a las aplicaciones, la posibilidad de realizar implementaciones en poco tiempo y el control sobre las versiones y su distribución. 
+
+Por ejemplo en Oursky, usamos docker-compose para desarrollo, prueba y producción. El archivo de configuración Dockerfile y docker-compose están comprometidos con el repositorio de código, de modo que cada miembro del equipo tiene acceso a él y lo usa para crear su propio entorno de desarrollo. Docker se aseguraría de que todos los entornos creados sean consistentes. 
+
+Aunque Docker beneficia la implementación, no limite su uso solo en la implementación. Puede usar Docker en el flujo de trabajo (por ejemplo, desarrollo). En Oursky, usamos Docker en la configuración del entorno y ahorramos tiempo para que los nuevos desarrolladores configuren proyectos. 
+
+Amplíe el uso en diferentes etapas y permita que los desarrolladores tengan más oportunidades de probar nuevas tecnologías. Por ejemplo, Docker admite la integración continua y la implementación continua (CI/CD) y permite la colaboración entre los miembros del equipo mediante el intercambio de imágenes de Docker y simplifica la implementación. 
+
+Hay muchas herramientas de CI/CD en el mercado que brindan soluciones para aprovechar la tecnología de contenedores Docker y ayudar a mejorar su flujo de trabajo también.    
+    
+    
+\begin{itemize}
+    \item[6.]¿Qu\'e son las bases de datos NoSQL? Menciona 3 ventajas y desventajas contra las bases relacionales.
+\end{itemize}
+Una base de datos NoSQL  no requiere un esquema. Tampoco impone relaciones entre tablas en todos los casos. Todos sus documentos son documentos JSON, que son entidades completas que uno puede leer y comprender fácilmente. 
+
+NoSQL se refiere a bases de datos no relacionales de alto rendimiento que utilizan una amplia variedad de modelos de datos. Estas bases de datos son altamente reconocidas por su: 
+\begin{itemize}
+    \item Facilidad de uso. 
+    \item Rendimiento escalable.
+    \item Fuerte resiliencia. 
+    \item Amplia disponibilidad. 
+\end{itemize}
+VENTAJAS:
+\begin{itemize}
+    \item Gran capacidad de datos.
+    \item Elimina la necesidad de una capa de almacenamiento en caché específica para almacenar datos.
+    \item Puede manejar datos estructurados, semi-estructurados y no estructurados con el mismo efecto. 
+\end{itemize}
+DESVENTAJAS:
+\begin{itemize}
+    \item Capacidades de consulta limitadas.
+    \item Las opciones de código abierto no son tan populares para las empresas. 
+    \item Sin reglas de estandarización 
+\end{itemize}
+\end{document}
