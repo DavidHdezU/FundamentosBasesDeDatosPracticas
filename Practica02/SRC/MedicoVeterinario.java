@@ -70,7 +70,7 @@ class MedicoVeterinario{
     }
     public String toString(){
         String nombre = "Nombre del veterinario: "+this.nombre_Vet+" "+ this.apellido_paterno +" "+this.apellido_materno;
-        return nombre+", rfc: "+this.rfc+", correo: "+ this.correo+", turno: "+leeTurno(this.turno)+", ";
+        return nombre+", rfc: "+this.rfc+", correo: "+ this.correo+", turno: "+leeTurno(this.turno);
 
     }
 }
