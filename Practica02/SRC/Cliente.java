@@ -1,5 +1,7 @@
 package SRC;
 
+import java.util.ArrayList;
+
 class Cliente{
   private int id;
   private String nombre_cliente;
@@ -9,6 +11,19 @@ class Cliente{
   private String correo;
   private String domicilio;
   private String codigo_postal;
+  private ArrayList<Mascota> mascotas;
+
+  Cliente(int id, String nombre_cliente, String apellido_paterno, String apellido_materno, String curp, String correo, String domicilio, String codigo_postal, ArrayList<Mascota> mascotas){
+    this.id = id;
+    this.nombre_cliente = nombre_cliente;
+    this.apellido_paterno = apellido_paterno;
+    this.apellido_materno = apellido_materno;
+    this.curp = curp;
+    this.correo = correo;
+    this.domicilio = domicilio;
+    this.codigo_postal = codigo_postal;
+    this.mascotas = mascotas;
+  }
 
   Cliente(int id, String nombre_cliente, String apellido_paterno, String apellido_materno, String curp, String correo, String domicilio, String codigo_postal){
     this.id = id;
@@ -19,13 +34,14 @@ class Cliente{
     this.correo = correo;
     this.domicilio = domicilio;
     this.codigo_postal = codigo_postal;
+    this.mascotas = new ArrayList<>();
   }
 
   public int getId(){
     return this.id;
   }
 
-  public String getNombre_cliente(){
+  public String getNombre(){
     return this.nombre_cliente;
   }
 
@@ -52,6 +68,10 @@ class Cliente{
 
   public String getCodico_postal(){
     return this.codigo_postal;
+  }
+
+  public ArrayList<Mascota> getMascotas(){
+    return this.mascotas;
   }
 
   public void setNombre(String nombre){
@@ -82,9 +102,18 @@ class Cliente{
     this.codigo_postal = codigo;
   }
 
+  public void setMascotas(ArrayList<Mascota> mascotas){
+    this.mascotas = mascotas;
+  }
 
 
+  @Override
   public String toString(){
-    return Integer.toString(this.id) + "," + this.nombre_cliente + "," + this.apellido_paterno + "," + this.apellido_materno + "," + "," + this.curp + "," + this.correo + "," + this.domicilio + "," + this.codigo_postal;
+    String res = Integer.toString(this.id) + "," + this.nombre_cliente + "," + this.apellido_paterno + "," + this.apellido_materno + "," + this.curp + "," + this.correo + "," + this.domicilio + "," + this.codigo_postal;
+
+    for(int i = 0; i < this.mascotas.size(); i++){
+      res += "," + this.mascotas.get(i).getId();
+    }
+    return res;
   }
 }

@@ -39,6 +39,33 @@ public class ClienteArchivo extends LeeryEscribir{
         String domicilio = linea[6];
         String codigo_postal = linea[7];
 
+
+        if (linea.length > 8){ // Aquí sabemos que existe una mascota por lo menos
+            MascotaArchivo archivo = new MascotaArchivo();
+            ArrayList<Mascota> mascotas = new ArrayList<>();
+            try{
+                mascotas = archivo.leeOperadores();
+            }catch(Exception e){
+                System.out.println(e);
+            }
+            
+
+            ArrayList<Mascota> mascotas_cliente = new ArrayList<>(); 
+
+            for (int i = 8; i < linea.length; i++){
+                int id_mascota = Integer.parseInt(linea[i]);
+                for(Mascota m : mascotas){
+                    if (m.getId() == id_mascota){
+                        mascotas_cliente.add(m);
+                    }
+                }
+            }
+
+            return new Cliente(id, nombre_cliente, apellido_paterno, apellido_materno, curp, correo, domicilio, codigo_postal, mascotas_cliente);
+
+            
+        }
+
         return new Cliente(id, nombre_cliente, apellido_paterno, apellido_materno, curp, correo, domicilio, codigo_postal);
     }
     
