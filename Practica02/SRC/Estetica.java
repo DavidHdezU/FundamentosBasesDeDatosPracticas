@@ -1,8 +1,7 @@
 package SRC;
 
 import java.time.LocalTime;
-import java.util.HashMap;
-
+    
 public class Estetica {
 	String   nombre;
 	String   telefono;
@@ -10,7 +9,7 @@ public class Estetica {
 	LocalTime[][] horario;
 	Consultorio[] consultorios;
 	
-	public Estetica(String nombre, String estado, String calle, String numero, String cp, String telefono) {
+	public Estetica(String nombre, String estado, String calle, String numero, String cp, String telefono) { // TODO handle non-business days
 		this.nombre    = nombre;
 		this.telefono  = telefono;
 		this.direccion = new String[] {
@@ -20,6 +19,12 @@ public class Estetica {
 			cp
 		};
 		this.setHorarios();
+		this.consultorios = new Consultorio[4];
+	}
+
+	public Estetica(String nombre, String estado, String calle, String numero, String cp, String telefono, LocalTime[][] horario) {
+		this(nombre, estado, calle, numero, cp, telefono);
+		this.horario = horario;
 		this.consultorios = new Consultorio[4];
 	}
 
@@ -103,19 +108,26 @@ public class Estetica {
 	}
 
 
-	public static void main(String[] args) {
-		Estetica es = new Estetica("Patitas", "CDMX", "Principal", "6", "15897", "(55) 8978 5986");
-		Estetica es1 = new Estetica();
-		System.out.println(es.getEstado());
+	@Override
+	public String toString() {
+		String info = this.nombre + "," + this.getEstado() + "," + this.getCalle() + ",";
+		info += this.getNumero() + "," + this.getCP() + "," + this.telefono + ",";
+		info += this.getHorarios();
 
-		LocalTime[] horario = new LocalTime[] {LocalTime.of(9,0), LocalTime.of(16,30)};
-		es.setHorarioDia(1, horario);
-		es.setHorarioApertura(2, 10, 0);
-		es.setHorarioCierre(7, 22, 30);
-
-		System.out.println(es.getHorarioDeApertura(1));
-		System.out.println(es.getHorarioDeApertura(2));
-		System.out.println(es.getHorarioDeCierre(7));
-
+		return info;
 	}
+
+	public String getHorarios() {
+		String horarios = "";
+		for (int i = 0; i < this.horario.length; i++) {
+			if (i != 0)
+				horarios += ",";
+
+			horarios += Integer.toString(i + 1) + "," + this.getHorarioDeApertura(i + 1).toString() + "," + this.getHorarioDeCierre(i + 1).toString();
+		}
+
+		return horarios;
+	}
+
+
 }
