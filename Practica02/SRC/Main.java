@@ -23,6 +23,8 @@ public class Main{
         boolean found;
         ArrayList<Cliente> operadores = new ArrayList<>();
         ClienteArchivo archivo = new ClienteArchivo();
+        MascotaArchivo archivo_mascotas = new MascotaArchivo();
+        ArrayList<Mascota> mascotas = new ArrayList<>();
 
         System.out.println("Cargando datos de Operadores...");
         try{
@@ -119,7 +121,33 @@ public class Main{
                         while (j < operadores.size() && !found){
                             if (operadores.get(j).getId() == id){
                                 found = true;
+
+                                 // Tenemos que borrar a todas las máscotas también
+                                Cliente eliminado = operadores.get(j);
+
+                                if(!eliminado.getMascotas().isEmpty()){
+                                    
+                                    try{
+                                        mascotas = archivo_mascotas.leeOperadores();
+                                    }catch(Exception e){
+                                        System.out.println(e);
+                                    }
+
+                                    for(int i = 0; i < mascotas.size(); i++){
+                                        if (mascotas.get(i).getDueño().getId() == eliminado.getId()){
+                                            mascotas.remove(i);
+                                        }
+                                    }
+                                    System.out.println("Guardando datos de operadores...");
+                                    archivo.escribeCliente(operadores);
+                                    System.out.println("Datos guardados");
+
+                                }
+                                
                                 operadores.remove(j);
+                               
+
+
                             }
                             j++;
                         }
@@ -171,17 +199,21 @@ public class Main{
                         }
                         
                         if(!found){
-                        System.out.println("El registro no fue encontrado :( ");
+                            System.out.println("El registro no fue encontrado :( ");
                         }else{
-                        System.out.println("El registro se ha actualizado con éxito....! ");
+                            System.out.println("El registro se ha actualizado con éxito....! ");
                         }
                         System.out.println("----------------------------------");
                     break;
 
                     case 6:
-                        if(!operadores.isEmpty()){
-                            System.out.println("Guardando datos de operadores...");
-                            archivo.escribeCliente(operadores);
+                        System.out.println("Guardando datos de Clientes...");
+                        archivo.escribeCliente(operadores);
+                        System.out.println("Datos guardados");
+                        
+                        if(!mascotas.isEmpty()){
+                            System.out.println("Guardando datos de Mascotas...");
+                            archivo_mascotas.escribeMascota(mascotas);
                             System.out.println("Datos guardados");
                         }
                         System.out.println("Cerrando archivo...\n");
@@ -192,6 +224,11 @@ public class Main{
             }
         }while(op!=6);
     }
+
+
+
+
+    
     /**
      * @param args the command line arguments
      */
@@ -214,7 +251,7 @@ public class Main{
                 switch(opcion){
                     case 1:
                         escribeClientes();
-                        break;
+                    break;
                     case 6:
                         bandera = false;
                         System.out.println("Saliendo del sistema...\nHasta pronto.");
