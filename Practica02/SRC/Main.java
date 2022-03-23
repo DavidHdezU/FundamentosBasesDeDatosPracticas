@@ -81,7 +81,7 @@ public class Main{
                     case 2:
                         System.out.println("----------------------------------");
                         for(Cliente cl : operadores){
-                            System.out.println(cl);
+                            System.out.println(cl.toString());
                         }
                         System.out.println("----------------------------------");
                     break;
