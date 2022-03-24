@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Clase que representa una Mascota
  * @author David Hernández Uriostegui
- * @version 22/03/2022
+ * @version 22.3.22
  */
 class Cliente{
 

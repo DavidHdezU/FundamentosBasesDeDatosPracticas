@@ -2,12 +2,31 @@ package SRC;
 
 import java.util.*;
 
+/**
+ * Clase para manejar la lectura y escritura de objetos tipo {@link Cliente} en formato de archivo CSV. 
+ * Subclase de {@link LeeryEscribir}.
+ * @author  David Hernández Uriostegui
+ * @version 22.3.22
+ * @see     Cliente
+ * @see     LeeryEscribir
+ */
 public class ClienteArchivo extends LeeryEscribir{
 
+    /**
+     * Constructor de ClienteArchivo. No recibe parametros.
+     * @see LeeryEscribir#LeeryEscribir(String)
+     */
     public ClienteArchivo() {
         super("Clientes.csv");
     }
 
+    
+    /**
+     * Escribe el objeto Cliente en el archivo. Recibe una {@code ArrayList<Cliente>} que contiene los
+     * distintos Clientes a escribir.
+     * @param clientes los objetos Cliente a escribir en el archivo
+     * @see             LeeryEscribir#escribeArchivo(String)
+     */
     public void escribeCliente(ArrayList<Cliente> clientes) {
         StringBuilder lineas = new StringBuilder();
         for (Cliente o : clientes) {
@@ -16,7 +35,13 @@ public class ClienteArchivo extends LeeryEscribir{
         super.escribeArchivo(lineas.toString());
     }
 
-    public ArrayList<Cliente> leeOperadores() throws ArchivoNoExiste {
+    /**
+     * Lee el archivo CSV que contiene los objetos Cliente y regresa un {@code ArrayList<Cliente>} con 
+     * ellas.
+     * @return el arreglo de clientes 
+     * @throws ArchivoNoExiste
+     */
+    public ArrayList<Cliente> leeClientes() throws ArchivoNoExiste {
         String lineas[] = super.leeArchivo();
         ArrayList<Cliente> clientes = new ArrayList<>();
 
@@ -28,6 +53,13 @@ public class ClienteArchivo extends LeeryEscribir{
 	    return clientes;
     }
 
+    /**
+     * Metodo para procesar las lineas del archivo CSV que contienen los Clientes. 
+     * Regresa un objeto tipo Cliente.
+     * @param cadenaCliente la representacion del objeto Cliente 
+     * @return un objeto cadenaCliente
+     * @see    Cliente#toString()
+     */
     private Cliente obtenCliente(String cadenaCliente) {
         String linea[] = cadenaCliente.trim().split(",");
         int id = Integer.parseInt(linea[0]);
@@ -44,7 +76,7 @@ public class ClienteArchivo extends LeeryEscribir{
             MascotaArchivo archivo = new MascotaArchivo();
             ArrayList<Mascota> mascotas = new ArrayList<>();
             try{
-                mascotas = archivo.leeOperadores();
+                mascotas = archivo.leeMascotas();
             }catch(Exception e){
                 System.out.println(e);
             }

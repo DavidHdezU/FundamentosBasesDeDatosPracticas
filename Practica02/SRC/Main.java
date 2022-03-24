@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * Clase Main que sirve para hacer consultas
  * @author David Hernández Uriostegui
- * @version 16/03/2022
+ * @version 22.3.22
  */
 public class Main{
 
@@ -33,13 +33,13 @@ public class Main{
 
         System.out.println("Cargando datos de clientes...");
         try{
-            clientes = archivo.leeOperadores();
+            clientes = archivo.leeClientes();
             System.out.println("Listo...");
         }catch(Exception e){
             System.out.println(e + "\n Creando archivo Clientes.csv");
         }
         try{
-            mascotas = archivo_mascotas.leeOperadores();
+            mascotas = archivo_mascotas.leeMascotas();
         }catch(Exception e){
             System.out.println(e + "\n Creando archivo Mascotas.csv");
         }
@@ -271,13 +271,13 @@ public class Main{
 
         System.out.println("Cargando datos de clientes...");
         try{
-            clientes = archivo.leeOperadores();
+            clientes = archivo.leeClientes();
             System.out.println("Listo...");
         }catch(Exception e){
             System.out.println(e + "\n Creando archivo Clientes.csv");
         }
         try{
-            mascotas = archivo_mascotas.leeOperadores();
+            mascotas = archivo_mascotas.leeMascotas();
         }catch(Exception e){
             System.out.println(e + "\n Creando archivo Mascotas.csv");
         }
