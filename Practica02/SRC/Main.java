@@ -9,29 +9,39 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Clase Main que sirve de ejemplo para lo que van a entregar en la practica 2
- * @author Ricardo Badillo Macias
+ * Clase Main que sirve para hacer consultas
+ * @author David Hernández Uriostegui
  * @version 16/03/2022
  */
 public class Main{
 
-    public static void escribeClientes() {
+    /**
+     * Método para poder hacer consultas y modificaciones sobre las Mascotas
+     */
+    public static void escribeMascotas() {
         Scanner s = new Scanner(System.in);
         Scanner s1 = new Scanner(System.in);
         int op = 0;
         int j;
         boolean found;
-        ArrayList<Cliente> operadores = new ArrayList<>();
+        boolean overwrite_clientes = false;
+        boolean overwrite_mascotas = false;
+        ArrayList<Cliente> clientes = new ArrayList<>();
         ClienteArchivo archivo = new ClienteArchivo();
         MascotaArchivo archivo_mascotas = new MascotaArchivo();
         ArrayList<Mascota> mascotas = new ArrayList<>();
 
-        System.out.println("Cargando datos de Operadores...");
+        System.out.println("Cargando datos de clientes...");
         try{
-            operadores = archivo.leeOperadores();
+            clientes = archivo.leeOperadores();
             System.out.println("Listo...");
         }catch(Exception e){
-            System.out.println(e);
+            System.out.println(e + "\n Creando archivo Clientes.csv");
+        }
+        try{
+            mascotas = archivo_mascotas.leeOperadores();
+        }catch(Exception e){
+            System.out.println(e + "\n Creando archivo Mascotas.csv");
         }
 
         do{
@@ -53,6 +63,245 @@ public class Main{
             if(op > 0 && op < 7){
                 switch(op){
                     case 1:
+                        System.out.print("Ingresa el id de la mascota: ");
+                        int id = s.nextInt();
+
+                        System.out.print("Ingresa la edad de la mascota: ");
+                        int edad = s.nextInt();
+
+                        System.out.print("Ingresa nombre de la mascota: ");
+                        String nombre = s1.nextLine();
+
+                        System.out.print("Ingresa el peso de la mascota: ");
+                        float peso = s.nextFloat();
+
+                        System.out.print("Ingresa la raza de la mascota: ");
+                        String raza = s1.nextLine();
+                        
+                        System.out.print("Ingresa el id del dueño: ");
+                        int id_dueño = s.nextInt();
+
+                        
+
+                        boolean found_owner = false;
+                        j = 0;
+
+                        while(j < clientes.size() && !found_owner){
+                            if (clientes.get(j).getId() == id_dueño){
+                                found_owner = true;
+                            }
+                            j++;
+                        }
+
+                        if(found_owner){
+                            overwrite_mascotas = true;
+                            overwrite_clientes = true;
+                            Mascota nueva = new Mascota(id, nombre, edad, peso, raza, clientes.get(j-1));
+                            ArrayList<Mascota> mascotas_cliente = clientes.get(j-1).getMascotas();
+                            clientes.get(j-1).setMascotas(mascotas_cliente);
+                            nueva.setDueño(clientes.get(j-1));
+                            mascotas.add(nueva);
+                        }else{
+                            System.out.println("No se pudo agregar a la mascota ya que no se encontró el dueño :(");
+                        }
+                        System.out.println("----------------------------------");
+
+                        
+                    break;
+
+                    case 2:
+                        System.out.println("----------------------------------");
+                        for(Mascota m : mascotas){
+                            System.out.println(m.toString());
+                        }
+                        System.out.println("----------------------------------");
+                    break;
+
+                    case 3:
+                        found = false;
+                        System.out.print("Ingresa el id de la mascota a buscar : ");
+                        id = s.nextInt();
+                        System.out.println("----------------------------------");
+                        
+                        j = 0;
+
+                        while (j < mascotas.size() && !found){
+                            if (mascotas.get(j).getId() == id){
+                                found = true;
+                            }
+                            j++;
+                        }
+                        
+                        if(!found){
+                            System.out.println("Registro no encontrado :( ");
+                        }else{
+                            System.out.println(mascotas.get(j-1));
+                        }
+                        System.out.println("----------------------------------");
+                    break;
+
+                    case 4:
+                        found = false;
+                        overwrite_clientes = true;
+                        System.out.print("Ingresa el id de la mascota a eliminar : ");
+                        id = s.nextInt();
+                        System.out.println("----------------------------------");
+                        j = 0;
+
+                        while (j < mascotas.size() && !found){
+                            if (mascotas.get(j).getId() == id){
+                                found = true;
+
+                                 // Tenemos que borrar a todas las máscotas también
+                                Cliente dueño = mascotas.get(j).getDueño();
+
+                                    
+                                
+
+                                boolean pet_found = false;
+                                int i = 0;
+                                while(i < clientes.size() && !pet_found){
+                                    if(dueño.getId() == clientes.get(i).getId()){
+                                        ArrayList<Mascota> mascotas_dueño = clientes.get(i).getMascotas();
+                                        for(int k = 0; k < mascotas_dueño.size(); k++){
+                                            if (mascotas_dueño.get(k).getId() == id){
+                                                mascotas.remove(k);
+
+                                                clientes.get(i).setMascotas(mascotas_dueño);
+                                                pet_found = true;
+                                                found = true;
+                                            }
+                                        }
+                                    i++;
+                                    }
+                                }
+                                mascotas.remove(j);
+                            }
+                            j++;
+                        }
+
+                        if(!found){
+                            System.out.println("El registro no fue encontrado :( ");
+                        }else{
+                            overwrite_mascotas = true;
+                            System.out.println("El registro se ha eliminado con éxito....! ");
+                        }
+
+                        System.out.println("----------------------------------");
+                    break;
+
+                    case 5:
+                        found = false;
+                        System.out.print("Ingresa el id del cliente a editar : ");
+                        id = s.nextInt();
+                        System.out.println("----------------------------------");
+                        j = 0;
+
+                        while (j < mascotas.size() && !found){
+                            if (mascotas.get(j).getId() == id){
+                                
+                                System.out.print("Ingresa el nuevo id de la mascota: ");
+                                id = s.nextInt();
+
+                                System.out.print("Ingresa la nueva edad de la mascota: ");
+                                edad = s.nextInt();
+
+                                System.out.print("Ingresa el nuevo nombre de la mascota: ");
+                                nombre = s1.nextLine();
+
+                                System.out.print("Ingresa el nuevo peso de la mascota: ");
+                                peso = s1.nextFloat();
+
+                                System.out.print("Ingresa la nueva raza de la mascota: ");
+                                raza = s1.nextLine();
+                                
+                                
+                                
+                                mascotas.set(j, new Mascota(id, nombre, edad, peso, raza, mascotas.get(j).getDueño()));
+                                found = true;
+                            }
+                            j++;
+                        }
+                        
+                        if(!found){
+                            System.out.println("El registro no fue encontrado :( ");
+                        }else{
+                            System.out.println("El registro se ha actualizado con éxito....! ");
+                            overwrite_mascotas = true;
+                        }
+                        System.out.println("----------------------------------");
+                    break;
+
+                    case 6:
+                        if(overwrite_clientes){
+                            System.out.println("Guardando datos de Clientes...");
+                            archivo.escribeCliente(clientes);
+                            System.out.println("Datos guardados");
+                        }
+                        
+                        if(overwrite_mascotas){
+                            System.out.println("Guardando datos de Mascotas...");
+                            archivo_mascotas.escribeMascota(mascotas);
+                            System.out.println("Datos guardados");
+                        }
+                        System.out.println("Cerrando archivo...\n");
+
+                    break;
+                        
+                }
+            }
+        }while(op!=6);
+    }
+
+    /**
+     * Método para poder hacer consultas y modificaciones sobre los Clientes
+     */
+    public static void escribeClientes() {
+        Scanner s = new Scanner(System.in);
+        Scanner s1 = new Scanner(System.in);
+        int op = 0;
+        int j;
+        boolean found;
+        boolean overwrite_clientes = false;
+        boolean overwrite_mascotas = false;
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        ClienteArchivo archivo = new ClienteArchivo();
+        MascotaArchivo archivo_mascotas = new MascotaArchivo();
+        ArrayList<Mascota> mascotas = new ArrayList<>();
+
+        System.out.println("Cargando datos de clientes...");
+        try{
+            clientes = archivo.leeOperadores();
+            System.out.println("Listo...");
+        }catch(Exception e){
+            System.out.println(e + "\n Creando archivo Clientes.csv");
+        }
+        try{
+            mascotas = archivo_mascotas.leeOperadores();
+        }catch(Exception e){
+            System.out.println(e + "\n Creando archivo Mascotas.csv");
+        }
+
+        do{
+            System.out.println("1.Agrega");
+            System.out.println("2.Consulta");
+            System.out.println("3.Busca");
+            System.out.println("4.Eliminar");
+            System.out.println("5.Editar");
+            System.out.println("6. Salir");
+            System.out.println("Selecciona una opción : ");
+
+            try{
+                op = s.nextInt();
+            }catch (InputMismatchException e) {
+                s.next();
+                System.out.println("Ingresa un número como opción");
+            }
+            
+            if(op > 0 && op < 7){
+                switch(op){
+                    case 1:
+                        overwrite_clientes = true;
                         System.out.print("Ingresa el id del cliente : ");
                         int id = s.nextInt();
 
@@ -77,12 +326,12 @@ public class Main{
                         System.out.print("Ingresa el código postal : ");
                         String codigo_postal = s1.nextLine();
 
-                        operadores.add(new Cliente(id ,nombre_cliente ,apellido_paterno,apellido_materno, curp ,correo , domicilio, codigo_postal));
+                        clientes.add(new Cliente(id ,nombre_cliente ,apellido_paterno,apellido_materno, curp ,correo , domicilio, codigo_postal));
                     break;
 
                     case 2:
                         System.out.println("----------------------------------");
-                        for(Cliente cl : operadores){
+                        for(Cliente cl : clientes){
                             System.out.println(cl.toString());
                         }
                         System.out.println("----------------------------------");
@@ -96,8 +345,8 @@ public class Main{
                         
                         j = 0;
 
-                        while (j < operadores.size() && !found){
-                            if (operadores.get(j).getId() == id){
+                        while (j < clientes.size() && !found){
+                            if (clientes.get(j).getId() == id){
                                 found = true;
                             }
                             j++;
@@ -106,7 +355,7 @@ public class Main{
                         if(!found){
                             System.out.println("Registro no encontrado :( ");
                         }else{
-                            System.out.println(operadores.get(j-1));
+                            System.out.println(clientes.get(j-1));
                         }
                         System.out.println("----------------------------------");
                     break;
@@ -118,34 +367,23 @@ public class Main{
                         System.out.println("----------------------------------");
                         j = 0;
 
-                        while (j < operadores.size() && !found){
-                            if (operadores.get(j).getId() == id){
+                        while (j < clientes.size() && !found){
+                            if (clientes.get(j).getId() == id){
                                 found = true;
-
+                                overwrite_clientes = true;
                                  // Tenemos que borrar a todas las máscotas también
-                                Cliente eliminado = operadores.get(j);
+                                Cliente eliminado = clientes.get(j);
 
                                 if(!eliminado.getMascotas().isEmpty()){
-                                    
-                                    try{
-                                        mascotas = archivo_mascotas.leeOperadores();
-                                    }catch(Exception e){
-                                        System.out.println(e);
-                                    }
-
                                     for(int i = 0; i < mascotas.size(); i++){
                                         if (mascotas.get(i).getDueño().getId() == eliminado.getId()){
                                             mascotas.remove(i);
+                                            overwrite_mascotas = true;
                                         }
                                     }
-                                    System.out.println("Guardando datos de operadores...");
-                                    archivo.escribeCliente(operadores);
-                                    System.out.println("Datos guardados");
 
                                 }
-                                
-                                operadores.remove(j);
-                               
+                                clientes.remove(j);
 
 
                             }
@@ -168,8 +406,8 @@ public class Main{
                         System.out.println("----------------------------------");
                         j = 0;
 
-                        while (j < operadores.size() && !found){
-                            if (operadores.get(j).getId() == id){
+                        while (j < clientes.size() && !found){
+                            if (clientes.get(j).getId() == id){
                                 
                                 System.out.print("Ingresa nuevo nombre : ");
                                 nombre_cliente = s1.nextLine();
@@ -192,7 +430,7 @@ public class Main{
                                 System.out.print("Ingresa nuevo código postal : ");
                                 codigo_postal = s1.nextLine();
                                 
-                                operadores.set(j, new Cliente(id ,nombre_cliente ,apellido_paterno,apellido_materno, curp ,correo , domicilio, codigo_postal));
+                                clientes.set(j, new Cliente(id ,nombre_cliente ,apellido_paterno,apellido_materno, curp ,correo , domicilio, codigo_postal));
                                 found = true;
                             }
                             j++;
@@ -202,16 +440,19 @@ public class Main{
                             System.out.println("El registro no fue encontrado :( ");
                         }else{
                             System.out.println("El registro se ha actualizado con éxito....! ");
+                            overwrite_clientes = true;
                         }
                         System.out.println("----------------------------------");
                     break;
 
                     case 6:
-                        System.out.println("Guardando datos de Clientes...");
-                        archivo.escribeCliente(operadores);
-                        System.out.println("Datos guardados");
+                        if(overwrite_clientes){
+                            System.out.println("Guardando datos de Clientes...");
+                            archivo.escribeCliente(clientes);
+                            System.out.println("Datos guardados");
+                        }
                         
-                        if(!mascotas.isEmpty()){
+                        if(overwrite_mascotas){
                             System.out.println("Guardando datos de Mascotas...");
                             archivo_mascotas.escribeMascota(mascotas);
                             System.out.println("Datos guardados");
@@ -238,8 +479,8 @@ public class Main{
         Scanner input = new Scanner(System.in);
         do{
             bandera = true;
-            System.out.println("Ingrese el archivo que desea cargar\n 1-Clientes\n");
-            System.out.println("O bien ingrese 6 para salir");
+            System.out.println("Ingrese el archivo que desea cargar\n 1-Clientes\n 2-Mascotas");
+            System.out.println("O bien ingrese 7 para salir");
             try{
                 opcion = input.nextInt();
             }catch (InputMismatchException e) {
@@ -252,7 +493,9 @@ public class Main{
                     case 1:
                         escribeClientes();
                     break;
-                    case 6:
+                    case 2:
+                        escribeMascotas();
+                    case 7:
                         bandera = false;
                         System.out.println("Saliendo del sistema...\nHasta pronto.");
                 }

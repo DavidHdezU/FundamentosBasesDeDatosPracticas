@@ -1,6 +1,5 @@
 package SRC;
 
-import java.time.LocalTime;
 
 class MedicoVeterinario{
 
@@ -124,12 +123,8 @@ class MedicoVeterinario{
         throw new IllegalArgumentException("Entrada inválida");
         }
     }
-    /**
-     * Representación en cadena de un veterinario
-     */
+    @Override
     public String toString(){
-        String nombre = "Nombre del veterinario: "+this.nombre_Vet+" "+ this.apellido_paterno +" "+this.apellido_materno;
-        return nombre+", rfc: "+this.rfc+", correo: "+ this.correo+", turno: "+leeTurno(this.turno);
-
+        return this.nombre_Vet + "," + this.apellido_paterno + ","+this.apellido_materno + "," + this.rfc + ","+ this.correo+ ","+ this.turno;
     }
 }
