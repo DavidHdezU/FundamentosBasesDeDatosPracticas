@@ -129,7 +129,7 @@ public class Mascota {
 
     @Override
     public String toString(){
-        return this.nombre + "," + Integer.toString(this.edad) + "," + Float.toString(this.peso) +
+        return Integer.toString(this.id) + this.nombre + "," + Integer.toString(this.edad) + "," + Float.toString(this.peso) +
                 "," + this.raza + "," + this.dueño.getNombre() + "," + this.dueño.getApellido_paterno() + "," + this.dueño.getApellido_materno();
     }
 
