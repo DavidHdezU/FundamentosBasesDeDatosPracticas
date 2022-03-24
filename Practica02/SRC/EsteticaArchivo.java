@@ -70,7 +70,7 @@ public class EsteticaArchivo extends LeeryEscribir {
 
         LocalTime[][] horarios = new LocalTime[7][2];
 
-        for (int i = 6; i < linea.length; i++) {
+        for (int i = 6; i <= 24; i++) {
             if ((i % 3) == 0)
                 horarios[(i / 3) - 2] = new LocalTime[] {
                     LocalTime.parse(linea[i+1]),

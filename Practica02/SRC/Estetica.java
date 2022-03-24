@@ -16,7 +16,7 @@ public class Estetica {
 
     /**
      * Constructor de Estetica. 
-     * Recibe parametros para nombre y direccion, pero establece un horario predeterminado.
+     * Recibe parametros para nombre y direccion, pero establece un horario y consultorios predeterminados.
      * @param nombre   el nombre de la Estetica
      * @param estado   estado donde se encuentra la Estetica
      * @param calle    calle donde se encuentra la Estetica
@@ -34,7 +34,7 @@ public class Estetica {
             cp
         };
         this.setHorarios();
-        this.consultorios = new Consultorio[4];
+        this.setConsultorios();
     }
 
     /**
@@ -52,7 +52,7 @@ public class Estetica {
     public Estetica(String nombre, String estado, String calle, String numero, String cp, String telefono, LocalTime[][] horario) {
         this(nombre, estado, calle, numero, cp, telefono);
         this.horario = horario;
-        this.consultorios = new Consultorio[4];
+        this.setConsultorios();
     }
 
     /**
@@ -77,6 +77,17 @@ public class Estetica {
         LocalTime[] horarioDeAtencion = new LocalTime[] {LocalTime.of(9, 0), LocalTime.of(17, 30)};
         for(int dia = 0; dia <= 6; dia++) {
           this.horario[dia] = horarioDeAtencion;
+        }
+    }
+
+    /**
+     * Metodo encargado de establecer el {@code Consultorio[]} de Estetica.
+     * @see Consultorio#Consultorio()
+     */
+    private void setConsultorios() {
+        this.consultorios = new Consultorio[4];
+        for (int no = 0; no < 4; no++) {
+            this.consultorios[no] = new Consultorio();
         }
     }
 
@@ -125,6 +136,15 @@ public class Estetica {
      */
     public void setHorarioCierre(int diaSemana, int hora, int minutos) {
         this.horario[diaSemana - 1][1] = LocalTime.of(hora, minutos);
+    }
+
+    /**
+     * Establece el consultorio de la Estetica segun su numero.
+     * @param noConsultorio el numero de Consultorio (1-4)
+     * @param consultorio el nuevo Consultorio
+     */
+    public void setConsultorio(int noConsultorio, Consultorio consultorio) {
+        this.consultorios[noConsultorio - 1] = consultorio;
     }
 
 
@@ -215,6 +235,23 @@ public class Estetica {
         return this.horario[diaSemana - 1][1];
     }
 
+    /**
+     * Regresa un objeto {@code Consultorio} del espacio de los {@code Consultorio[]} de la Estetica
+     * @param noConsultorio el numero del Consultorio (1-4)
+     * @return el Consultorio segun su numero
+     */
+    public Consultorio getConsultorio(int noConsultorio) {
+        return this.consultorios[noConsultorio - 1];
+    }
+    
+    /**
+     * Regresa un {@code Consultorio[]}, que son todos los consultorios de la Estetica.
+     * @return los objetos Consultorio de la Estetica
+     */
+    public Consultorio[] getConsultorios() {
+        return this.consultorios;
+    }
+
 
     /**
      * Regresa un {@code String} con el nombre, direccion, telefono y horarios de la Estetica separados 
@@ -225,7 +262,7 @@ public class Estetica {
     public String toString() {
         String info = this.nombre + "," + this.getEstado() + "," + this.getCalle() + ",";
         info += this.getNumero() + "," + this.getCP() + "," + this.telefono + ",";
-        info += this.getHorarios();
+        info += this.getHorarios() + "," + this.getConsultoriosInfo();
 
         return info;
     }
@@ -245,6 +282,20 @@ public class Estetica {
         }
 
         return horarios;
+    }
+
+    /**
+     * Regresa un {@code String} que contiene la informacion de los consultorios de la Estetica separado por comas.
+     * @return la informacion de los consultorios 
+     * @see Consultorio#toString()
+     */
+    public String getConsultoriosInfo() {
+        String info = "";
+        for (Consultorio foo : this.consultorios) {
+            info += foo.toString();
+        }
+        
+        return info;
     }
 
 }
