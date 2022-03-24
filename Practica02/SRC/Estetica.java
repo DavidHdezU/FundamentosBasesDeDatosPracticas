@@ -9,10 +9,10 @@ import java.time.LocalTime;
  * @version 23.3.22
  */
 public class Estetica {
-    String   nombre, telefono;
-    String[] direccion;
-    LocalTime[][] horario;
-    Consultorio[] consultorios;
+    private String   nombre, telefono;
+    private String[] direccion;
+    private LocalTime[][] horario;
+    private Consultorio[] consultorios;
 
     /**
      * Constructor de Estetica. 
