@@ -23,9 +23,9 @@ class MedicoVeterinario{
      * @param correo correo del veterinario
      * @param turno turno en el que trabaja el veterinario
      */
-    public MedicoVeterinario(String nombre_vet, String appellido_paterno, String apellido_materno, String rfc, String correo, char turno){
+    public MedicoVeterinario(String nombre_vet, String apellido_paterno, String apellido_materno, String rfc, String correo, char turno){
             this.nombre_Vet = nombre_vet;
-            this.apellido_paterno = appellido_paterno;
+            this.apellido_paterno = apellido_paterno;
             this.apellido_materno = apellido_materno;
             this.rfc = rfc;
             this.correo = correo;
@@ -112,6 +112,6 @@ class MedicoVeterinario{
    
     @Override
     public String toString(){
-        return this.nombre_Vet + "," + this.apellido_paterno + ","+this.apellido_materno + "," + this.rfc + ","+ this.correo+ ","+ this.turno;
+        return this.nombre_Vet + "," + this.apellido_paterno + ","+this.apellido_materno + "," + this.rfc + "," + this.correo + ","+ this.turno;
     }
 }

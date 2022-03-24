@@ -16,6 +16,190 @@ import java.util.Scanner;
 public class Main{
 
     /**
+     * Método para poder hacer consultas y modificaciones sobre los MedicosVeterinario
+     */
+    public static void escribeMedicos() {
+        Scanner s = new Scanner(System.in);
+        Scanner s1 = new Scanner(System.in);
+        int op = 0;
+        int j;
+        boolean found;
+        boolean overwrite_medicos = false;
+        
+        ArrayList<MedicoVeterinario> medicos = new ArrayList<>();
+        MedicoVeterinarioArchivo archivo = new MedicoVeterinarioArchivo();
+        
+
+        System.out.println("Cargando datos de clientes...");
+        try{
+            medicos = archivo.leeMedicos();
+            System.out.println("Listo...");
+        }catch(Exception e){
+            System.out.println(e + "\n Creando archivo MedicosVeterinarios.csv");
+        }
+        
+
+        do{
+            System.out.println("1.Agrega");
+            System.out.println("2.Consulta");
+            System.out.println("3.Busca");
+            System.out.println("4.Eliminar");
+            System.out.println("5.Editar");
+            System.out.println("6. Salir");
+            System.out.println("Selecciona una opción : ");
+
+            try{
+                op = s.nextInt();
+            }catch (InputMismatchException e) {
+                s.next();
+                System.out.println("Ingresa un número como opción");
+            }
+            
+            if(op > 0 && op < 7){
+                switch(op){
+                    case 1:
+                        System.out.print("Ingresa el nombre del médico veterinario: ");
+                        String nombre = s1.nextLine();
+
+                        System.out.print("Ingresa el apellido paterno del médico veterinario: ");
+                        String apellido_p = s1.nextLine();
+
+                        System.out.print("Ingresa el apellido materno del médico veterinario: ");
+                        String apellido_m = s1.nextLine();
+
+                        System.out.print("Ingresa el RFC del médico veterinario: ");
+                        String rfc = s1.nextLine();
+
+                        System.out.print("Ingresa el correo del médico veterinario: ");
+                        String correo = s1.nextLine();
+                        
+                        System.out.print("Ingresa el turno del médico veterinario: ");
+                        char turno = s1.nextLine().charAt(0);
+
+                        overwrite_medicos = true;
+
+                        medicos.add(new MedicoVeterinario(nombre, apellido_p, apellido_m, rfc, correo, turno));
+                        System.out.println("----------------------------------");
+
+                        
+                    break;
+
+                    case 2:
+                        System.out.println("----------------------------------");
+                        for(MedicoVeterinario m : medicos){
+                            System.out.println(m.toString());
+                        }
+                        System.out.println("----------------------------------");
+                    break;
+
+                    case 3:
+                        found = false;
+                        System.out.print("Ingresa el rfc del médico veterinario a buscar: ");
+                        rfc = s1.nextLine();
+                        System.out.println("----------------------------------");
+                        
+                        j = 0;
+
+                        while (j < medicos.size() && !found){
+                            if (medicos.get(j).getRfc() == rfc){
+                                found = true;
+                            }
+                            j++;
+                        }
+                        
+                        if(!found){
+                            System.out.println("Registro no encontrado :( ");
+                        }else{
+                            System.out.println(medicos.get(j-1));
+                        }
+                        System.out.println("----------------------------------");
+                    break;
+
+                    case 4:
+                        found = false;
+                        overwrite_medicos = true;
+                        System.out.print("Ingresa el id del médico veterinario a eliminar : ");
+                        rfc = s1.nextLine();
+                        System.out.println("----------------------------------");
+                        j = 0;
+
+                        while (j < medicos.size() && !found){
+                            if (medicos.get(j).getRfc() == rfc){
+                                found = true;
+                                medicos.remove(j);
+                            }
+                            j++;
+                        }
+
+                        if(!found){
+                            System.out.println("El registro no fue encontrado :( ");
+                        }else{
+                            overwrite_medicos = true;
+                            System.out.println("El registro se ha eliminado con éxito....! ");
+                        }
+
+                        System.out.println("----------------------------------");
+                    break;
+
+                    case 5:
+                        found = false;
+                        System.out.print("Ingresa el id del cliente a editar : ");
+                        rfc = s1.nextLine();
+                        System.out.println("----------------------------------");
+                        j = 0;
+
+                        while (j < medicos.size() && !found){
+                            if (medicos.get(j).getRfc() == rfc){
+                                System.out.print("Ingresa el nuevo nombre del médico veterinario: ");
+                                nombre = s1.nextLine();
+
+                                System.out.print("Ingresa el nuevoapellido paterno del médico veterinario: ");
+                                apellido_p = s1.nextLine();
+
+                                System.out.print("Ingresa el nuevo apellido materno del médico veterinario: ");
+                                apellido_m = s1.nextLine();
+
+                                System.out.print("Ingresa el nuevoRFC del médico veterinario: ");
+                                rfc = s1.nextLine();
+
+                                System.out.print("Ingresa el nuevo correo del médico veterinario: ");
+                                correo = s1.nextLine();
+                                
+                                System.out.print("Ingresa el nuevo turno del médico veterinario: ");
+                                turno = s1.nextLine().charAt(0);
+
+                                found = true;
+                                medicos.set(j, new MedicoVeterinario(nombre, apellido_p, apellido_m, rfc, correo, turno));
+                            }
+                            j++;
+                        }
+                        
+                        if(!found){
+                            System.out.println("El registro no fue encontrado :( ");
+                        }else{
+                            System.out.println("El registro se ha actualizado con éxito....! ");
+                            overwrite_medicos = true;
+                        }
+                        System.out.println("----------------------------------");
+                    break;
+
+                    case 6:
+                        if(overwrite_medicos){
+                            System.out.println("Guardando datos de MedicosVeterinarios...");
+                            archivo.escribeMedico(medicos);
+                            System.out.println("Datos guardados");
+                        }
+                        
+                        
+                        System.out.println("Cerrando archivo...\n");
+
+                    break;
+                        
+                }
+            }
+        }while(op!=6);
+    }
+    /**
      * Método para poder hacer consultas y modificaciones sobre las Mascotas
      */
     public static void escribeMascotas() {
@@ -479,8 +663,8 @@ public class Main{
         Scanner input = new Scanner(System.in);
         do{
             bandera = true;
-            System.out.println("Ingrese el archivo que desea cargar\n 1-Clientes\n 2-Mascotas");
-            System.out.println("O bien ingrese 7 para salir");
+            System.out.println("Ingrese el archivo que desea cargar\n 1-Clientes\n 2-Mascotas\n 3-Médicos Veterinarios");
+            System.out.println("\nO bien ingrese 7 para salir");
             try{
                 opcion = input.nextInt();
             }catch (InputMismatchException e) {
@@ -488,13 +672,17 @@ public class Main{
 		    System.out.println("Ingresa un número como opción");
             }
 
-            if (opcion > 0 && opcion < 7){
+            if (opcion > 0 && opcion < 8){
                 switch(opcion){
                     case 1:
                         escribeClientes();
                     break;
                     case 2:
                         escribeMascotas();
+                    break;
+                    case 3:
+                        escribeMedicos();
+                    break;
                     case 7:
                         bandera = false;
                         System.out.println("Saliendo del sistema...\nHasta pronto.");
