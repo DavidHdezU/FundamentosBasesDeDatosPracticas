@@ -1,6 +1,11 @@
 package SRC;
 
-
+/**
+ * Clase que representa una Médico Veterinario
+ * @author Santiago Raúl Díaz Pontón
+ * @author David Hernández Uriostegui
+ * @version 22.3.22
+ */
 class MedicoVeterinario{
 
     private String nombre_Vet;
@@ -24,7 +29,7 @@ class MedicoVeterinario{
             this.apellido_materno = apellido_materno;
             this.rfc = rfc;
             this.correo = correo;
-            this.turno = turno;
+            this.turno = Character.toLowerCase(turno);
 
     }
     /**
@@ -104,25 +109,7 @@ class MedicoVeterinario{
     public void setTurno(char turno){
         this.turno = turno;
     }
-    /**
-     * Apartir de un char turno, devuelve el turno al cual equivale en String
-     * @param turno el turno en forma char
-     * @return el turno en String que tiene un veterinario
-     */
-    public String leeTurno(char turno){
-        if(turno == 'M' || turno == 'm'){
-            return "Matutino";
-        } else{
-            if(turno == 'V' || turno == 'v'){
-                return "Vespertino";
-            } else{
-                if(turno == 'N' || turno == 'n'){
-                    return "Nocturno";
-                } 
-            }
-        throw new IllegalArgumentException("Entrada inválida");
-        }
-    }
+   
     @Override
     public String toString(){
         return this.nombre_Vet + "," + this.apellido_paterno + ","+this.apellido_materno + "," + this.rfc + ","+ this.correo+ ","+ this.turno;
