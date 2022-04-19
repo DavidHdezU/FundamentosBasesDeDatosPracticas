@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+% Símbolos
+\usepackage{recycle}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{float}
+\restylefloat{table}
+
+% Short labels
+\usepackage[shortlabels]{enumitem}
+
+% Multicol
+\usepackage{multicol}
+
+% Figuras
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage[font=footnotesize]{caption}
+\usepackage{graphicx}
+\graphicspath{{img/}}
+
+% Lorem ipsum
+\usepackage{lipsum}
+
+% Márgenes
+\usepackage{geometry}
+\geometry{showframe=false, headheight=1cm}
+\geometry{margin=30mm, bottom=30mm}
+
+% Title size
+\usepackage{titlesec}
+\titleformat{\section}
+{\normalfont\large\bfseries}{\thesection}{1em}{}
+
+% Header & Footer
+\usepackage{fancyhdr}
+\renewcommand{\footrulewidth}{0.5pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{Práctica 05: Modelo Relacional}
+\fancyhead[L]{UNAM, Facultad de Ciencias}
+\fancyfoot[L]{Fundamentos de Bases de Datos 2022-2}
+\fancyfoot[R]{\thepage}
+
+% Custom Commands
+\newcommand{\dollar}{\mbox{\textdollar}}
+
+% Import files
+\usepackage{subfiles}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%%
+  %\begin{titlepage}
+  %    %\subfile{sections/title_page}
+  %  Insert titlepage here
+  %\end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Especificaciones}
+
+\lipsum[1]
+
+
+\end{document}
