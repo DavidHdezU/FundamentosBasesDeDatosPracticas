@@ -37,8 +37,7 @@ CREATE TABLE consultaEmergencia(
 CREATE TABLE codigo(
     idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18) UNIQUE,
 	codigo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(codigo) = 18) UNIQUE,
-    PRIMARY KEY(codigo),
-    FOREIGN KEY(idConsulta) REFERENCES consultaEmergencia(idConsulta)
+    PRIMARY KEY(idConsulta, codigo)
 );
 
 CREATE TABLE requerirEmergencia(
@@ -91,7 +90,15 @@ CREATE TABLE generaReciboEmergencia(
 	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
 );
 
-INSERT INTO cliente VALUES ('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 10000, 'Ignacio Allende', 'Guanajuato', '4731241727') 
+INSERT INTO cliente VALUES ('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'); 
+INSERT INTO mascota VALUES ('12345678901234598A', '12345678901234567A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
+
+
+INSERT INTO cliente VALUES ('12345678901234565A', 'David', 'Hernández', 'Escoto', 10000, 'Ignacio Allende', 'Guanajuato', '4731241728'); 
+INSERT INTO mascota VALUES ('12345678901234599A', '12345678901234565A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
+select * from mascota;
+
+
 
 
 
