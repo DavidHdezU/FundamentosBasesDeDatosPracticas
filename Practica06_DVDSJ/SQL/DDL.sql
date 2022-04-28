@@ -142,8 +142,7 @@ CREATE TABLE generaReciboProducto(
 );
 
 CREATE TABLE estetica(
-	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18) UNIQUE,
-	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18),
+	nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
 	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10) UNIQUE,
 	codigoPostal INT NOT NULL CHECK(codigoPostal between 10000 and 99999),
     calle VARCHAR(50) NOT NULL CHECK(calle <> ''), 
@@ -154,14 +153,14 @@ CREATE TABLE estetica(
 
 CREATE TABLE consultorio(
 	idConsultorio CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsultorio) = 18) UNIQUE,
-	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18) UNIQUE,
+	nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
 	disponible BOOLEAN NOT NULL,
 	PRIMARY KEY(idConsultorio),
 	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
 );
 
 CREATE TABLE horiario(
-    nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18) UNIQUE,
+    nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
 	horaEntrada TIME NOT NULL,
 	horaSalida TIME NOT NULL,
 	constraint horario_pkey PRIMARY KEY (nombreEstetica),
@@ -169,7 +168,7 @@ CREATE TABLE horiario(
 );
 
 CREATE TABLE vender(
-	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18),
+	nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> ''),
 	idProducto CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idProducto) = 18),
     PRIMARY KEY(nombreEstetica,idProducto),
 	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica),
@@ -183,7 +182,7 @@ CREATE TABLE supervisor(
 	nombre VARCHAR(50) NOT NULL CHECK(nombre <> ''),
 	apellidoPaterno VARCHAR(50) NOT NULL CHECK(apellidoPaterno <> ''),
 	apellidoMaterno VARCHAR(50) NOT NULL CHECK(apellidoMaterno <> ''),
-	numero INT NOT NULL,
+	numero INT NOT NULL UNIQUE,
 	codigoPostal INT NOT NULL CHECK(codigoPostal between 10000 and 99999),
     calle VARCHAR(50) NOT NULL CHECK(calle <> ''), 
 	estado VARCHAR(50) NOT NULL CHECK(estado <> ''),
@@ -200,7 +199,7 @@ CREATE TABLE veterinario(
 	nombre VARCHAR(50) NOT NULL CHECK(nombre <> ''),
 	apellidoPaterno VARCHAR(50) NOT NULL CHECK(apellidoPaterno <> ''),
 	apellidoMaterno VARCHAR(50) NOT NULL CHECK(apellidoMaterno <> ''),
-	numero INT NOT NULL,
+	numero INT NOT NULL UNIQUE,
 	codigoPostal INT NOT NULL CHECK(codigoPostal between 10000 and 99999),
     calle VARCHAR(50) NOT NULL CHECK(calle <> ''), 
 	estado VARCHAR(50) NOT NULL CHECK(estado <> ''),
@@ -218,7 +217,7 @@ CREATE TABLE estilista(
 	nombre VARCHAR(50) NOT NULL CHECK(nombre <> ''),
 	apellidoPaterno VARCHAR(50) NOT NULL CHECK(apellidoPaterno <> ''),
 	apellidoMaterno VARCHAR(50) NOT NULL CHECK(apellidoMaterno <> ''),
-	numero INT NOT NULL,
+	numero INT NOT NULL UNIQUE,
 	codigoPostal INT NOT NULL CHECK(codigoPostal between 10000 and 99999),
     calle VARCHAR(50) NOT NULL CHECK(calle <> ''), 
 	estado VARCHAR(50) NOT NULL CHECK(estado <> ''),
@@ -251,7 +250,7 @@ CREATE TABLE telefonoEstilista(
 
 CREATE TABLE supervisorTrabajaEn(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
-	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18) UNIQUE,
+	nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
     PRIMARY KEY(curp,nombreEstetica),
 	FOREIGN KEY(curp) REFERENCES supervisor(curp),
 	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
@@ -259,7 +258,7 @@ CREATE TABLE supervisorTrabajaEn(
 
 CREATE TABLE veterinarioTrabajaEn(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
-	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18),
+	nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> ''),
     PRIMARY KEY(curp,nombreEstetica),
 	FOREIGN KEY(curp) REFERENCES veterinario(curp),
 	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
@@ -267,7 +266,7 @@ CREATE TABLE veterinarioTrabajaEn(
 
 CREATE TABLE estilistaTrabajaEn(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
-	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18),
+	nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
     PRIMARY KEY(curp,nombreEstetica),
 	FOREIGN KEY(curp) REFERENCES estilista(curp),
 	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
@@ -279,7 +278,17 @@ INSERT INTO mascota VALUES ('12345678901234598A', '12345678901234567A', 'David',
 
 INSERT INTO cliente VALUES ('12345678901234565A', 'David', 'Hernández', 'Escoto', 2 ,10000, 'Ignacio Allende', 'Guanajuato', '4731241728'); 
 INSERT INTO mascota VALUES ('12345678901234599A', '12345678901234565A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
-select * from mascota;
+
+INSERT INTO estilista VALUES ('12345678901233367A', 'Pedro', 'Paramo', 'Vela', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727', 500, 'NA'); 
+
+INSERT INTO veterinario VALUES ('12345678901233367A', 'Carlos', 'Sanchez', 'Cortez', 1, 40000, 'Ignacio Allende', 'Guanajuato', '4731241727', 1000, '0000123456789', '12:00', '18:00', 2); 
+
+INSERT INTO estetica VALUES ('HAPPY DOGGO', '5520124576', 50000, 'Diaz Ordaz', 'Queretaro', 1);
+
+INSERT INTO veterinarioTrabajaEn VALUES ('12345678901233367A', 'HAPPY DOGGO');
+
+INSERT INTO producto VALUES ('00045678901234565A', 'Bolsas Pedigree', 100, NULL, 'Croquetas para perro', 'En 2 meses después de su compra', TRUE, FALSE);
+select * from producto;
 
 
 
