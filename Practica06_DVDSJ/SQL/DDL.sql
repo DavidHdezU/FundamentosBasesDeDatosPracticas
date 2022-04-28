@@ -159,7 +159,7 @@ CREATE TABLE consultorio(
 	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
 );
 
-CREATE TABLE horiario(
+CREATE TABLE horario(
     nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
 	horaEntrada TIME NOT NULL,
 	horaSalida TIME NOT NULL,
@@ -288,7 +288,10 @@ INSERT INTO estetica VALUES ('HAPPY DOGGO', '5520124576', 50000, 'Diaz Ordaz', '
 INSERT INTO veterinarioTrabajaEn VALUES ('12345678901233367A', 'HAPPY DOGGO');
 
 INSERT INTO producto VALUES ('00045678901234565A', 'Bolsas Pedigree', 100, NULL, 'Croquetas para perro', 'En 2 meses después de su compra', TRUE, FALSE);
-select * from producto;
+INSERT INTO vender VALUES ('HAPPY DOGGO', '00045678901234565A');
+INSERT INTO consultorio VALUES ('0004567890123456BG', 'HAPPY DOGGO', FALSE);
+INSERT INTO horario VALUES ('HAPPY DOGGO', '11:00', '19:00');
+select * from horario;
 
 
 
