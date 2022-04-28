@@ -37,7 +37,8 @@ CREATE TABLE consultaEmergencia(
 CREATE TABLE codigo(
     idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18) UNIQUE,
 	codigo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(codigo) = 18) UNIQUE,
-    PRIMARY KEY(idConsulta, codigo)
+	constraint codigo_pkey PRIMARY KEY (idConsulta,codigo),
+	constraint codigo_fkey FOREIGN KEY (idConsulta) REFERENCES consultaEmergencia(idConsulta)
 );
 
 CREATE TABLE requerirEmergencia(
@@ -89,6 +90,50 @@ CREATE TABLE generaReciboEmergencia(
 	FOREIGN KEY(idConsulta) REFERENCES consultaEmergencia(idConsulta),
 	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
 );
+
+CREATE TABLE pago(
+    idPago CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idPago) = 18) UNIQUE,
+	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18),
+    numeroTarjeta CHAR(16) CHECK(CHAR_LENGTH(numeroTarjeta) = 16),
+	vencimiento DATE NOT NULL,
+	titular VARCHAR(50) NOT NULL CHECK(titular <> ''),
+	cvv CHAR(3) NOT NULL CHECK(CHAR_LENGTH(cvv) = 3),
+	esTarjerta BOOLEAN NOT NULL,
+	esEfectivo BOOLEAN NOT NULL,
+    PRIMARY KEY(idPago),
+	FOREIGN KEY(curp) REFERENCES cliente(curp)
+);
+
+
+CREATE TABLE pagar(
+	idPago CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idPago) = 18),
+	idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18),
+    PRIMARY KEY(idPago,idRecibo),
+	FOREIGN KEY(idPago) REFERENCES pago(idPago),
+	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
+);
+
+CREATE TABLE servicios(
+    idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18) UNIQUE,
+	servicios VARCHAR(50) NOT NULL CHECK(servicios <> ''),
+	constraint servicios_pkey PRIMARY KEY (idRecibo,servicios),
+	constraint servicios_fkey FOREIGN KEY (idRecibo) REFERENCES recibo(idRecibo)
+);
+
+CREATE TABLE producto(
+	idProducto CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idProducto) = 18) UNIQUE,
+	nombre VARCHAR(50) NOT NULL CHECK(nombre <> ''),
+	cantidad INT NOT NULL,
+	imagen bytea,
+	descripcion VARCHAR(50) NOT NULL CHECK(descripcion <> ''),
+	caducidad VARCHAR(50) NOT NULL CHECK(caducidad <> ''), -- Lo usaremos como VARCHAR para decir por ejemplo 'Caduca en 2 años y 6 meses',
+	esComida BOOLEAN NOT NULL,
+	esMedicamento BOOLEAN NOT NULL,
+	PRIMARY KEY(idProducto)
+);
+
+
+
 
 INSERT INTO cliente VALUES ('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'); 
 INSERT INTO mascota VALUES ('12345678901234598A', '12345678901234567A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
