@@ -6,6 +6,7 @@ CREATE TABLE cliente(
 	nombre VARCHAR(50) NOT NULL CHECK(nombre <> ''),
 	apellidoPaterno VARCHAR(50) NOT NULL CHECK(apellidoPaterno <> ''),
 	apellidoMaterno VARCHAR(50) NOT NULL CHECK(apellidoMaterno <> ''),
+	numero INT NOT NULL UNIQUE,
 	codigoPostal INT NOT NULL CHECK(codigoPostal between 10000 and 99999),
     calle VARCHAR(50) NOT NULL CHECK(calle <> ''), 
 	estado VARCHAR(50) NOT NULL CHECK(estado <> ''),
@@ -132,14 +133,151 @@ CREATE TABLE producto(
 	PRIMARY KEY(idProducto)
 );
 
+CREATE TABLE generaReciboProducto(
+	idProducto CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idProducto) = 18),
+	idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18),
+    PRIMARY KEY(idProducto,idRecibo),
+	FOREIGN KEY(idProducto) REFERENCES producto(idProducto),
+	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
+);
+
+CREATE TABLE estetica(
+	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18) UNIQUE,
+	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18),
+	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10) UNIQUE,
+	codigoPostal INT NOT NULL CHECK(codigoPostal between 10000 and 99999),
+    calle VARCHAR(50) NOT NULL CHECK(calle <> ''), 
+	estado VARCHAR(50) NOT NULL CHECK(estado <> ''),
+	numero INT NOT NULL UNIQUE,
+	PRIMARY KEY(nombreEstetica)
+);
+
+CREATE TABLE consultorio(
+	idConsultorio CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsultorio) = 18) UNIQUE,
+	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18) UNIQUE,
+	disponible BOOLEAN NOT NULL,
+	PRIMARY KEY(idConsultorio),
+	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
+);
+
+CREATE TABLE horiario(
+    nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18) UNIQUE,
+	horaEntrada TIME NOT NULL,
+	horaSalida TIME NOT NULL,
+	constraint horario_pkey PRIMARY KEY (nombreEstetica),
+	constraint horario_fkey FOREIGN KEY (nombreEstetica) REFERENCES estetica(nombreEstetica)
+);
+
+CREATE TABLE vender(
+	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18),
+	idProducto CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idProducto) = 18),
+    PRIMARY KEY(nombreEstetica,idProducto),
+	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica),
+	FOREIGN KEY(idProducto) REFERENCES producto(idProducto)
+);
 
 
 
-INSERT INTO cliente VALUES ('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'); 
+CREATE TABLE supervisor(
+	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
+	nombre VARCHAR(50) NOT NULL CHECK(nombre <> ''),
+	apellidoPaterno VARCHAR(50) NOT NULL CHECK(apellidoPaterno <> ''),
+	apellidoMaterno VARCHAR(50) NOT NULL CHECK(apellidoMaterno <> ''),
+	numero INT NOT NULL,
+	codigoPostal INT NOT NULL CHECK(codigoPostal between 10000 and 99999),
+    calle VARCHAR(50) NOT NULL CHECK(calle <> ''), 
+	estado VARCHAR(50) NOT NULL CHECK(estado <> ''),
+	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10) UNIQUE,
+	salario INT NOT NULL,
+	rfc CHAR(13) NOT NULL CHECK(CHAR_LENGTH(rfc) = 13) UNIQUE,
+	entrada TIME NOT NULL,
+	salida TIME NOT NULL,
+	PRIMARY KEY(curp)
+);
+
+CREATE TABLE veterinario(
+	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
+	nombre VARCHAR(50) NOT NULL CHECK(nombre <> ''),
+	apellidoPaterno VARCHAR(50) NOT NULL CHECK(apellidoPaterno <> ''),
+	apellidoMaterno VARCHAR(50) NOT NULL CHECK(apellidoMaterno <> ''),
+	numero INT NOT NULL,
+	codigoPostal INT NOT NULL CHECK(codigoPostal between 10000 and 99999),
+    calle VARCHAR(50) NOT NULL CHECK(calle <> ''), 
+	estado VARCHAR(50) NOT NULL CHECK(estado <> ''),
+	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10) UNIQUE,
+	salario INT NOT NULL,
+	rfc CHAR(13) NOT NULL CHECK(CHAR_LENGTH(rfc) = 13) UNIQUE,
+	entrada TIME NOT NULL,
+	salida TIME NOT NULL,
+	numeroPacientes INT NOT NULL,
+	PRIMARY KEY(curp)
+);
+
+CREATE TABLE estilista(
+	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
+	nombre VARCHAR(50) NOT NULL CHECK(nombre <> ''),
+	apellidoPaterno VARCHAR(50) NOT NULL CHECK(apellidoPaterno <> ''),
+	apellidoMaterno VARCHAR(50) NOT NULL CHECK(apellidoMaterno <> ''),
+	numero INT NOT NULL,
+	codigoPostal INT NOT NULL CHECK(codigoPostal between 10000 and 99999),
+    calle VARCHAR(50) NOT NULL CHECK(calle <> ''), 
+	estado VARCHAR(50) NOT NULL CHECK(estado <> ''),
+	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10) UNIQUE,
+	salario INT NOT NULL,
+	certificado VARCHAR(50) NOT NULL CHECK(certificado <> ''),
+	PRIMARY KEY(curp)
+);
+
+CREATE TABLE telefonoSupervisor(
+	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
+	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 18),
+	constraint teleSupervisor_pkey PRIMARY KEY (curp,telefono),
+	constraint teleSupervisor_fkey FOREIGN KEY (curp) REFERENCES supervisor(curp)
+);
+
+CREATE TABLE telefonoVeterinario(
+	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
+	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 18),
+	constraint teleVeterinario_pkey PRIMARY KEY (curp,telefono),
+	constraint teleVeterinario_fkey FOREIGN KEY (curp) REFERENCES veterinario(curp)
+);
+
+CREATE TABLE telefonoEstilista(
+	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
+	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 18),
+	constraint teleEstilista_pkey PRIMARY KEY (curp,telefono),
+	constraint teleEstilista_fkey FOREIGN KEY (curp) REFERENCES estilista(curp)
+);
+
+CREATE TABLE supervisorTrabajaEn(
+	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
+	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18) UNIQUE,
+    PRIMARY KEY(curp,nombreEstetica),
+	FOREIGN KEY(curp) REFERENCES supervisor(curp),
+	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
+);
+
+CREATE TABLE veterinarioTrabajaEn(
+	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
+	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18),
+    PRIMARY KEY(curp,nombreEstetica),
+	FOREIGN KEY(curp) REFERENCES veterinario(curp),
+	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
+);
+
+CREATE TABLE estilistaTrabajaEn(
+	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
+	nombreEstetica CHAR(18) NOT NULL CHECK(CHAR_LENGTH(nombreEstetica) = 18),
+    PRIMARY KEY(curp,nombreEstetica),
+	FOREIGN KEY(curp) REFERENCES estilista(curp),
+	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
+);
+
+INSERT INTO cliente VALUES ('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'); 
 INSERT INTO mascota VALUES ('12345678901234598A', '12345678901234567A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
 
 
-INSERT INTO cliente VALUES ('12345678901234565A', 'David', 'Hernández', 'Escoto', 10000, 'Ignacio Allende', 'Guanajuato', '4731241728'); 
+INSERT INTO cliente VALUES ('12345678901234565A', 'David', 'Hernández', 'Escoto', 2 ,10000, 'Ignacio Allende', 'Guanajuato', '4731241728'); 
 INSERT INTO mascota VALUES ('12345678901234599A', '12345678901234565A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
 select * from mascota;
 
