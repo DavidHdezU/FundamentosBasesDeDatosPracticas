@@ -20,10 +20,10 @@ COMMENT ON COLUMN cliente.nombre IS 'El nombre de los clientes';
 COMMENT ON COLUMN cliente.apellidoPaterno IS 'El apellido paterno de los clientes';
 COMMENT ON COLUMN cliente.apellidoMaterno IS 'El apellido materno de los clientes';
 COMMENT ON COLUMN cliente.numero IS 'El numero identificador que tiene un cliente';
-COMMENT ON COLUMN cliente.calle IS 'La calle donde vive el cliente'
-COMMENT ON COLUMN cliente.codigoPostal IS 'El codigo postal del cliente'
-COMMENT ON COLUMN cliente.estado IS 'El estado donde vive el cliente'
-COMMENT ON COLUMN cliente.telefono IS 'El telefono del cliente'
+COMMENT ON COLUMN cliente.calle IS 'La calle donde vive el cliente';
+COMMENT ON COLUMN cliente.codigoPostal IS 'El codigo postal del cliente';
+COMMENT ON COLUMN cliente.estado IS 'El estado donde vive el cliente';
+COMMENT ON COLUMN cliente.telefono IS 'El telefono del cliente';
 
 
 CREATE TABLE mascota(
@@ -273,8 +273,8 @@ COMMENT ON TABLE horario IS 'Guarda los horarios de la Estetica';
 COMMENT ON COLUMN horario.nombreEstetica IS 'Identificador de la Estetica a la que pertenece el Horario en cuestion';
 COMMENT ON COLUMN horario.horaEntrada IS 'Hora de apertura de la Estetica';
 COMMENT ON COLUMN horario.horaSalida IS 'Hora de cierre de la Estetica';
-COMMENT ON CONSTRAINT horario_pkey IS 'Llave primaria de la tabla horario';
-COMMENT ON CONSTRAINT horario_fkey IS 'Llave foranea de la tabla horario';
+COMMENT ON CONSTRAINT horario_pkey ON horario IS 'Llave primaria de la tabla horario';
+COMMENT ON CONSTRAINT horario_fkey ON horario IS 'Llave foranea de la tabla horario';
 
 
 CREATE TABLE vender(
@@ -392,8 +392,8 @@ CREATE TABLE telefonoSupervisor(
 COMMENT ON TABLE telefonoSupervisor IS 'Contiene el numero telefonico de Supervisor';
 COMMENT ON COLUMN telefonoSupervisor.curp IS 'Identificador del Supervisor';
 COMMENT ON COLUMN telefonoSupervisor.telefono IS 'Numero telefonico del Supervisor';
-COMMENT ON CONSTRAINT teleSupervisor_pkey IS 'Llave primaria de la tabla telefonoSupervisor';
-COMMENT ON CONSTRAINT teleSupervisor_fkey IS 'Llave primaria de la tabla telefonoSupervisor';
+COMMENT ON CONSTRAINT teleSupervisor_pkey ON telefonoSupervisor IS 'Llave primaria de la tabla telefonoSupervisor';
+COMMENT ON CONSTRAINT teleSupervisor_fkey ON telefonoSupervisor IS 'Llave primaria de la tabla telefonoSupervisor';
 
 
 CREATE TABLE telefonoVeterinario(
@@ -405,8 +405,8 @@ CREATE TABLE telefonoVeterinario(
 COMMENT ON TABLE telefonoVeterinario IS 'Contiene el numero telefonico de Veterinario';
 COMMENT ON COLUMN telefonoVeterinario.curp IS 'Identificador del Veterinario';
 COMMENT ON COLUMN telefonoVeterinario.telefono IS 'Numero telefonico del Veterinario';
-COMMENT ON CONSTRAINT teleVeterinario_pkey IS 'Llave primaria de la tabla telefonoVeterinario';
-COMMENT ON CONSTRAINT teleVeterinario_fkey IS 'Llave primaria de la tabla telefonoVeterinario';
+COMMENT ON CONSTRAINT teleVeterinario_pkey ON telefonoVeterinario IS 'Llave primaria de la tabla telefonoVeterinario';
+COMMENT ON CONSTRAINT teleVeterinario_fkey ON telefonoVeterinario IS 'Llave primaria de la tabla telefonoVeterinario';
 
 
 CREATE TABLE telefonoEstilista(
@@ -418,8 +418,8 @@ CREATE TABLE telefonoEstilista(
 COMMENT ON TABLE telefonoEstilista IS 'Contiene el numero telefonico de Estilista';
 COMMENT ON COLUMN telefonoEstilista.curp IS 'Identificador del Estilista';
 COMMENT ON COLUMN telefonoEstilista.telefono IS 'Numero telefonico del Estilista';
-COMMENT ON CONSTRAINT teleEstilista_pkey IS 'Llave primaria de la tabla telefonoEstilista';
-COMMENT ON CONSTRAINT teleEstilista_fkey IS 'Llave primaria de la tabla telefonoEstilista';
+COMMENT ON CONSTRAINT teleEstilista_pkey ON telefonoEstilista IS 'Llave primaria de la tabla telefonoEstilista';
+COMMENT ON CONSTRAINT teleEstilista_fkey ON telefonoEstilista IS 'Llave primaria de la tabla telefonoEstilista';
 
 
 CREATE TABLE supervisorTrabajaEn(
@@ -458,11 +458,20 @@ COMMENT ON COLUMN estilistaTrabajaEn.curp IS 'Identificador del Estilista';
 COMMENT ON COLUMN estilistaTrabajaEn.nombreEstetica IS 'Identificador de la Estetica en cuestion';
 
 
-INSERT INTO cliente VALUES ('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'); 
+--INSERT INTO cliente VALUES ('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'); 
+
+INSERT INTO `cliente` (`curp`, `nombre`, `apellidoPaterno`, `apellidoMaterno`, `numero`, `codigoPostal`, `calle`, `estado`, `telefono`) VALUES 
+('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'),
+('12345678901234567B', 'Andres', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'),
+('12345678901234567C', 'Pedro', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'),
+('12345678901234567D', 'Pablo', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'),
+('12345678901234567E', 'Alejandro', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'),
+('12345678901234567F', 'Juan', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727');
+
 INSERT INTO mascota VALUES ('12345678901234598A', '12345678901234567A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
 
 
-INSERT INTO cliente VALUES ('12345678901234565A', 'David', 'Hernández', 'Escoto', 2 ,10000, 'Ignacio Allende', 'Guanajuato', '4731241728'); 
+--INSERT INTO cliente VALUES ('12345678901234565A', 'David', 'Hernández', 'Escoto', 2 ,10000, 'Ignacio Allende', 'Guanajuato', '4731241728'); 
 INSERT INTO mascota VALUES ('12345678901234599A', '12345678901234565A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
 
 INSERT INTO estilista VALUES ('12345678901233367A', 'Pedro', 'Paramo', 'Vela', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727', 500, 'NA'); 
