@@ -226,13 +226,13 @@ CREATE TABLE estetica(
 	PRIMARY KEY(nombreEstetica)
 );
 COMMENT ON TABLE estetica IS 'Almacena la informacion de las Esteticas';
-COMMENT ON TABLE estetica.nombreEstetica IS 'Nombre de la Estetica';
-COMMENT ON TABLE estetica.telefono IS 'El numero telefonico para la Estetica';
-COMMENT ON TABLE estetica.codigoPostal IS 'Codigo Postal de la Estetica';
-COMMENT ON TABLE estetica.calle IS 'La calle donde se encuentra la Estetica';
-COMMENT ON TABLE estetica.estado IS 'El estado donde se ubuca la Estetica';
-COMMENT ON TABLE estetica.numero IS 'Numero de edificio de la Estetica';
-COMMENT ON TABLE estetica.numero IS 'Numero de edificio de la Estetica';
+COMMENT ON COLUMN estetica.nombreEstetica IS 'Nombre de la Estetica';
+COMMENT ON COLUMN estetica.telefono IS 'El numero telefonico para la Estetica';
+COMMENT ON COLUMN estetica.codigoPostal IS 'Codigo Postal de la Estetica';
+COMMENT ON COLUMN estetica.calle IS 'La calle donde se encuentra la Estetica';
+COMMENT ON COLUMN estetica.estado IS 'El estado donde se ubuca la Estetica';
+COMMENT ON COLUMN estetica.numero IS 'Numero de edificio de la Estetica';
+COMMENT ON COLUMN estetica.numero IS 'Numero de edificio de la Estetica';
 
 CREATE TABLE consultorio(
 	idConsultorio CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsultorio) = 18) UNIQUE,
@@ -241,6 +241,10 @@ CREATE TABLE consultorio(
 	PRIMARY KEY(idConsultorio),
 	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
 );
+COMMENT ON TABLE consultorio IS 'Tabla para guardar los Coonsultorios';
+COMMENT ON COLUMN consultorio.idConsultorio IS 'Identificador del Consultorio';
+COMMENT ON COLUMN consultorio.nombreEstetica IS 'Identificador de la Estetica a la que pertenece el Consultorio';
+COMMENT ON COLUMN consultorio.disponible IS 'Identificador de la Estetica a la que pertenece el Consultorio';
 
 CREATE TABLE horario(
     nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
