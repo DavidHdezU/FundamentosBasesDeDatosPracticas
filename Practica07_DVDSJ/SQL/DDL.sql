@@ -1,5 +1,6 @@
 DROP SCHEMA IF EXISTS public CASCADE;
 CREATE SCHEMA public;
+COMMENT ON SCHEMA public IS 'El esquema que viene por defecto en postgres';
 
 CREATE TABLE cliente(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
@@ -13,6 +14,16 @@ CREATE TABLE cliente(
 	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10) UNIQUE,
 	PRIMARY KEY(curp)
 );
+COMMENT ON TABLE cliente IS 'Tabla que contiene la información de los clientes';
+COMMENT ON COLUMN cliente.curp IS 'La CURP de los clientes';
+COMMENT ON COLUMN cliente.nombre IS 'El nombre de los clientes';
+COMMENT ON COLUMN cliente.apellidoPaterno IS 'El apellido paterno de los clientes';
+COMMENT ON COLUMN cliente.apellidoMaterno IS 'El apellido materno de los clientes';
+COMMENT ON COLUMN cliente.numero IS 'El número identificador que tiene un cliente';
+COMMENT ON COLUMN cliente.calle IS 'La calle donde vive el cliente'
+COMMENT ON COLUMN cliente.codigoPostal IS 'El código postal del cliente'
+COMMENT ON COLUMN cliente.estado IS 'El estado donde vive el cliente'
+COMMENT ON COLUMN cliente.telefono IS 'El teléfono del cliente'
 
 CREATE TABLE mascota(
 	idMascota CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idMascota) = 18) UNIQUE,
@@ -26,6 +37,16 @@ CREATE TABLE mascota(
 	PRIMARY KEY(idMascota),
 	FOREIGN KEY (curp) REFERENCES cliente(curp)
 );
+COMMENT ON TABLE mascota IS 'Tabla que contiene información de las mascotas';
+COMMENT ON COLUMN mascota.idMascota IS 'El identificador de la mascota.';
+COMMENT ON COLUMN mascota.curp IS 'El CURP del dueño de la mascota';
+COMMENT ON COLUMN mascota.nombreDueño IS 'El nombre del dueño de la mascota';
+COMMENT ON COLUMN mascota.nombre IS 'El nombre de la mascota';
+COMMENT ON COLUMN mascota.edad IS 'La edad de la mascota';
+COMMENT ON COLUMN mascota.raza IS 'La raza de la mascota'
+COMMENT ON COLUMN mascota.especie IS 'La especie de la mascota'
+COMMENT ON COLUMN mascota.peso IS 'El peso de la mascota'
+
 
 CREATE TABLE consultaEmergencia(
     idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18) UNIQUE,
@@ -34,6 +55,10 @@ CREATE TABLE consultaEmergencia(
     PRIMARY KEY(idConsulta)
 
 );
+COMMENT ON TABLE consultaEmergencia IS 'Tabla que contiene información de las consultas de emergencia';
+COMMENT ON COLUMN consultaEmergencia.idConsulta IS 'El identificador de la consulta.';
+COMMENT ON COLUMN consultaEmergencia.sintomas IS 'Los sintomas que presenta la mascota';
+COMMENT ON COLUMN consultaEmergencia.procedimiento IS 'El procedimiento que la mascota necesita';
 
 CREATE TABLE codigo(
     idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18) UNIQUE,
@@ -41,6 +66,9 @@ CREATE TABLE codigo(
 	constraint codigo_pkey PRIMARY KEY (idConsulta,codigo),
 	constraint codigo_fkey FOREIGN KEY (idConsulta) REFERENCES consultaEmergencia(idConsulta)
 );
+COMMENT ON TABLE codigo IS 'Tabla que contiene información de los códigos de emergencia que puede contener una consulta de emergencia';
+COMMENT ON COLUMN codigo.idConsulta IS 'El identificador de la consulta.';
+COMMENT ON COLUMN codigo.codigo IS 'El código de la consulta de emergencia';
 
 CREATE TABLE requerirEmergencia(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
@@ -49,6 +77,9 @@ CREATE TABLE requerirEmergencia(
 	FOREIGN KEY(idConsulta) REFERENCES consultaEmergencia(idConsulta),
 	FOREIGN KEY(idMascota) REFERENCES mascota(idMascota)
 );
+COMMENT ON TABLE requerirEmergencia IS 'Tabla que contiene la información necesaria para procesar una consulta de emergencia';
+COMMENT ON COLUMN requerirEmergencia.idConsulta IS 'El identificador de la consulta de emergencia';
+COMMENT ON COLUMN requerirEmergencia.idMascota IS 'El identificador de la mascota.';
 
 CREATE TABLE consultaNormal(
     idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18) UNIQUE,
@@ -58,6 +89,11 @@ CREATE TABLE consultaNormal(
     medicamentosRecetados VARCHAR(50) CHECK(motivos <> ''),
     PRIMARY KEY(idConsulta)
 );
+COMMENT ON TABLE consultaNormal IS 'Tabla que contiene información de las consultas normales';
+COMMENT ON COLUMN consultaNormal.idConsulta IS 'El identificador de la consulta.';
+COMMENT ON COLUMN consultaNormal.proximaRevision IS 'La fecha de la próxima revisión de la mascota';
+COMMENT ON COLUMN consultaNormal.estado IS 'El estado de la mascota';
+COMMENT ON COLUMN consultaNormal.medicamentosRecetados IS 'Los medicamentos recetados para la mascota';
 
 CREATE TABLE requerirNormal(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
@@ -66,6 +102,9 @@ CREATE TABLE requerirNormal(
 	FOREIGN KEY(idConsulta) REFERENCES consultaNormal(idConsulta),
 	FOREIGN KEY(idMascota) REFERENCES mascota(idMascota)
 );
+COMMENT ON TABLE requerirNormal IS 'Tabla que contiene la información necesaria para procesar una consulta normal';
+COMMENT ON COLUMN requerirNormal.idConsulta IS 'El identificador de la consulta';
+COMMENT ON COLUMN requerirNormal.idMascota IS 'El identificador de la mascota.';
 
 
 CREATE TABLE recibo(
@@ -75,6 +114,11 @@ CREATE TABLE recibo(
 	nombreTrabajador VARCHAR(50) NOT NULL CHECK(nombreTrabajador <> ''),
     PRIMARY KEY(idRecibo)
 );
+COMMENT ON TABLE recibo IS 'Tabla que contiene la información del recibo de una consulta';
+COMMENT ON COLUMN recibo.idRecibo IS 'El identificador del recibo';
+COMMENT ON COLUMN recibo.nombreDueño IS 'El nombre del dueño de la mascota que tuvo consulta.';
+COMMENT ON COLUMN recibo.nombreMascota IS 'El nombre de la mascota que tuvo consulta.';
+COMMENT ON COLUMN recibo.nombreTrabajador IS 'El nombre del trabajador que atendió a la mascota que tuvo consulta.';
 
 CREATE TABLE generaReciboNormal(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
@@ -83,6 +127,9 @@ CREATE TABLE generaReciboNormal(
 	FOREIGN KEY(idConsulta) REFERENCES consultaNormal(idConsulta),
 	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
 );
+COMMENT ON TABLE generaReciboNormal IS 'Tabla que contiene la información necesaria para generar un recibo normal';
+COMMENT ON COLUMN generaReciboNormal.idConsulta IS 'El identificador de la consulta';
+COMMENT ON COLUMN generaReciboNormal.idRecibo IS 'El identificador del recibo.';
 
 CREATE TABLE generaReciboEmergencia(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
@@ -91,6 +138,9 @@ CREATE TABLE generaReciboEmergencia(
 	FOREIGN KEY(idConsulta) REFERENCES consultaEmergencia(idConsulta),
 	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
 );
+COMMENT ON TABLE generaReciboEmergencia IS 'Tabla que contiene la información necesaria para generar un recibo de una consulta de emergencia';
+COMMENT ON COLUMN generaReciboEmergencia.idConsulta IS 'El identificador de la consulta de emergencia';
+COMMENT ON COLUMN generaReciboEmergencia.idRecibo IS 'El identificador del recibo de la consulta de emergencia.';
 
 CREATE TABLE pago(
     idPago CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idPago) = 18) UNIQUE,
@@ -104,8 +154,15 @@ CREATE TABLE pago(
     PRIMARY KEY(idPago),
 	FOREIGN KEY(curp) REFERENCES cliente(curp)
 );
-
-
+COMMENT ON TABLE pago IS 'Tabla que contiene la información necesaria para procesar el pago de una consulta';
+COMMENT ON COLUMN pago.idPago IS 'El identificador del pago de la consulta';
+COMMENT ON COLUMN pago.curp IS 'El CURP de del dueño de la mascota que tuvo consulta.';
+COMMENT ON COLUMN pago.numeroTarjeta IS 'El número de la tarjeta que pagó la consulta';
+COMMENT ON COLUMN pago.vencimiento IS 'El vencimiento de la tarjeta que pagó la consulta.';
+COMMENT ON COLUMN pago.titular IS 'El nombre del titular de la tarjeta que pagó la consulta.';
+COMMENT ON COLUMN pago.cvv IS 'El CVV de la tarjeta que pagó la consulta.';
+COMMENT ON COLUMN pago.esTarjerta IS 'Indica si el pago es con tarjeta';
+COMMENT ON COLUMN pago.esEfectivo IS 'Indica si el pago es con efectivo.';
 CREATE TABLE pagar(
 	idPago CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idPago) = 18),
 	idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18),
@@ -113,6 +170,9 @@ CREATE TABLE pagar(
 	FOREIGN KEY(idPago) REFERENCES pago(idPago),
 	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
 );
+COMMENT ON TABLE pagar IS 'Tabla que contiene la información necesaria para procesar un pago y un recibo';
+COMMENT ON COLUMN pagar.idPago IS 'El identificador del pago de la consulta';
+COMMENT ON COLUMN pagar.idRecibo IS 'El identificador del recibo de la consulta.';
 
 CREATE TABLE servicios(
     idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18) UNIQUE,
@@ -120,6 +180,9 @@ CREATE TABLE servicios(
 	constraint servicios_pkey PRIMARY KEY (idRecibo,servicios),
 	constraint servicios_fkey FOREIGN KEY (idRecibo) REFERENCES recibo(idRecibo)
 );
+COMMENT ON TABLE servicios IS 'Tabla que contiene los servicios que puede contener un recibo';
+COMMENT ON COLUMN servicios.idRecibo IS 'El identificador del recibo de la consulta';
+COMMENT ON COLUMN servicios.servicios IS 'Los servicios que puede contener un recibo.';
 
 CREATE TABLE producto(
 	idProducto CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idProducto) = 18) UNIQUE,
@@ -132,6 +195,15 @@ CREATE TABLE producto(
 	esMedicamento BOOLEAN NOT NULL,
 	PRIMARY KEY(idProducto)
 );
+COMMENT ON TABLE producto IS 'Tabla que contiene la información que contiene un producto';
+COMMENT ON COLUMN producto.idProducto IS 'El identificador del producto';
+COMMENT ON COLUMN producto.nombre IS 'El nombre del producto.';
+COMMENT ON COLUMN producto.cantidad IS 'La cantidad de productos disponibles';
+COMMENT ON COLUMN producto.imagen IS 'La imagen correspondiente al producto.';
+COMMENT ON COLUMN producto.descripcion IS 'La descripción del producto.';
+COMMENT ON COLUMN producto.caducidad IS 'La caducidad del producto.';
+COMMENT ON COLUMN producto.esComida IS 'Indica si el producto es digerible';
+COMMENT ON COLUMN producto.esMedicamento IS 'Indica si un producto es medicamento.';
 
 CREATE TABLE generaReciboProducto(
 	idProducto CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idProducto) = 18),
@@ -140,6 +212,9 @@ CREATE TABLE generaReciboProducto(
 	FOREIGN KEY(idProducto) REFERENCES producto(idProducto),
 	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
 );
+COMMENT ON TABLE generaReciboProducto IS 'Tabla que contiene la información que contiene un producto';
+COMMENT ON COLUMN generaReciboProducto.idProducto IS 'El identificador del producto';
+COMMENT ON COLUMN generaReciboProducto.idRecibo IS 'El recibo de la compra del producto.';
 
 CREATE TABLE estetica(
 	nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
