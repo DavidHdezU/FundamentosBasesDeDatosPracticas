@@ -225,6 +225,14 @@ CREATE TABLE estetica(
 	numero INT NOT NULL UNIQUE,
 	PRIMARY KEY(nombreEstetica)
 );
+COMMENT ON TABLE estetica IS 'Almacena la informacion de las Esteticas';
+COMMENT ON TABLE estetica.nombreEstetica IS 'Nombre de la Estetica';
+COMMENT ON TABLE estetica.telefono IS 'El numero telefonico para la Estetica';
+COMMENT ON TABLE estetica.codigoPostal IS 'Codigo Postal de la Estetica';
+COMMENT ON TABLE estetica.calle IS 'La calle donde se encuentra la Estetica';
+COMMENT ON TABLE estetica.estado IS 'El estado donde se ubuca la Estetica';
+COMMENT ON TABLE estetica.numero IS 'Numero de edificio de la Estetica';
+COMMENT ON TABLE estetica.numero IS 'Numero de edificio de la Estetica';
 
 CREATE TABLE consultorio(
 	idConsultorio CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsultorio) = 18) UNIQUE,
