@@ -44,9 +44,9 @@ COMMENT ON COLUMN mascota.curp IS 'El CURP del duenio de la mascota';
 COMMENT ON COLUMN mascota.nombreDueño IS 'El nombre del duenio de la mascota';
 COMMENT ON COLUMN mascota.nombre IS 'El nombre de la mascota';
 COMMENT ON COLUMN mascota.edad IS 'La edad de la mascota';
-COMMENT ON COLUMN mascota.raza IS 'La raza de la mascota'
-COMMENT ON COLUMN mascota.especie IS 'La especie de la mascota'
-COMMENT ON COLUMN mascota.peso IS 'El peso de la mascota'
+COMMENT ON COLUMN mascota.raza IS 'La raza de la mascota';
+COMMENT ON COLUMN mascota.especie IS 'La especie de la mascota';
+COMMENT ON COLUMN mascota.peso IS 'El peso de la mascota';
 
 
 CREATE TABLE consultaEmergencia(
@@ -458,21 +458,24 @@ COMMENT ON COLUMN estilistaTrabajaEn.curp IS 'Identificador del Estilista';
 COMMENT ON COLUMN estilistaTrabajaEn.nombreEstetica IS 'Identificador de la Estetica en cuestion';
 
 
---INSERT INTO cliente VALUES ('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'); 
 
-INSERT INTO `cliente` (`curp`, `nombre`, `apellidoPaterno`, `apellidoMaterno`, `numero`, `codigoPostal`, `calle`, `estado`, `telefono`) VALUES 
-('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'),
-('12345678901234567B', 'Andres', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'),
-('12345678901234567C', 'Pedro', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'),
-('12345678901234567D', 'Pablo', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'),
-('12345678901234567E', 'Alejandro', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'),
-('12345678901234567F', 'Juan', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727');
+INSERT INTO 
+	cliente (curp, nombre, apellidoPaterno, apellidoMaterno, numero, codigoPostal, calle, estado, telefono) 
+VALUES
+	('12345678901234567B', 'Andres', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'),
+	('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 2, 10000, 'Ignacio Allende', 'Guanajuato', '4731241728'),
+	('12345678901234567C', 'Pedro', 'Hernández', 'Uriostegui', 3, 10000, 'Ignacio Allende', 'Guanajuato', '4731241729'),
+	('12345678901234567D', 'Pablo', 'Hernández', 'Uriostegui', 4, 10000, 'Ignacio Allende', 'Guanajuato', '4731241721'),
+	('12345678901234567E', 'Alejandro', 'Hernández', 'Uriostegui', 5, 10000, 'Ignacio Allende', 'Guanajuato', '4731241722'),
+	('12345678901234567F', 'Juan', 'Hernández', 'Uriostegui', 6, 10000, 'Ignacio Allende', 'Guanajuato', '4731241723'),
+	('12345678901234565A', 'David', 'Hernández', 'Escoto', 9 ,10000, 'Ignacio Allende', 'Guanajuato', '4731241738'); 
 
-INSERT INTO mascota VALUES ('12345678901234598A', '12345678901234567A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
+INSERT INTO 
+	mascota (idmascota, curp, nombredueño, nombre, edad, raza, especie, peso)
+VALUES 
+	('12345678901234598A', '12345678901234567A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5),
+	('12345678901234599A', '12345678901234565A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
 
-
---INSERT INTO cliente VALUES ('12345678901234565A', 'David', 'Hernández', 'Escoto', 2 ,10000, 'Ignacio Allende', 'Guanajuato', '4731241728'); 
-INSERT INTO mascota VALUES ('12345678901234599A', '12345678901234565A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
 
 INSERT INTO estilista VALUES ('12345678901233367A', 'Pedro', 'Paramo', 'Vela', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727', 500, 'NA'); 
 
@@ -486,5 +489,5 @@ INSERT INTO producto VALUES ('00045678901234565A', 'Bolsas Pedigree', 100, NULL,
 INSERT INTO vender VALUES ('HAPPY DOGGO', '00045678901234565A');
 INSERT INTO consultorio VALUES ('0004567890123456BG', 'HAPPY DOGGO', FALSE);
 INSERT INTO horario VALUES ('HAPPY DOGGO', '11:00', '19:00');
-select * from horario;
+select * from cliente;
 
