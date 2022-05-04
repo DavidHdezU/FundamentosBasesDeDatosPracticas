@@ -14,16 +14,17 @@ CREATE TABLE cliente(
 	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10) UNIQUE,
 	PRIMARY KEY(curp)
 );
-COMMENT ON TABLE cliente IS 'Tabla que contiene la información de los clientes';
+COMMENT ON TABLE cliente IS 'Tabla que contiene la informacion de los clientes';
 COMMENT ON COLUMN cliente.curp IS 'La CURP de los clientes';
 COMMENT ON COLUMN cliente.nombre IS 'El nombre de los clientes';
 COMMENT ON COLUMN cliente.apellidoPaterno IS 'El apellido paterno de los clientes';
 COMMENT ON COLUMN cliente.apellidoMaterno IS 'El apellido materno de los clientes';
-COMMENT ON COLUMN cliente.numero IS 'El número identificador que tiene un cliente';
+COMMENT ON COLUMN cliente.numero IS 'El numero identificador que tiene un cliente';
 COMMENT ON COLUMN cliente.calle IS 'La calle donde vive el cliente'
-COMMENT ON COLUMN cliente.codigoPostal IS 'El código postal del cliente'
+COMMENT ON COLUMN cliente.codigoPostal IS 'El codigo postal del cliente'
 COMMENT ON COLUMN cliente.estado IS 'El estado donde vive el cliente'
-COMMENT ON COLUMN cliente.telefono IS 'El teléfono del cliente'
+COMMENT ON COLUMN cliente.telefono IS 'El telefono del cliente'
+
 
 CREATE TABLE mascota(
 	idMascota CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idMascota) = 18) UNIQUE,
@@ -37,10 +38,10 @@ CREATE TABLE mascota(
 	PRIMARY KEY(idMascota),
 	FOREIGN KEY (curp) REFERENCES cliente(curp)
 );
-COMMENT ON TABLE mascota IS 'Tabla que contiene información de las mascotas';
+COMMENT ON TABLE mascota IS 'Tabla que contiene informacion de las mascotas';
 COMMENT ON COLUMN mascota.idMascota IS 'El identificador de la mascota.';
-COMMENT ON COLUMN mascota.curp IS 'El CURP del dueño de la mascota';
-COMMENT ON COLUMN mascota.nombreDueño IS 'El nombre del dueño de la mascota';
+COMMENT ON COLUMN mascota.curp IS 'El CURP del duenio de la mascota';
+COMMENT ON COLUMN mascota.nombreDueño IS 'El nombre del duenio de la mascota';
 COMMENT ON COLUMN mascota.nombre IS 'El nombre de la mascota';
 COMMENT ON COLUMN mascota.edad IS 'La edad de la mascota';
 COMMENT ON COLUMN mascota.raza IS 'La raza de la mascota'
@@ -55,10 +56,11 @@ CREATE TABLE consultaEmergencia(
     PRIMARY KEY(idConsulta)
 
 );
-COMMENT ON TABLE consultaEmergencia IS 'Tabla que contiene información de las consultas de emergencia';
-COMMENT ON COLUMN consultaEmergencia.idConsulta IS 'El identificador de la consulta.';
+COMMENT ON TABLE consultaEmergencia IS 'Tabla que contiene informacion de las consultas de emergencia';
+COMMENT ON COLUMN consultaEmergencia.idConsulta IS 'El identificador de la consulta';
 COMMENT ON COLUMN consultaEmergencia.sintomas IS 'Los sintomas que presenta la mascota';
 COMMENT ON COLUMN consultaEmergencia.procedimiento IS 'El procedimiento que la mascota necesita';
+
 
 CREATE TABLE codigo(
     idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18) UNIQUE,
@@ -66,9 +68,10 @@ CREATE TABLE codigo(
 	constraint codigo_pkey PRIMARY KEY (idConsulta,codigo),
 	constraint codigo_fkey FOREIGN KEY (idConsulta) REFERENCES consultaEmergencia(idConsulta)
 );
-COMMENT ON TABLE codigo IS 'Tabla que contiene información de los códigos de emergencia que puede contener una consulta de emergencia';
-COMMENT ON COLUMN codigo.idConsulta IS 'El identificador de la consulta.';
-COMMENT ON COLUMN codigo.codigo IS 'El código de la consulta de emergencia';
+COMMENT ON TABLE codigo IS 'Tabla que contiene informacion de los codigos de emergencia que puede contener una consulta de emergencia';
+COMMENT ON COLUMN codigo.idConsulta IS 'El identificador de la consulta';
+COMMENT ON COLUMN codigo.codigo IS 'El codigo de la consulta de emergencia';
+
 
 CREATE TABLE requerirEmergencia(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
@@ -77,9 +80,10 @@ CREATE TABLE requerirEmergencia(
 	FOREIGN KEY(idConsulta) REFERENCES consultaEmergencia(idConsulta),
 	FOREIGN KEY(idMascota) REFERENCES mascota(idMascota)
 );
-COMMENT ON TABLE requerirEmergencia IS 'Tabla que contiene la información necesaria para procesar una consulta de emergencia';
+COMMENT ON TABLE requerirEmergencia IS 'Tabla que contiene la informacion necesaria para procesar una consulta de emergencia';
 COMMENT ON COLUMN requerirEmergencia.idConsulta IS 'El identificador de la consulta de emergencia';
-COMMENT ON COLUMN requerirEmergencia.idMascota IS 'El identificador de la mascota.';
+COMMENT ON COLUMN requerirEmergencia.idMascota IS 'El identificador de la mascota';
+
 
 CREATE TABLE consultaNormal(
     idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18) UNIQUE,
@@ -89,11 +93,12 @@ CREATE TABLE consultaNormal(
     medicamentosRecetados VARCHAR(50) CHECK(motivos <> ''),
     PRIMARY KEY(idConsulta)
 );
-COMMENT ON TABLE consultaNormal IS 'Tabla que contiene información de las consultas normales';
-COMMENT ON COLUMN consultaNormal.idConsulta IS 'El identificador de la consulta.';
-COMMENT ON COLUMN consultaNormal.proximaRevision IS 'La fecha de la próxima revisión de la mascota';
+COMMENT ON TABLE consultaNormal IS 'Tabla que contiene informacion de las consultas normales';
+COMMENT ON COLUMN consultaNormal.idConsulta IS 'El identificador de la consulta';
+COMMENT ON COLUMN consultaNormal.proximaRevision IS 'La fecha de la proxima revision de la mascota';
 COMMENT ON COLUMN consultaNormal.estado IS 'El estado de la mascota';
 COMMENT ON COLUMN consultaNormal.medicamentosRecetados IS 'Los medicamentos recetados para la mascota';
+
 
 CREATE TABLE requerirNormal(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
@@ -102,9 +107,9 @@ CREATE TABLE requerirNormal(
 	FOREIGN KEY(idConsulta) REFERENCES consultaNormal(idConsulta),
 	FOREIGN KEY(idMascota) REFERENCES mascota(idMascota)
 );
-COMMENT ON TABLE requerirNormal IS 'Tabla que contiene la información necesaria para procesar una consulta normal';
+COMMENT ON TABLE requerirNormal IS 'Tabla que contiene la informacion necesaria para procesar una consulta normal';
 COMMENT ON COLUMN requerirNormal.idConsulta IS 'El identificador de la consulta';
-COMMENT ON COLUMN requerirNormal.idMascota IS 'El identificador de la mascota.';
+COMMENT ON COLUMN requerirNormal.idMascota IS 'El identificador de la mascota';
 
 
 CREATE TABLE recibo(
@@ -114,11 +119,12 @@ CREATE TABLE recibo(
 	nombreTrabajador VARCHAR(50) NOT NULL CHECK(nombreTrabajador <> ''),
     PRIMARY KEY(idRecibo)
 );
-COMMENT ON TABLE recibo IS 'Tabla que contiene la información del recibo de una consulta';
+COMMENT ON TABLE recibo IS 'Tabla que contiene la informacion del recibo de una consulta';
 COMMENT ON COLUMN recibo.idRecibo IS 'El identificador del recibo';
-COMMENT ON COLUMN recibo.nombreDueño IS 'El nombre del dueño de la mascota que tuvo consulta.';
-COMMENT ON COLUMN recibo.nombreMascota IS 'El nombre de la mascota que tuvo consulta.';
-COMMENT ON COLUMN recibo.nombreTrabajador IS 'El nombre del trabajador que atendió a la mascota que tuvo consulta.';
+COMMENT ON COLUMN recibo.nombreDueño IS 'El nombre del duenio de la mascota que tuvo consulta';
+COMMENT ON COLUMN recibo.nombreMascota IS 'El nombre de la mascota que tuvo consulta';
+COMMENT ON COLUMN recibo.nombreTrabajador IS 'El nombre del trabajador que atendio a la mascota que tuvo consulta';
+
 
 CREATE TABLE generaReciboNormal(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
@@ -127,9 +133,10 @@ CREATE TABLE generaReciboNormal(
 	FOREIGN KEY(idConsulta) REFERENCES consultaNormal(idConsulta),
 	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
 );
-COMMENT ON TABLE generaReciboNormal IS 'Tabla que contiene la información necesaria para generar un recibo normal';
+COMMENT ON TABLE generaReciboNormal IS 'Tabla que contiene la informacion necesaria para generar un recibo normal';
 COMMENT ON COLUMN generaReciboNormal.idConsulta IS 'El identificador de la consulta';
-COMMENT ON COLUMN generaReciboNormal.idRecibo IS 'El identificador del recibo.';
+COMMENT ON COLUMN generaReciboNormal.idRecibo IS 'El identificador del recibo';
+
 
 CREATE TABLE generaReciboEmergencia(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
@@ -138,9 +145,10 @@ CREATE TABLE generaReciboEmergencia(
 	FOREIGN KEY(idConsulta) REFERENCES consultaEmergencia(idConsulta),
 	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
 );
-COMMENT ON TABLE generaReciboEmergencia IS 'Tabla que contiene la información necesaria para generar un recibo de una consulta de emergencia';
+COMMENT ON TABLE generaReciboEmergencia IS 'Tabla que contiene la informacion necesaria para generar un recibo de una consulta de emergencia';
 COMMENT ON COLUMN generaReciboEmergencia.idConsulta IS 'El identificador de la consulta de emergencia';
-COMMENT ON COLUMN generaReciboEmergencia.idRecibo IS 'El identificador del recibo de la consulta de emergencia.';
+COMMENT ON COLUMN generaReciboEmergencia.idRecibo IS 'El identificador del recibo de la consulta de emergencia';
+
 
 CREATE TABLE pago(
     idPago CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idPago) = 18) UNIQUE,
@@ -154,15 +162,17 @@ CREATE TABLE pago(
     PRIMARY KEY(idPago),
 	FOREIGN KEY(curp) REFERENCES cliente(curp)
 );
-COMMENT ON TABLE pago IS 'Tabla que contiene la información necesaria para procesar el pago de una consulta';
+COMMENT ON TABLE pago IS 'Tabla que contiene la informacin necesaria para procesar el pago de una consulta';
 COMMENT ON COLUMN pago.idPago IS 'El identificador del pago de la consulta';
-COMMENT ON COLUMN pago.curp IS 'El CURP de del dueño de la mascota que tuvo consulta.';
-COMMENT ON COLUMN pago.numeroTarjeta IS 'El número de la tarjeta que pagó la consulta';
-COMMENT ON COLUMN pago.vencimiento IS 'El vencimiento de la tarjeta que pagó la consulta.';
-COMMENT ON COLUMN pago.titular IS 'El nombre del titular de la tarjeta que pagó la consulta.';
-COMMENT ON COLUMN pago.cvv IS 'El CVV de la tarjeta que pagó la consulta.';
+COMMENT ON COLUMN pago.curp IS 'El CURP de del duenio de la mascota que tuvo consulta';
+COMMENT ON COLUMN pago.numeroTarjeta IS 'El numero de la tarjeta que pago la consulta';
+COMMENT ON COLUMN pago.vencimiento IS 'El vencimiento de la tarjeta que pago la consulta';
+COMMENT ON COLUMN pago.titular IS 'El nombre del titular de la tarjeta que pago la consulta';
+COMMENT ON COLUMN pago.cvv IS 'El CVV de la tarjeta que pago la consulta';
 COMMENT ON COLUMN pago.esTarjerta IS 'Indica si el pago es con tarjeta';
-COMMENT ON COLUMN pago.esEfectivo IS 'Indica si el pago es con efectivo.';
+COMMENT ON COLUMN pago.esEfectivo IS 'Indica si el pago es con efectivo';
+
+
 CREATE TABLE pagar(
 	idPago CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idPago) = 18),
 	idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18),
@@ -170,9 +180,10 @@ CREATE TABLE pagar(
 	FOREIGN KEY(idPago) REFERENCES pago(idPago),
 	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
 );
-COMMENT ON TABLE pagar IS 'Tabla que contiene la información necesaria para procesar un pago y un recibo';
+COMMENT ON TABLE pagar IS 'Tabla que contiene la informacion necesaria para procesar un pago y un recibo';
 COMMENT ON COLUMN pagar.idPago IS 'El identificador del pago de la consulta';
-COMMENT ON COLUMN pagar.idRecibo IS 'El identificador del recibo de la consulta.';
+COMMENT ON COLUMN pagar.idRecibo IS 'El identificador del recibo de la consulta';
+
 
 CREATE TABLE servicios(
     idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18) UNIQUE,
@@ -182,7 +193,8 @@ CREATE TABLE servicios(
 );
 COMMENT ON TABLE servicios IS 'Tabla que contiene los servicios que puede contener un recibo';
 COMMENT ON COLUMN servicios.idRecibo IS 'El identificador del recibo de la consulta';
-COMMENT ON COLUMN servicios.servicios IS 'Los servicios que puede contener un recibo.';
+COMMENT ON COLUMN servicios.servicios IS 'Los servicios que puede contener un recibo';
+
 
 CREATE TABLE producto(
 	idProducto CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idProducto) = 18) UNIQUE,
@@ -195,15 +207,16 @@ CREATE TABLE producto(
 	esMedicamento BOOLEAN NOT NULL,
 	PRIMARY KEY(idProducto)
 );
-COMMENT ON TABLE producto IS 'Tabla que contiene la información que contiene un producto';
+COMMENT ON TABLE producto IS 'Tabla que contiene la informacion que contiene un producto';
 COMMENT ON COLUMN producto.idProducto IS 'El identificador del producto';
-COMMENT ON COLUMN producto.nombre IS 'El nombre del producto.';
+COMMENT ON COLUMN producto.nombre IS 'El nombre del producto';
 COMMENT ON COLUMN producto.cantidad IS 'La cantidad de productos disponibles';
-COMMENT ON COLUMN producto.imagen IS 'La imagen correspondiente al producto.';
-COMMENT ON COLUMN producto.descripcion IS 'La descripción del producto.';
-COMMENT ON COLUMN producto.caducidad IS 'La caducidad del producto.';
-COMMENT ON COLUMN producto.esComida IS 'Indica si el producto es digerible';
-COMMENT ON COLUMN producto.esMedicamento IS 'Indica si un producto es medicamento.';
+COMMENT ON COLUMN producto.imagen IS 'La imagen correspondiente al producto';
+COMMENT ON COLUMN producto.descripcion IS 'La descripción del producto';
+COMMENT ON COLUMN producto.caducidad IS 'La caducidad del producto';
+COMMENT ON COLUMN producto.esComida IS 'Indica si el producto es comida';
+COMMENT ON COLUMN producto.esMedicamento IS 'Indica si un producto es medicamento';
+
 
 CREATE TABLE generaReciboProducto(
 	idProducto CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idProducto) = 18),
@@ -212,9 +225,10 @@ CREATE TABLE generaReciboProducto(
 	FOREIGN KEY(idProducto) REFERENCES producto(idProducto),
 	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
 );
-COMMENT ON TABLE generaReciboProducto IS 'Tabla que contiene la información que contiene un producto';
+COMMENT ON TABLE generaReciboProducto IS 'Tabla que contiene la informacion que contiene un producto';
 COMMENT ON COLUMN generaReciboProducto.idProducto IS 'El identificador del producto';
-COMMENT ON COLUMN generaReciboProducto.idRecibo IS 'El recibo de la compra del producto.';
+COMMENT ON COLUMN generaReciboProducto.idRecibo IS 'El recibo de la compra del producto';
+
 
 CREATE TABLE estetica(
 	nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
@@ -234,6 +248,7 @@ COMMENT ON COLUMN estetica.estado IS 'El estado donde se ubuca la Estetica';
 COMMENT ON COLUMN estetica.numero IS 'Numero de edificio de la Estetica';
 COMMENT ON COLUMN estetica.numero IS 'Numero de edificio de la Estetica';
 
+
 CREATE TABLE consultorio(
 	idConsultorio CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsultorio) = 18) UNIQUE,
 	nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
@@ -246,6 +261,7 @@ COMMENT ON COLUMN consultorio.idConsultorio IS 'Identificador del Consultorio';
 COMMENT ON COLUMN consultorio.nombreEstetica IS 'Identificador de la Estetica a la que pertenece el Consultorio';
 COMMENT ON COLUMN consultorio.disponible IS 'Identificador de la Estetica a la que pertenece el Consultorio';
 
+
 CREATE TABLE horario(
     nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
 	horaEntrada TIME NOT NULL,
@@ -253,6 +269,13 @@ CREATE TABLE horario(
 	constraint horario_pkey PRIMARY KEY (nombreEstetica),
 	constraint horario_fkey FOREIGN KEY (nombreEstetica) REFERENCES estetica(nombreEstetica)
 );
+COMMENT ON TABLE horario IS 'Guarda los horarios de la Estetica';
+COMMENT ON COLUMN horario.nombreEstetica IS 'Identificador de la Estetica a la que pertenece el Horario en cuestion';
+COMMENT ON COLUMN horario.horaEntrada IS 'Hora de apertura de la Estetica';
+COMMENT ON COLUMN horario.horaSalida IS 'Hora de cierre de la Estetica';
+COMMENT ON CONSTRAINT horario_pkey IS 'Llave primaria de la tabla horario';
+COMMENT ON CONSTRAINT horario_fkey IS 'Llave foranea de la tabla horario';
+
 
 CREATE TABLE vender(
 	nombreEstetica VARCHAR(18) NOT NULL CHECK(nombreEstetica <> ''),
@@ -261,7 +284,9 @@ CREATE TABLE vender(
 	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica),
 	FOREIGN KEY(idProducto) REFERENCES producto(idProducto)
 );
-
+COMMENT ON TABLE vender IS 'Tabla que para la relacionn Vender';
+COMMENT ON COLUMN vender.nombreEstetica IS 'Identificador de la Estetica que vende';
+COMMENT ON COLUMN vender.idProducto IS 'Identificador del Producto que se esta vendiendo';
 
 
 CREATE TABLE supervisor(
@@ -280,6 +305,21 @@ CREATE TABLE supervisor(
 	salida TIME NOT NULL,
 	PRIMARY KEY(curp)
 );
+COMMENT ON TABLE supervisor IS 'Tabla que contiene los Supervisores';
+COMMENT ON COLUMN supervisor.curp IS 'Identificador del Supervisor';
+COMMENT ON COLUMN supervisor.nombre IS 'Nombre del Supervisor';
+COMMENT ON COLUMN supervisor.apellidoPaterno IS 'Apellido Paterno del Supervisor';
+COMMENT ON COLUMN supervisor.apellidoMaterno IS 'Apellido Materno del Supervisor';
+COMMENT ON COLUMN supervisor.estado IS 'Estado donde reside el Supervisor';
+COMMENT ON COLUMN supervisor.calle IS 'Calle donde reside el Supervisor';
+COMMENT ON COLUMN supervisor.numero IS 'Numero del domicilio del Supervisor';
+COMMENT ON COLUMN supervisor.codigoPostal IS 'Codigo postal del Supervisor';
+COMMENT ON COLUMN supervisor.telefono IS 'Telefono(s) del Supervisor';
+COMMENT ON COLUMN supervisor.salario IS 'Salario del Supervisor';
+COMMENT ON COLUMN supervisor.rfc IS 'El RFC del Supervisor';
+COMMENT ON COLUMN supervisor.entrada IS 'Hora de entrada del Supervisor';
+COMMENT ON COLUMN supervisor.salida IS 'Hora de salida del Supervisor';
+
 
 CREATE TABLE veterinario(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
@@ -298,6 +338,22 @@ CREATE TABLE veterinario(
 	numeroPacientes INT NOT NULL,
 	PRIMARY KEY(curp)
 );
+COMMENT ON TABLE veterinario IS 'Tabla que contiene los Veterinarios';
+COMMENT ON COLUMN veterinario.curp IS 'Identificador del Veterinario';
+COMMENT ON COLUMN veterinario.nombre IS 'Nombre del Veterinario';
+COMMENT ON COLUMN veterinario.apellidoPaterno IS 'Apellido Paterno del Veterinario';
+COMMENT ON COLUMN veterinario.apellidoMaterno IS 'Apellido Materno del Veterinario';
+COMMENT ON COLUMN veterinario.estado IS 'Estado donde reside el Veterinario';
+COMMENT ON COLUMN veterinario.calle IS 'Calle donde reside el Veterinario';
+COMMENT ON COLUMN veterinario.numero IS 'Numero del domicilio del Veterinario';
+COMMENT ON COLUMN veterinario.codigoPostal IS 'Codigo postal del Veterinario';
+COMMENT ON COLUMN veterinario.telefono IS 'Telefono(s) del Veterinario';
+COMMENT ON COLUMN veterinario.salario IS 'Salario del Veterinario';
+COMMENT ON COLUMN veterinario.rfc IS 'El RFC del Veterinario';
+COMMENT ON COLUMN veterinario.entrada IS 'Hora de entrada del Veterinario';
+COMMENT ON COLUMN veterinario.salida IS 'Hora de salida del Veterinario';
+COMMENT ON COLUMN veterinario.numeroPacientes IS 'El numero de pacientes que el Veterinario esta atendiendo';
+
 
 CREATE TABLE estilista(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
@@ -313,6 +369,19 @@ CREATE TABLE estilista(
 	certificado VARCHAR(50) NOT NULL CHECK(certificado <> ''),
 	PRIMARY KEY(curp)
 );
+COMMENT ON TABLE estilista IS 'Tabla que contiene los Estilistas';
+COMMENT ON COLUMN estilista.curp IS 'Identificador del Estilista';
+COMMENT ON COLUMN estilista.nombre IS 'Nombre del Estilista';
+COMMENT ON COLUMN estilista.apellidoPaterno IS 'Apellido Paterno del Estilista';
+COMMENT ON COLUMN estilista.apellidoMaterno IS 'Apellido Materno del Estilista';
+COMMENT ON COLUMN estilista.estado IS 'Estado donde reside el Estilista';
+COMMENT ON COLUMN estilista.calle IS 'Calle donde reside el Estilista';
+COMMENT ON COLUMN estilista.numero IS 'Numero del domicilio del Estilista';
+COMMENT ON COLUMN estilista.codigoPostal IS 'Codigo postal del Estilista';
+COMMENT ON COLUMN estilista.telefono IS 'Telefono(s) del Estilista';
+COMMENT ON COLUMN estilista.salario IS 'Salario del Estilista';
+COMMENT ON COLUMN estilista.certificado IS 'El RFC del Estilista';
+
 
 CREATE TABLE telefonoSupervisor(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
@@ -320,6 +389,12 @@ CREATE TABLE telefonoSupervisor(
 	constraint teleSupervisor_pkey PRIMARY KEY (curp,telefono),
 	constraint teleSupervisor_fkey FOREIGN KEY (curp) REFERENCES supervisor(curp)
 );
+COMMENT ON TABLE telefonoSupervisor IS 'Contiene el numero telefonico de Supervisor';
+COMMENT ON COLUMN telefonoSupervisor.curp IS 'Identificador del Supervisor';
+COMMENT ON COLUMN telefonoSupervisor.telefono IS 'Numero telefonico del Supervisor';
+COMMENT ON CONSTRAINT teleSupervisor_pkey IS 'Llave primaria de la tabla telefonoSupervisor';
+COMMENT ON CONSTRAINT teleSupervisor_fkey IS 'Llave primaria de la tabla telefonoSupervisor';
+
 
 CREATE TABLE telefonoVeterinario(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
@@ -327,6 +402,12 @@ CREATE TABLE telefonoVeterinario(
 	constraint teleVeterinario_pkey PRIMARY KEY (curp,telefono),
 	constraint teleVeterinario_fkey FOREIGN KEY (curp) REFERENCES veterinario(curp)
 );
+COMMENT ON TABLE telefonoVeterinario IS 'Contiene el numero telefonico de Veterinario';
+COMMENT ON COLUMN telefonoVeterinario.curp IS 'Identificador del Veterinario';
+COMMENT ON COLUMN telefonoVeterinario.telefono IS 'Numero telefonico del Veterinario';
+COMMENT ON CONSTRAINT teleVeterinario_pkey IS 'Llave primaria de la tabla telefonoVeterinario';
+COMMENT ON CONSTRAINT teleVeterinario_fkey IS 'Llave primaria de la tabla telefonoVeterinario';
+
 
 CREATE TABLE telefonoEstilista(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
@@ -334,6 +415,12 @@ CREATE TABLE telefonoEstilista(
 	constraint teleEstilista_pkey PRIMARY KEY (curp,telefono),
 	constraint teleEstilista_fkey FOREIGN KEY (curp) REFERENCES estilista(curp)
 );
+COMMENT ON TABLE telefonoEstilista IS 'Contiene el numero telefonico de Estilista';
+COMMENT ON COLUMN telefonoEstilista.curp IS 'Identificador del Estilista';
+COMMENT ON COLUMN telefonoEstilista.telefono IS 'Numero telefonico del Estilista';
+COMMENT ON CONSTRAINT teleEstilista_pkey IS 'Llave primaria de la tabla telefonoEstilista';
+COMMENT ON CONSTRAINT teleEstilista_fkey IS 'Llave primaria de la tabla telefonoEstilista';
+
 
 CREATE TABLE supervisorTrabajaEn(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
