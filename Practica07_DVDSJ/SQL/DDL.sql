@@ -429,6 +429,10 @@ CREATE TABLE supervisorTrabajaEn(
 	FOREIGN KEY(curp) REFERENCES supervisor(curp),
 	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
 );
+COMMENT ON TABLE supervisorTrabajaEn IS 'Tabla para relacionar Supervisor con Estetica donde trabaja';
+COMMENT ON COLUMN supervisorTrabajaEn.curp IS 'Identificador del Supervisor';
+COMMENT ON COLUMN supervisorTrabajaEn.nombreEstetica IS 'Identificador de la Estetica en cuestion';
+
 
 CREATE TABLE veterinarioTrabajaEn(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
@@ -437,6 +441,10 @@ CREATE TABLE veterinarioTrabajaEn(
 	FOREIGN KEY(curp) REFERENCES veterinario(curp),
 	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
 );
+COMMENT ON TABLE veterinarioTrabajaEn IS 'Tabla para relacionar Veterinario con la Estetica donde trabaja';
+COMMENT ON COLUMN veterinarioTrabajaEn.curp IS 'Identificador del Veterinario';
+COMMENT ON COLUMN veterinarioTrabajaEn.nombreEstetica IS 'Identificador de la Estetica en cuestion';
+
 
 CREATE TABLE estilistaTrabajaEn(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
@@ -445,6 +453,10 @@ CREATE TABLE estilistaTrabajaEn(
 	FOREIGN KEY(curp) REFERENCES estilista(curp),
 	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
 );
+COMMENT ON TABLE estilistaTrabajaEn IS 'Tabla para relacionar Estilista con la Estetica donde trabaja';
+COMMENT ON COLUMN estilistaTrabajaEn.curp IS 'Identificador del Estilista';
+COMMENT ON COLUMN estilistaTrabajaEn.nombreEstetica IS 'Identificador de la Estetica en cuestion';
+
 
 INSERT INTO cliente VALUES ('12345678901234567A', 'David', 'Hernández', 'Uriostegui', 1, 10000, 'Ignacio Allende', 'Guanajuato', '4731241727'); 
 INSERT INTO mascota VALUES ('12345678901234598A', '12345678901234567A', 'David', 'Ron', 13, 'Cocker', 'Perro', 20.5); 
@@ -466,9 +478,4 @@ INSERT INTO vender VALUES ('HAPPY DOGGO', '00045678901234565A');
 INSERT INTO consultorio VALUES ('0004567890123456BG', 'HAPPY DOGGO', FALSE);
 INSERT INTO horario VALUES ('HAPPY DOGGO', '11:00', '19:00');
 select * from horario;
-
-
-
-
-
 
