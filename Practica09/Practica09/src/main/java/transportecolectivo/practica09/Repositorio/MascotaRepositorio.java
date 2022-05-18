@@ -7,31 +7,31 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import transportecolectivo.practica09.Conexion.ConexionBD;
-import transportecolectivo.practica09.Modelo.Cliente;
+import transportecolectivo.practica09.Modelo.Mascota;
 
 /**
- * Clase que permite las operaciones CRUD de la tabla Cliente de la base de 
+ * Clase que permite las operaciones CRUD de la tabla Mascota de la base de 
  * datos
  * @author David Hernández Uriostegui
  * @version  16-MAYO-2022
  */
-public class ClienteRepositorio {
+public class MascotaRepositorio {
     private ConexionBD conexion = new ConexionBD();
     //Objeto para ejecutar queries
     private Statement stmt;
     //Objeto para prepara un querie para su ejecucion
     private PreparedStatement ps;
-    
+
     /**
      * Metodo que se conecta a la base de datos y obtiene todas las entradas
-     * de los Clientees
-     * @return List<Cliente> Una lista de Clientees
+     * de las Mascotas
+     * @return List<Mascota> Una lista de Mascotas
      * @throws SQLException -- Excepcion que sale si no se logra a hacer 
      * la query de la consulta o la conexion
      */
-    public List<Cliente> getClientes() throws SQLException{
-        String query = "SELECT * FROM cliente"; //Escribimos nuestra query
-        List ClienteLista = new ArrayList<Cliente>();
+    public List<Mascota> getMascotas() throws SQLException{
+        String query = "SELECT * FROM mascota"; //Escribimos nuestra query
+        List listaMascotas = new ArrayList<Mascota>();
         try{
             //Nos conectamos a la base de datos
             conexion.conectar();
@@ -41,19 +41,18 @@ public class ClienteRepositorio {
            ResultSet rs = stmt.executeQuery(query);
            while(rs.next()){
                //System.out.println(rs.getString("curp"));
-               Cliente cliente = new Cliente(
+               Mascota mascota = new Mascota(
+                   rs.getString("idMascota"),
                    rs.getString("curp"),
+                   rs.getString("nombreDueño"),
                    rs.getString("nombre"),
-                   rs.getString("apellidoPaterno"),
-                   rs.getString("apellidoMaterno"),
-                   rs.getString("numero"),
-                   rs.getString("codigoPostal"),
-                   rs.getString("calle"),
-                   rs.getString("estado"),
-                   rs.getString("telefono")
+                   rs.getInt("edad"),
+                   rs.getString("raza"),
+                   rs.getString("especie"),
+                   rs.getFloat("estado")
                );
                //Agrego el resultado
-               ClienteLista.add(cliente);
+               listaMascotas.add(mascota);
            }        
         }catch(SQLException sql){
             sql.printStackTrace();
@@ -64,39 +63,36 @@ public class ClienteRepositorio {
                 sql.printStackTrace();
             }
         }
-        return ClienteLista;
+        return listaMascotas;
     }
-
-
     /**
-     * Metodo que obtiene a un operador dentro de la base a partir de su curp
-     * @param curp -- La curp del operador a buscar
-     * @return Cliente -- El Cliente en caso de encontrarse null, en otro caso
+     * Metodo que obtiene una mascota dentro de la base a partir de su idMascota
+     * @param idMascota -- El idMascota de la mascota a buscar
+     * @return Mascota -- La Mascota en caso de encontrarse null, en otro caso
      * @throws SQLException --Excepcion que sale si no se logra a hacer 
      * la query de la consulta o la conexion
      */
-    public Cliente getCliente(String curp) throws SQLException{
-        String query = "SELECT * FROM cliente WHERE curp = ?";
-        Cliente cliente = null;
+    public Mascota getMascota(String idMascota) throws SQLException{
+        String query = "SELECT * FROM mascota WHERE idMascota = ?";
+        Mascota mascota = null;
         try{
             //Conectamos a la Base
             conexion.conectar();
             //Preparamos la Base para la consulta
             ps = conexion.prepararDeclaracionPreparada(query);
             //Modificamos la consulta, para ver que sustituira
-            ps.setString(1, curp);
+            ps.setString(1, idMascota);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                cliente = new Cliente(
+                mascota = new Mascota(
+                   rs.getString("idMascota"),
                    rs.getString("curp"),
+                   rs.getString("nombreDueño"),
                    rs.getString("nombre"),
-                   rs.getString("apellidoPaterno"),
-                   rs.getString("apellidoMaterno"),
-                   rs.getString("numero"),
-                   rs.getString("codigoPostal"),
-                   rs.getString("calle"),
-                   rs.getString("estado"),
-                   rs.getString("telefono")
+                   rs.getInt("edad"),
+                   rs.getString("raza"),
+                   rs.getString("especie"),
+                   rs.getFloat("estado")
                );
             }
         }catch(SQLException sql){
@@ -108,29 +104,28 @@ public class ClienteRepositorio {
                 sql.printStackTrace();
             }
         }
-        return cliente;
+        return mascota;
     }
 
     /**
-     * Metodo que inserta un cliente dentro de la base de datos
-     * @param cliente -- El cliente que deseamos insertar en la base de datos
+     * Metodo que inserta una mascota dentro de la base de datos
+     * @param mascota -- La mascota que deseamos insertar en la base de datos
      */
-    public void insertarCliente(Cliente cliente){
-        String query = "INSERT INTO cliente "
-                + "(curp, nombre, apellidoPaterno, apellidoMaterno, numero, codigoPostal, calle, estado, telefono)"
-                + " VALUES (?,?,?,?,?,?,?,?,?)";
+    public void insertarMascota(Mascota mascota){
+        String query = "INSERT INTO mascota "
+                + "(idMascota, curp, nombreDueño, nombre, edad, raza, especie, peso)"
+                + " VALUES (?,?,?,?,?,?,?,?)";
         try{
             conexion.conectar();
             ps = conexion.prepararDeclaracionPreparada(query);
-            ps.setString(1, cliente.getCurp());
-            ps.setString(2, cliente.getNombre());
-            ps.setString(3, cliente.getApellidoPaterno());
-            ps.setString(4, cliente.getApellidoMaterno());
-            ps.setString(5, cliente.getNumero());
-            ps.setString(6, cliente.getCodigoPostal());
-            ps.setString(7, cliente.getCalle());
-            ps.setString(8, cliente.getEstado());
-            ps.setString(9, cliente.getTelefono());
+            ps.setString(1, mascota.getIdMascota());
+            ps.setString(2, mascota.getCurp());
+            ps.setString(3, mascota.getNombreDueño());
+            ps.setString(4, mascota.getNombre());
+            ps.setInt(5, mascota.getEdad());
+            ps.setString(6, mascota.getRaza());
+            ps.setString(7, mascota.getEspecie());
+            ps.setFloat(8, mascota.getPeso());
 
             ps.executeUpdate();    //Utilizamos esta instruccion para insertar y actualizar
         }catch(SQLException sql){
@@ -145,27 +140,26 @@ public class ClienteRepositorio {
     }
 
     /**
-     * Metodo que actualiza un cliente dentro de la base de datos
-     * @param curp -- El curp del operador a buscar para actualizar
-     * @param cliente -- El cliente que vamos a intercambiar sus valores
+     * Metodo que actualiza una mascota dentro de la base de datos
+     * @param idMascota -- El idMascota de la mascota a buscar para actualizar
+     * @param mascota -- La mascota que vamos a intercambiar sus valores
      */
-    public void actualizarCliente(String curp, Cliente cliente){
-        String query = "UPDATE cliente SET curp = ?, nombre = ?, "
-                + "apellidoPaterno = ?, apellidoMaterno = ?, "
-                + "numero=?, codigoPostal =?, calle=?, estado =?, telefono =? WHERE curp = ?";
+    public void actualizarMascota(String idMascota, Mascota mascota){
+        String query = "UPDATE mascota SET idMascota = ?, curp = ?, "
+                + "nombreDueño = ?, nombre = ?, "
+                + "edad=?, raza =?, especie=?, peso =? WHERE idMascota = ?";
         try{
             conexion.conectar();;
             ps = conexion.prepararDeclaracionPreparada(query);
-            ps.setString(1, cliente.getCurp());
-            ps.setString(2, cliente.getNombre());
-            ps.setString(3, cliente.getApellidoPaterno());
-            ps.setString(4, cliente.getApellidoMaterno());
-            ps.setString(5, cliente.getNumero());
-            ps.setString(6, cliente.getCodigoPostal());
-            ps.setString(7, cliente.getCalle());
-            ps.setString(8, cliente.getEstado());
-            ps.setString(9, cliente.getTelefono());
-            ps.setString(10, curp);
+            ps.setString(1, mascota.getIdMascota());
+            ps.setString(2, mascota.getCurp());
+            ps.setString(3, mascota.getNombreDueño());
+            ps.setString(4, mascota.getNombre());
+            ps.setInt(5, mascota.getEdad());
+            ps.setString(6, mascota.getRaza());
+            ps.setString(7, mascota.getEspecie());
+            ps.setFloat(8, mascota.getPeso());
+            ps.setString(9, idMascota);
             ps.executeUpdate();
         }catch(SQLException sql){
             sql.printStackTrace();
@@ -179,17 +173,17 @@ public class ClienteRepositorio {
     }
 
     /**
-     * Metodo para borrar un cliente
-     * @param curp -- Curp del operador a eliminar
+     * Metodo para borrar una mascota
+     * @param idMascota -- idMascota de la mascota a eliminar
      * @return Boolean -- true si se realizo, false en caso contrario
      */
-    public Boolean borrarCliente(String curp){
-        String query = "DELETE FROM cliente WHERE curp = ?";
+    public Boolean borrarMascota(String idMascota){
+        String query = "DELETE FROM mascota WHERE idMascota = ?";
         boolean ok = false;
         try{
             conexion.conectar();
             ps = conexion.prepararDeclaracionPreparada(query);
-            ps.setString(1, curp);
+            ps.setString(1, idMascota);
             ps.executeUpdate();
             ok = true;
         }catch(SQLException sql){
@@ -203,7 +197,5 @@ public class ClienteRepositorio {
         } 
        return ok;
     }
-    
-    
     
 }
