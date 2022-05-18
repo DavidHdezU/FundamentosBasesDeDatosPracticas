@@ -1,5 +1,10 @@
 package transportecolectivo.practica09.Modelo;
 
+/**
+ * Clase que modela a una Mascota
+ * @author David Hernández Uriostegui
+ * @version 16-MAYO-2022
+ */
 public class Mascota {
     private String idMascota;
     private String curp;
@@ -10,6 +15,17 @@ public class Mascota {
     private String especie;
     private float peso;
 
+    /**
+     * Constructor por parametros que crea una Mascota
+     * @param idMascota - id de la Mascota
+     * @param curp - curp de la Mascota
+     * @param nombreDueño - nombre del dueño de la Mascota
+     * @param nombre - nombre de la Mascota
+     * @param edad - edad de la Mascota
+     * @param raza - raza de la Mascota
+     * @param especie - especie de la Mascota
+     * @param peso - peso de la Mascota
+     */
     public Mascota(String idMascota, String curp, String nombreDueño, String nombre, int edad, String raza, String especie, float peso){
         this.idMascota = idMascota;
         this.curp = curp;

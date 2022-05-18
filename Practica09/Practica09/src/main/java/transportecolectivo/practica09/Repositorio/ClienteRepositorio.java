@@ -1,4 +1,4 @@
-package transportecolectivo.practica09.Cliente;
+package transportecolectivo.practica09.Repositorio;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ import transportecolectivo.practica09.Modelo.Cliente;
  * @author David Hernández Uriostegui
  * @version  16-MAYO-2022
  */
-public class OperadorCliente {
+public class ClienteRepositorio {
     private ConexionBD conexion = new ConexionBD();
     //Objeto para ejecutar queries
     private Statement stmt;
@@ -29,8 +29,8 @@ public class OperadorCliente {
      * @throws SQLException -- Excepcion que sale si no se logra a hacer 
      * la query de la consulta o la conexion
      */
-    public List<Cliente> getClientees() throws SQLException{
-        String query = "SELECT * FROM Cliente"; //Escribimos nuestra query
+    public List<Cliente> getClientes() throws SQLException{
+        String query = "SELECT * FROM cliente"; //Escribimos nuestra query
         List ClienteLista = new ArrayList<Cliente>();
         try{
             //Nos conectamos a la base de datos

@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.io.*;
 import java.util.*;
 import transportecolectivo.practica09.Conexion.ConexionBD;
-import transportecolectivo.practica09.Cliente.OperadorCliente;
 import transportecolectivo.practica09.Modelo.Cliente;
+import transportecolectivo.practica09.Repositorio.ClienteRepositorio;
 /**
 import transportecolectivo.practica09.Conexion.ConexionBD;
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ public class Practica09 {
     
     public static void main(String[] args){
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        OperadorCliente opCliente = new OperadorCliente();
+        ClienteRepositorio opCliente = new ClienteRepositorio();
         try{
             System.out.println("Ingrese el curp a buscar: ");
             String curp = br.readLine();
