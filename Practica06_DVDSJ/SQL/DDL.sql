@@ -229,21 +229,21 @@ CREATE TABLE estilista(
 
 CREATE TABLE telefonoSupervisor(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
-	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 18),
+	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10),
 	constraint teleSupervisor_pkey PRIMARY KEY (curp,telefono),
 	constraint teleSupervisor_fkey FOREIGN KEY (curp) REFERENCES supervisor(curp)
 );
 
 CREATE TABLE telefonoVeterinario(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
-	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 18),
+	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10),
 	constraint teleVeterinario_pkey PRIMARY KEY (curp,telefono),
 	constraint teleVeterinario_fkey FOREIGN KEY (curp) REFERENCES veterinario(curp)
 );
 
 CREATE TABLE telefonoEstilista(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
-	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 18),
+	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10),
 	constraint teleEstilista_pkey PRIMARY KEY (curp,telefono),
 	constraint teleEstilista_fkey FOREIGN KEY (curp) REFERENCES estilista(curp)
 );
