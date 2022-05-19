@@ -6,15 +6,26 @@ import java.util.List;
 import transportecolectivo.practica09.Modelo.Cliente;
 import transportecolectivo.practica09.Servicio.ClienteServicio;
 
+/**
+ * Clase auxiliar para realizar queries en la tabla cliente
+ * @author David Hernández Uriostegui
+ * @version 16-MAYO-2022
+ */
 public class ClienteEntrada {
     private BufferedReader br;
     private ClienteServicio consultador;
 
+    /**
+     * Constructor inicial
+     */
     public ClienteEntrada(){
         this.br = new BufferedReader(new InputStreamReader(System.in));
         this.consultador = new ClienteServicio();
     }
 
+    /**
+     * Método auxiliar para actualizar un cliente
+     */
     private void actualizaCliente(){
         Cliente cliente = null;
         String curp_buscado;
@@ -64,6 +75,9 @@ public class ClienteEntrada {
         
     }
 
+    /**
+     * Método auxiliar para insertar un Cliente nuevo
+     */
     private void insertaCliente(){
         Cliente cliente = null;
         System.out.println("Ingresa por favor los siguientes datos");
@@ -108,19 +122,22 @@ public class ClienteEntrada {
 
         
     }
-    public void main(){
-        System.out.println("Actualmente estaŕas haciendo queries a la tabla clientes");
-        System.out.println("Estas son las opciones existentes:");
-        System.out.println("1 - Obten la lista de todos los clientes existente");
-        System.out.println("2 - Inserta un nuevo cliente");
-        System.out.println("3 - Busca un cliente por su curp");
-        System.out.println("4 - Actualiza los datos de un cliente");
-        System.out.println("5 - Borra un cliente de la base de datos mediante su curp");
 
+    /**
+     * Método principal que se encarga de leer las queries mediante Standar Input
+     */
+    public void main(){
         int opcion = 0;
         boolean bandera;
         String curp;
         do{
+            System.out.println("Actualmente estaŕas haciendo queries a la tabla clientes");
+            System.out.println("Estas son las opciones existentes:");
+            System.out.println("1 - Obten la lista de todos los clientes existente");
+            System.out.println("2 - Inserta un nuevo cliente");
+            System.out.println("3 - Busca un cliente por su curp");
+            System.out.println("4 - Actualiza los datos de un cliente");
+            System.out.println("5 - Borra un cliente de la base de datos mediante su curp");
             bandera = true;
             System.out.println("Ingrese una opción: ");
             System.out.println("O ingrese '6' para salir");
@@ -155,7 +172,11 @@ public class ClienteEntrada {
                             System.out.println("Ingresa el curp:");
                             curp = br.readLine();
                             cliente = this.consultador.getCliente(curp);
-                            System.out.println(cliente);
+                            if (cliente != null){
+                                System.out.println(cliente);
+                            }else{
+                                System.out.println("No se encontró ningún cliente con el curp proveido...\n");
+                            }
                         }catch(Exception e){
                             System.out.println(e);
                         }

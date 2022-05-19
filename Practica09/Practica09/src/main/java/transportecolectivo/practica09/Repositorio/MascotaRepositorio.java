@@ -49,7 +49,7 @@ public class MascotaRepositorio {
                    rs.getInt("edad"),
                    rs.getString("raza"),
                    rs.getString("especie"),
-                   rs.getFloat("estado")
+                   rs.getFloat("peso")
                );
                //Agrego el resultado
                listaMascotas.add(mascota);
@@ -92,7 +92,7 @@ public class MascotaRepositorio {
                    rs.getInt("edad"),
                    rs.getString("raza"),
                    rs.getString("especie"),
-                   rs.getFloat("estado")
+                   rs.getFloat("peso")
                );
             }
         }catch(SQLException sql){
