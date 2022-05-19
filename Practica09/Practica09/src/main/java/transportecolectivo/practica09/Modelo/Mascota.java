@@ -149,4 +149,12 @@ public class Mascota {
         this.peso = peso;
     }
 
+    @Override
+    public String toString(){
+        String str = "Mascota{idMascota=" + this.idMascota + ", curp=" + this.curp + ", nombreDueño=" + this.nombreDueño;
+        str += ", nombre=" + this.nombre + ", edad=" + Integer.toString(this.edad) + ", raza=" + this.raza;
+        str += ", especie=" + this.especie + ", peso=" + Float.toString(this.peso) + "}"; 
+        return str;
+    }
+
 }

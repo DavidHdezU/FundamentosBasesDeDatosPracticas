@@ -169,7 +169,10 @@ public class Cliente {
 
     @Override
     public String toString(){
-        return this.curp + ", " + this.nombre;
+        String str = "Cliente{curp=" + this.curp + ", nombre=" + this.nombre + ", apellidoPaterno=" + this.apellidoPaterno;
+        str += ", apellidoMaterno=" + this.apellidoMaterno + ", numero=" + this.numero + ", codigoPostal=" + this.codigoPostal;
+        str += ", calle=" + this.calle + ", estado=" + this.estado + ", telefono=" + this.telefono + "}";
+        return str;
     }
 
 }
