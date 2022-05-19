@@ -45,7 +45,7 @@ public class ClienteServicio {
      * @param cliente -- Los valores nuevos a actualizar
      * @throws Exception -- En caso de que ocurra algun error 
      */
-    public void actualizarOperador(String curp, Cliente cliente)throws Exception{
+    public void actualizarCliente(String curp, Cliente cliente)throws Exception{
         clienteRepositorio.actualizarCliente(curp, cliente);
     }
 
@@ -54,7 +54,7 @@ public class ClienteServicio {
      * @param curp -- El curp del cliente a borrar
      * @throws Exception  -- EN caso de que ocurra algun error
      */
-    public void borrarOperador(String curp)throws Exception{
+    public void borrarCliente(String curp)throws Exception{
         clienteRepositorio.borrarCliente(curp);
     }
     

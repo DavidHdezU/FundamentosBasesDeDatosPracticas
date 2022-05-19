@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.io.*;
 import java.util.*;
 import transportecolectivo.practica09.Conexion.ConexionBD;
+import transportecolectivo.practica09.Entrada.ClienteEntrada;
 import transportecolectivo.practica09.Modelo.Cliente;
 import transportecolectivo.practica09.Repositorio.ClienteRepositorio;
+import transportecolectivo.practica09.Servicio.ClienteServicio;
 /**
 import transportecolectivo.practica09.Conexion.ConexionBD;
 import java.sql.SQLException;
@@ -20,18 +22,9 @@ import transportecolectivo.practica09.Repositorio.OperadorRepositorio;
 public class Practica09 {
     
     public static void main(String[] args){
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        ClienteRepositorio opCliente = new ClienteRepositorio();
-        try{
-            System.out.println("Ingrese el curp a buscar: ");
-            String curp = br.readLine();
-            Cliente cliente = opCliente.getCliente(curp);
-            System.out.println(cliente);
-        }catch(SQLException sql){
-            sql.printStackTrace();
-        }catch(IOException io){
-            System.out.println("Problema al intentar leer entrada standar");
-        }
+        ClienteEntrada clienteEntrada = new ClienteEntrada();
+
+        clienteEntrada.main();
 
     }
 }

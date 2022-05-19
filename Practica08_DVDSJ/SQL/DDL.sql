@@ -12,7 +12,7 @@ CREATE TABLE cliente(
     calle VARCHAR(50) NOT NULL CHECK(calle <> ''),
 	estado VARCHAR(50) NOT NULL CHECK(estado <> ''),
 	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10) UNIQUE,
-	PRIMARY KEY(curp)
+	PRIMARY KEY(curp) 
 );
 COMMENT ON TABLE cliente IS 'Tabla que contiene la informacion de los clientes';
 COMMENT ON COLUMN cliente.curp IS 'La CURP de los clientes';
@@ -36,7 +36,7 @@ CREATE TABLE mascota(
 	especie VARCHAR(50) NOT NULL CHECK(especie <> ''),
     peso REAL NOT NULL,
 	PRIMARY KEY(idMascota),
-	FOREIGN KEY (curp) REFERENCES cliente(curp)
+	FOREIGN KEY (curp) REFERENCES cliente(curp) ON UPDATE CASCADE ON DELETE CASCADE
 );
 COMMENT ON TABLE mascota IS 'Tabla que contiene informacion de las mascotas';
 COMMENT ON COLUMN mascota.idMascota IS 'El identificador de la mascota.';
@@ -66,7 +66,7 @@ CREATE TABLE codigo(
     idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18) UNIQUE,
 	codigo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(codigo) = 18) UNIQUE,
 	constraint codigo_pkey PRIMARY KEY (idConsulta,codigo),
-	constraint codigo_fkey FOREIGN KEY (idConsulta) REFERENCES consultaEmergencia(idConsulta)
+	constraint codigo_fkey FOREIGN KEY (idConsulta) REFERENCES consultaEmergencia(idConsulta) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE codigo IS 'Tabla que contiene informacion de los codigos de emergencia que puede contener una consulta de emergencia';
 COMMENT ON COLUMN codigo.idConsulta IS 'El identificador de la consulta';
@@ -77,8 +77,8 @@ CREATE TABLE requerirEmergencia(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
 	idMascota CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idMascota) = 18),
     PRIMARY KEY(idConsulta,idMascota),
-	FOREIGN KEY(idConsulta) REFERENCES consultaEmergencia(idConsulta),
-	FOREIGN KEY(idMascota) REFERENCES mascota(idMascota)
+	FOREIGN KEY(idConsulta) REFERENCES consultaEmergencia(idConsulta) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY(idMascota) REFERENCES mascota(idMascota) ON UPDATE CASCADE ON DELETE CASCADE
 );
 COMMENT ON TABLE requerirEmergencia IS 'Tabla que contiene la informacion necesaria para procesar una consulta de emergencia';
 COMMENT ON COLUMN requerirEmergencia.idConsulta IS 'El identificador de la consulta de emergencia';
@@ -105,8 +105,8 @@ CREATE TABLE requerirNormal(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
 	idMascota CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idMascota) = 18),
     PRIMARY KEY(idConsulta,idMascota),
-	FOREIGN KEY(idConsulta) REFERENCES consultaNormal(idConsulta),
-	FOREIGN KEY(idMascota) REFERENCES mascota(idMascota)
+	FOREIGN KEY(idConsulta) REFERENCES consultaNormal(idConsulta) ON UPDATE CASCADE ON DELETE CASCADE, 
+	FOREIGN KEY(idMascota) REFERENCES mascota(idMascota) ON UPDATE CASCADE ON DELETE CASCADE
 );
 COMMENT ON TABLE requerirNormal IS 'Tabla que contiene la informacion necesaria para procesar una consulta normal';
 COMMENT ON COLUMN requerirNormal.idConsulta IS 'El identificador de la consulta';
@@ -131,20 +131,20 @@ CREATE TABLE generaReciboNormal(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
 	idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18),
     PRIMARY KEY(idConsulta,idRecibo),
-	FOREIGN KEY(idConsulta) REFERENCES consultaNormal(idConsulta),
-	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
+	FOREIGN KEY(idConsulta) REFERENCES consultaNormal(idConsulta) ON UPDATE CASCADE ON DELETE NO ACTION,
+	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo) ON UPDATE CASCADE ON DELETE CASCADE
 );
 COMMENT ON TABLE generaReciboNormal IS 'Tabla que contiene la informacion necesaria para generar un recibo normal';
 COMMENT ON COLUMN generaReciboNormal.idConsulta IS 'El identificador de la consulta';
 COMMENT ON COLUMN generaReciboNormal.idRecibo IS 'El identificador del recibo';
-
+ 
 
 CREATE TABLE generaReciboEmergencia(
 	idConsulta CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idConsulta) = 18),
 	idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18),
     PRIMARY KEY(idConsulta,idRecibo),
-	FOREIGN KEY(idConsulta) REFERENCES consultaEmergencia(idConsulta),
-	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
+	FOREIGN KEY(idConsulta) REFERENCES consultaEmergencia(idConsulta) ON UPDATE CASCADE ON DELETE NO ACTION,
+	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo) ON UPDATE CASCADE ON DELETE CASCADE
 );
 COMMENT ON TABLE generaReciboEmergencia IS 'Tabla que contiene la informacion necesaria para generar un recibo de una consulta de emergencia';
 COMMENT ON COLUMN generaReciboEmergencia.idConsulta IS 'El identificador de la consulta de emergencia';
@@ -161,7 +161,7 @@ CREATE TABLE pago(
 	esTarjeta BOOLEAN NOT NULL,
 	esEfectivo BOOLEAN NOT NULL,
     PRIMARY KEY(idPago),
-	FOREIGN KEY(curp) REFERENCES cliente(curp)
+	FOREIGN KEY(curp) REFERENCES cliente(curp) ON UPDATE CASCADE ON DELETE CASCADE
 );
 COMMENT ON TABLE pago IS 'Tabla que contiene la informacin necesaria para procesar el pago de una consulta';
 COMMENT ON COLUMN pago.idPago IS 'El identificador del pago de la consulta';
@@ -178,8 +178,8 @@ CREATE TABLE pagar(
 	idPago CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idPago) = 18),
 	idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18),
     PRIMARY KEY(idPago,idRecibo),
-	FOREIGN KEY(idPago) REFERENCES pago(idPago),
-	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
+	FOREIGN KEY(idPago) REFERENCES pago(idPago) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo) ON UPDATE CASCADE ON DELETE CASCADE
 );
 COMMENT ON TABLE pagar IS 'Tabla que contiene la informacion necesaria para procesar un pago y un recibo';
 COMMENT ON COLUMN pagar.idPago IS 'El identificador del pago de la consulta';
@@ -190,7 +190,7 @@ CREATE TABLE servicios(
     idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18) UNIQUE,
 	servicios VARCHAR(50) NOT NULL CHECK(servicios <> ''),
 	constraint servicios_pkey PRIMARY KEY (idRecibo,servicios),
-	constraint servicios_fkey FOREIGN KEY (idRecibo) REFERENCES recibo(idRecibo)
+	constraint servicios_fkey FOREIGN KEY (idRecibo) REFERENCES recibo(idRecibo) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE servicios IS 'Tabla que contiene los servicios que puede contener un recibo';
 COMMENT ON COLUMN servicios.idRecibo IS 'El identificador del recibo de la consulta';
@@ -223,8 +223,8 @@ CREATE TABLE generaReciboProducto(
 	idProducto CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idProducto) = 18),
 	idRecibo CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idRecibo) = 18),
     PRIMARY KEY(idProducto,idRecibo),
-	FOREIGN KEY(idProducto) REFERENCES producto(idProducto),
-	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo)
+	FOREIGN KEY(idProducto) REFERENCES producto(idProducto) ON UPDATE CASCADE ON DELETE NO ACTION,
+	FOREIGN KEY(idRecibo) REFERENCES recibo(idRecibo) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE generaReciboProducto IS 'Tabla que contiene la informacion que contiene un producto';
 COMMENT ON COLUMN generaReciboProducto.idProducto IS 'El identificador del producto';
@@ -255,7 +255,7 @@ CREATE TABLE consultorio(
 	nombreEstetica VARCHAR(100) NOT NULL CHECK(nombreEstetica <> ''),
 	disponible BOOLEAN NOT NULL,
 	PRIMARY KEY(idConsultorio),
-	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
+	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE consultorio IS 'Tabla para guardar los Coonsultorios';
 COMMENT ON COLUMN consultorio.idConsultorio IS 'Identificador del Consultorio';
@@ -268,7 +268,7 @@ CREATE TABLE horario(
 	horaEntrada TIME NOT NULL,
 	horaSalida TIME NOT NULL,
 	constraint horario_pkey PRIMARY KEY (nombreEstetica),
-	constraint horario_fkey FOREIGN KEY (nombreEstetica) REFERENCES estetica(nombreEstetica)
+	constraint horario_fkey FOREIGN KEY (nombreEstetica) REFERENCES estetica(nombreEstetica) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE horario IS 'Guarda los horarios de la Estetica';
 COMMENT ON COLUMN horario.nombreEstetica IS 'Identificador de la Estetica a la que pertenece el Horario en cuestion';
@@ -282,8 +282,8 @@ CREATE TABLE vender(
 	nombreEstetica VARCHAR(50) NOT NULL CHECK(nombreEstetica <> ''),
 	idProducto CHAR(18) NOT NULL CHECK(CHAR_LENGTH(idProducto) = 18),
     PRIMARY KEY(nombreEstetica,idProducto),
-	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica),
-	FOREIGN KEY(idProducto) REFERENCES producto(idProducto)
+	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica) ON UPDATE CASCADE ON DELETE NO ACTION,
+	FOREIGN KEY(idProducto) REFERENCES producto(idProducto) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE vender IS 'Tabla que para la relacionn Vender';
 COMMENT ON COLUMN vender.nombreEstetica IS 'Identificador de la Estetica que vende';
@@ -388,7 +388,7 @@ CREATE TABLE telefonoSupervisor(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
 	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10),
 	constraint teleSupervisor_pkey PRIMARY KEY (curp,telefono),
-	constraint teleSupervisor_fkey FOREIGN KEY (curp) REFERENCES supervisor(curp)
+	constraint teleSupervisor_fkey FOREIGN KEY (curp) REFERENCES supervisor(curp) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE telefonoSupervisor IS 'Contiene el numero telefonico de Supervisor';
 COMMENT ON COLUMN telefonoSupervisor.curp IS 'Identificador del Supervisor';
@@ -401,7 +401,7 @@ CREATE TABLE telefonoVeterinario(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
 	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10),
 	constraint teleVeterinario_pkey PRIMARY KEY (curp,telefono),
-	constraint teleVeterinario_fkey FOREIGN KEY (curp) REFERENCES veterinario(curp)
+	constraint teleVeterinario_fkey FOREIGN KEY (curp) REFERENCES veterinario(curp) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE telefonoVeterinario IS 'Contiene el numero telefonico de Veterinario';
 COMMENT ON COLUMN telefonoVeterinario.curp IS 'Identificador del Veterinario';
@@ -414,7 +414,7 @@ CREATE TABLE telefonoEstilista(
 	curp CHAR(18) NOT NULL CHECK(CHAR_LENGTH(curp) = 18) UNIQUE,
 	telefono CHAR(10) NOT NULL CHECK(CHAR_LENGTH(telefono) = 10),
 	constraint teleEstilista_pkey PRIMARY KEY (curp,telefono),
-	constraint teleEstilista_fkey FOREIGN KEY (curp) REFERENCES estilista(curp)
+	constraint teleEstilista_fkey FOREIGN KEY (curp) REFERENCES estilista(curp) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE telefonoEstilista IS 'Contiene el numero telefonico de Estilista';
 COMMENT ON COLUMN telefonoEstilista.curp IS 'Identificador del Estilista';
@@ -428,7 +428,7 @@ CREATE TABLE supervisorTrabajaEn(
 	nombreEstetica VARCHAR(100) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
     PRIMARY KEY(curp,nombreEstetica),
 	FOREIGN KEY(curp) REFERENCES supervisor(curp),
-	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
+	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE supervisorTrabajaEn IS 'Tabla para relacionar Supervisor con Estetica donde trabaja';
 COMMENT ON COLUMN supervisorTrabajaEn.curp IS 'Identificador del Supervisor';
@@ -440,7 +440,7 @@ CREATE TABLE veterinarioTrabajaEn(
 	nombreEstetica VARCHAR(100) NOT NULL CHECK(nombreEstetica <> ''),
     PRIMARY KEY(curp,nombreEstetica),
 	FOREIGN KEY(curp) REFERENCES veterinario(curp),
-	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
+	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE veterinarioTrabajaEn IS 'Tabla para relacionar Veterinario con la Estetica donde trabaja';
 COMMENT ON COLUMN veterinarioTrabajaEn.curp IS 'Identificador del Veterinario';
@@ -452,7 +452,7 @@ CREATE TABLE estilistaTrabajaEn(
 	nombreEstetica VARCHAR(100) NOT NULL CHECK(nombreEstetica <> '') UNIQUE,
     PRIMARY KEY(curp,nombreEstetica),
 	FOREIGN KEY(curp) REFERENCES estilista(curp),
-	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica)
+	FOREIGN KEY(nombreEstetica) REFERENCES estetica(nombreEstetica) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 COMMENT ON TABLE estilistaTrabajaEn IS 'Tabla para relacionar Estilista con la Estetica donde trabaja';
 COMMENT ON COLUMN estilistaTrabajaEn.curp IS 'Identificador del Estilista';
