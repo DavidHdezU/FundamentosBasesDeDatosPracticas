@@ -5,7 +5,7 @@
 
 -- Una funcion que reciba la CURP y nos regrese la edad del cliente.
 CREATE OR REPLACE FUNCTION getEdadCliente(curp TEXT)
-	RETURNS TEXT AS $edad$
+RETURNS TEXT AS $edad$
 	DECLARE
 		edad TEXT;
 		years   integer := to_number(substring(curp from 5 for 2), '99');
@@ -41,15 +41,15 @@ $edad$ LANGUAGE plpgsql;
 
 -- Una funcion que reciba idEstetica y regrese las ganancias de esa estetica.
 CREATE OR REPLACE FUNCTION gananciasEstetica(idEstetica TEXT)
-	RETURNS TABLE (nombre VARCHAR, ganancias NUMERIC) AS $$
+RETURNS TABLE (nombre VARCHAR, ganancias NUMERIC) AS $$
 	BEGIN
 		RETURN QUERY 
-			SELECT 
-				nombreestetica, sum(monto) AS total 
-			FROM 
-				(SELECT * FROM recibo WHERE nombreestetica = idEstetica) AS ganancias
-			GROUP BY 
-				nombreestetica;
+		SELECT 
+			nombreestetica, sum(monto) AS total 
+		FROM 
+			(SELECT * FROM recibo WHERE nombreestetica = idEstetica) AS ganancias
+		GROUP BY 
+			nombreestetica;
 
 	END;
 $$ LANGUAGE plpgsql;
@@ -57,13 +57,13 @@ $$ LANGUAGE plpgsql;
 
 
 CREATE OR REPLACE FUNCTION gananciasEsteticaNeta(idEstetica TEXT)
-	RETURNS TABLE (nombre VARCHAR, pagos bigint, ingresostotales NUMERIC, ganancias NUMERIC) AS $$
+RETURNS TABLE (nombre VARCHAR, pagos bigint, ingresostotales NUMERIC, ganancias NUMERIC) AS $$
 	BEGIN 
 		-- Obtener el total de los salarios de veterinario a pagar
 		CREATE TEMP TABLE IF NOT EXISTS t1 AS
 		SELECT 
 			data.nombreestetica, 
-			sum(data.vsalario) AS vtotal 
+			SUM(data.vsalario) AS vtotal 
 		FROM (
 			SELECT 
 				vett.nombreestetica, 
@@ -82,7 +82,7 @@ CREATE OR REPLACE FUNCTION gananciasEsteticaNeta(idEstetica TEXT)
 		CREATE TEMP TABLE IF NOT EXISTS t2 AS
 		SELECT 
 			data.nombreestetica, 
-			sum(data.esalario) AS etotal 
+			SUM(data.esalario) AS etotal 
 		FROM (
 			SELECT 
 				estt.nombreestetica, 
@@ -100,24 +100,23 @@ CREATE OR REPLACE FUNCTION gananciasEsteticaNeta(idEstetica TEXT)
 		-- En su lugar unimos directo con las tablas t1 y t2
 		CREATE TEMP TABLE IF NOT EXISTS t3 AS
 		SELECT 
-				vets.nombreestetica, 
-				vets.vtotal AS vsalario, 
-				ests.etotal AS esalario,
-				sups.supsalario AS ssalario
-
-			FROM 
-				t1 AS vets 
-				JOIN t2 AS ests ON ests.nombreestetica = vets.nombreestetica
-				JOIN --supervisortrabajaen 
-				(
-					SELECT 
-						supt.nombreestetica,
-						sup.salario AS supsalario
-					FROM 
-						supervisortrabajaen AS supt 
-						JOIN supervisor AS sup ON supt.curp = sup.curp
-				) 
-					AS sups ON sups.nombreestetica = vets.nombreestetica;
+			vets.nombreestetica, 
+			vets.vtotal AS vsalario, 
+			ests.etotal AS esalario,
+			sups.supsalario AS ssalario	
+		FROM 
+			t1 AS vets 
+			JOIN t2 AS ests ON ests.nombreestetica = vets.nombreestetica
+			JOIN 
+			(
+				SELECT 
+					supt.nombreestetica,
+					sup.salario AS supsalario
+				FROM 
+					supervisortrabajaen AS supt 
+					JOIN supervisor AS sup ON supt.curp = sup.curp
+			) 
+			AS sups ON sups.nombreestetica = vets.nombreestetica;
 
 		-- Obtenemos el total de los salarios a pagar(pagoSalarios) y unimos con una tabla 
 		-- proveniente de recibo que contenga los ingresos totales de la estetica.
