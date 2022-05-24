@@ -1,16 +1,36 @@
 /*
  * Author: Diego Padilla
- * Version: 22.5.22
+ * Version: 22.5.23
  */
 
-CREATE OR REPLACE PROCEDURE veterinarioInsert(idCurp TEXT , name TEXT, lastnameFathers TEXT, lastnameMothers TEXT, 
-	no TEXT, zipCode TEXT, streetName TEXT, state TEXT, phoneNumber TEXT, 
-	salary integer, rfcseq TEXT, shiftBegins TIME, shiftEnds TIME, patientNumber integer)
+-- SP para regsitrar un nuevo Veterinario con su informacion personal 
+-- y el nombre de la estetica donde va a trabajar
+CREATE OR REPLACE PROCEDURE veterinarioInsert(
+	nombredeestetica TEXT,
+	idCurp TEXT,
+	name   TEXT,
+	lastnameFathers TEXT,
+	lastnameMothers TEXT, 
+	no TEXT,
+	zipCode    TEXT,
+	streetName TEXT,
+	state TEXT, 
+	phoneNumber TEXT, 
+	salary integer, 
+	rfcseq      TEXT,
+	shiftBegins TIME,
+	shiftEnds   TIME,
+	patientNumber integer
+)
 	AS $$
 	DECLARE
 		fullname TEXT := CONCAT(name, lastnameFathers, lastnameMothers);
+
 	BEGIN 
-		IF LENGTH(idCurp) <> 18 THEN 
+		IF NOT EXISTS (SELECT FROM estetica AS e WHERE e.nombreestetica = nombredeestetica) THEN 
+			RAISE EXCEPTION 'Nombre de estetica no valido: % ', nombredeestetica USING HINT = 'Estetica no existe. Abortando ...';
+			
+		ELSIF LENGTH(idCurp) <> 18 THEN 
 			RAISE EXCEPTION 'CURP no valido: % ', idCurp USING HINT = 'Longitud diferente de 18. Abortando ...';
 
 		ELSIF fullname ~* '^[a-z]+$' IS NOT TRUE -- '^[a-z\s]+$' empty spaces
@@ -48,7 +68,41 @@ CREATE OR REPLACE PROCEDURE veterinarioInsert(idCurp TEXT , name TEXT, lastnameF
 		VALUES 
 			(idCurp, name, lastnameFathers, lastnameMothers, no, zipCode, streetName, state, phoneNumber, salary, rfcseq, shiftBegins, shiftEnds, patientNumber);
 
+		INSERT INTO
+			veterinarioTrabajaEn(curp,nombreestetica)
+		VALUES 
+			(idCurp,nombredeestetica);
+
 
 	
 	END;
 $$ LANGUAGE plpgsql;
+
+
+-- SP para eliminar un veterinario introduciendo el CURP
+CREATE OR REPLACE PROCEDURE veterinarioDelete(idCurp TEXT)
+	AS $$
+	BEGIN
+		IF LENGTH(idCurp) <> 18 THEN 
+			RAISE EXCEPTION 'CURP no valido: % ', idCurp USING HINT = 'Longitud diferente de 18. Abortando ...';
+
+		ELSIF NOT EXISTS (SELECT FROM veterinario AS v WHERE v.curp = idCurp)  THEN 
+			RAISE EXCEPTION 'CURP no valido: % ', nombredeestetica USING HINT = 'Veterinario no existe. Abortando ...';
+
+		END IF;
+
+		DELETE FROM veterinarioTrabajaEn AS vett WHERE vett.curp = idCurp;
+
+		DELETE FROM veterinario AS vet WHERE vet.curp = idCurp;
+
+
+	END;
+$$ LANGUAGE plpgsql;
+
+
+-- SP veterinarioInsert
+COMMENT ON PROCEDURE veterinarioInsert IS 'Inserta un nuevo Veterinario en las tablas correspondientes (veterinarioTrabajaEn y Veterinario)';
+
+
+-- SP veterinarioDelete comentarios
+COMMENT ON PROCEDURE veterinarioDelete IS 'Elimina un veterinario junto con sus referencias';
