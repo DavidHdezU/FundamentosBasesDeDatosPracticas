@@ -87,7 +87,7 @@ CREATE OR REPLACE PROCEDURE veterinarioDelete(idCurp TEXT)
 			RAISE EXCEPTION 'CURP no valido: % ', idCurp USING HINT = 'Longitud diferente de 18. Abortando ...';
 
 		ELSIF NOT EXISTS (SELECT FROM veterinario AS v WHERE v.curp = idCurp)  THEN 
-			RAISE EXCEPTION 'CURP no valido: % ', nombredeestetica USING HINT = 'Veterinario no existe. Abortando ...';
+			RAISE EXCEPTION 'CURP no valido: % ', idCurp USING HINT = 'Veterinario no existe. Abortando ...';
 
 		END IF;
 
