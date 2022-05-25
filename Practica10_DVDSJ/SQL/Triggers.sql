@@ -3,7 +3,6 @@
  * Version: 22.5.23
  */
 
-
 -- Funcion para invertir los apellidos
 CREATE OR REPLACE FUNCTION swap()
 	RETURNS TRIGGER AS $$ 
@@ -14,7 +13,6 @@ CREATE OR REPLACE FUNCTION swap()
 		NEW.apellidoMaterno := dummy;
 
 		RETURN NEW;
-
 	END;
 $$ LANGUAGE plpgsql;
 
@@ -38,7 +36,7 @@ CREATE OR REPLACE FUNCTION stopChanges()
 			RAISE EXCEPTION 'No puedes modificar la tabla Mascota';
 		END IF;
 		RETURN NEW;
-	END
+	END;
 $$ LANGUAGE plpgsql;
 
 -- Un trigger que se encargue de evitar que se pueda modificar y borrar de la tabla mascota.
