@@ -45,8 +45,8 @@ CREATE TABLE parrillero (
     Telefono   VARCHAR(10)  NOT NULL CHECK(CHAR_LENGTH(Telefono) = 10) UNIQUE,
     Email      VARCHAR(320) NOT NULL UNIQUE,
 
-    PRIMARY KEY(RFC),
-    FOREING KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
+    PRIMARY KEY (RFC),
+    FOREIGN KEY (id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -71,7 +71,7 @@ CREATE TABLE taquero (
     Email      VARCHAR(320) NOT NULL UNIQUE,
 
     PRIMARY KEY(RFC),
-    FOREING KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -96,7 +96,7 @@ CREATE TABLE mesero (
     Email      VARCHAR(320) NOT NULL UNIQUE,
 
     PRIMARY KEY(RFC),
-    FOREING KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -121,7 +121,7 @@ CREATE TABLE cajero (
     Email      VARCHAR(320) NOT NULL UNIQUE,
 
     PRIMARY KEY(RFC),
-    FOREING KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -146,7 +146,7 @@ CREATE TABLE tortillero (
     Email      VARCHAR(320) NOT NULL UNIQUE,
 
     PRIMARY KEY(RFC),
-    FOREING KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -177,7 +177,7 @@ CREATE TABLE repartidor (
     tipo   VARCHAR(50),
 
     PRIMARY KEY(RFC),
-    FOREING KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 -- }}}
 
@@ -186,9 +186,9 @@ CREATE TABLE cliente (
     CURP VARCHAR(18) NOT NULL CHECK(CURP ~* '^[a-z0-9]+$') UNIQUE,
     id_Taqueria INT NOT NULL,
     -- Nombre completo
-    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre <> '' AND Nombre ~* '^[a-z]+$'),
-    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z]+$'),
-    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z]+$'),
+    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre <> '' AND Nombre ~* '^[a-z\s]+$'),
+    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z\s]+$'),
+    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z\s]+$'),
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
@@ -202,15 +202,15 @@ CREATE TABLE cliente (
     Puntos_Taquero_Corazon DECIMAL NOT NULL CHECK(Puntos_Taquero_Corazon >= 0),
 
     PRIMARY KEY(CURP),
-    FOREING KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE NO ACTION
+    FOREIGN KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
 
 CREATE TABLE ticket (
     id VARCHAR(4) NOT NULL CHECK(id ~* '^[a-z0-9]+$' AND CHAR_LENGTH(id) = 4) UNIQUE,
     id_Cliente VARCHAR(18) NOT NULL,
-    Fecha DATETIME NOT NULL CHECK(Fecha <= NOW()),
-    RFC_Mesero VARCHAR(13) NOT NULL CHECK(RFC ~* '^[a-z0-9]+$'), -- TODO: Asegurar integridad referencial con los RFC de mesero
+    Fecha DATE NOT NULL CHECK(Fecha <= NOW()),
+    RFC_Mesero VARCHAR(13) NOT NULL CHECK(RFC_Mesero ~* '^[a-z0-9]+$'), -- TODO: Asegurar integridad referencial con los RFC de mesero
     -- Metodo de pago
     Es_Efectivo BOOLEAN NOT NULL,
     Es_Tarjeta  BOOLEAN NOT NULL,
@@ -219,7 +219,7 @@ CREATE TABLE ticket (
     Total DECIMAL NOT NULL CHECK(Total >= 0),
 
     PRIMARY KEY(id),
-    FOREING KEY(id_Cliente) REFERENCES cliente(CURP) ON UPDATE CASCADE ON DELETE NO ACTION
+    FOREIGN KEY(id_Cliente) REFERENCES cliente(CURP) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
 
@@ -240,7 +240,7 @@ CREATE TABLE item (
     Precio      DECIMAL NOT NULL CHECK(Precio >= 0),
 
     PRIMARY KEY(id),
-    FOREING KEY(id_Categoria) REFERENCES categoria(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(id_Categoria) REFERENCES categoria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -256,7 +256,7 @@ CREATE TABLE salsa (
     Precio1000 DECIMAL NOT NULL CHECK(Precio1000 >= 0),
 
     PRIMARY KEY(id),
-    FOREING KEY(id_Categoria) REFERENCES categoria(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(id_Categoria) REFERENCES categoria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -264,7 +264,7 @@ CREATE TABLE ingrediente (
     id INT NOT NULL UNIQUE,
     Nombre VARCHAR(50) NOT NULL CHECK(Nombre <> ''),
     Tipo   VARCHAR(50) NOT NULL CHECK(Nombre <> ''),
-    Precio DECIMAL NOT NULL CHECK(Precio250 >= 0),
+    Precio DECIMAL NOT NULL CHECK(Precio >= 0),
 
     PRIMARY KEY(id)
 );
@@ -277,8 +277,8 @@ CREATE TABLE utilizar (
     Cantidad INT NOT NULL CHECK(Cantidad >= 0),
 
     PRIMARY KEY(id_Item, id_Ingrediente),
-    FOREING KEY(id_Item) REFERENCES item(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREING KEY(id_Ingrediente) REFERENCES ingrediente(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(id_Item) REFERENCES item(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(id_Ingrediente) REFERENCES ingrediente(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -289,8 +289,8 @@ CREATE TABLE utilizar_en_salsa (
     Cantidad INT NOT NULL CHECK(Cantidad >= 0),
 
     PRIMARY KEY(id_Salsa, id_Ingrediente),
-    FOREING KEY(id_Salsa) REFERENCES salsa(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREING KEY(id_Ingrediente) REFERENCES ingrediente(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY(id_Salsa) REFERENCES salsa(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(id_Ingrediente) REFERENCES ingrediente(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- }}}

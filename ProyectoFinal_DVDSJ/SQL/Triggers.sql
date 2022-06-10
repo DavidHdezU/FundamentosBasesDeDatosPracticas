@@ -14,7 +14,7 @@ CREATE OR REPLACE FUNCTION default_data()
                         Email, A_Domicilio, Puntos_Taquero_Corazon)
             VALUES 
                 (NEW.RFC, NEW.id, NEW.Nombre, 'Ricos', 'Tacos', NEW.Calle,
-                NEW.Numero, NEW.Estado, NEW.C_Postal, NEW.Telefono
+                NEW.Numero, NEW.Estado, NEW.C_Postal, NEW.Telefono,
                 NEW.Email, FALSE, 0);
 
         ELSIF (TG_OP = 'UPDATE') THEN 
@@ -27,7 +27,7 @@ CREATE OR REPLACE FUNCTION default_data()
                         Email, A_Domicilio, Puntos_Taquero_Corazon)
             VALUES 
                 (NEW.RFC, NEW.id, NEW.Nombre, 'Ricos', 'Tacos', NEW.Calle,
-                NEW.Numero, NEW.Estado, NEW.C_Postal, NEW.Telefono
+                NEW.Numero, NEW.Estado, NEW.C_Postal, NEW.Telefono,
                 NEW.Email, FALSE, 0);
         END IF;
         RETURN NEW;
