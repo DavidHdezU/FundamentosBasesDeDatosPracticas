@@ -231,6 +231,15 @@ CREATE TABLE categoria (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE organizar_menu (
+    id_Taqueria INT NOT NULL,
+    id_Categoria INT NOT NULL,
+
+    PRIMARY KEY(id_Taqueria, id_Categoria),
+    FOREIGN KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(id_Ingrid_Categoriaediente) REFERENCES categoria(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
 
 CREATE TABLE item (
     id INT NOT NULL UNIQUE,
@@ -293,6 +302,80 @@ CREATE TABLE utilizar_en_salsa (
     FOREIGN KEY(id_Ingrediente) REFERENCES ingrediente(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE TABLE registro_historico (
+    id_Registro INT NOT NULL UNIQUE,
+    id_Item INT NOT NULL UNIQUE,
+
+    Precio DECIMAL NOT NULL CHECK(Precio >= 0),
+    Pinsumos DECIMAL NOT NULL CHECK(Pinsumos >= 0),
+    Fecha DATE NOT NULL CHECK(Fecha <= NOW()),
+    
+    PRIMARY KEY(id_Registro),
+    FOREIGN KEY(id_Item) REFERENCES item(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE compra (
+    id INT NOT NULL UNIQUE,
+    RFC_proveedor INT NOT NULL UNIQUE,
+    Marca VARCHAR(50) CHECK(Marca <> ''),
+    Tipo VARCHAR(50) CHECK(Tipo <> ''),
+    FechaCompra DATE NOT NULL CHECK(FechaCompra <= NOW()),
+    FechaCaducidad DATE NOT NULL CHECK(FechaCaducidad <= NOW()),
+    CantidadComprada INT NOT NULL CHECK(CantidadComprada >= 0),
+    PrecioCompra DECIMAL NOT NULL CHECK(PrecioCompra >= 0),
+
+    PRIMARY KEY(id),
+    FOREIGN KEY(RFC_proveedor) REFERENCES proveedor(RFC) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE proveedor (
+    RFC VARCHAR(13) NOT NULL CHECK(RFC ~* '^[a-z0-9]+$') UNIQUE,
+    Nombre VARCHAR(50) NOT NULL CHECK(Nombre <> '' AND Nombre ~* '^[a-z]+$'),
+    Servicio TEXT NOT NULL,
+
+    PRIMARY KEY(RFC)
+);
+
+CREATE TABLE telefono_proveedor(
+    RFC_proveedor VARCHAR(13) NOT NULL CHECK(RFC_proveedor ~* '^[a-z0-9]+$') UNIQUE,
+    Telefono VARCHAR(10)  NOT NULL CHECK(CHAR_LENGTH(Telefono) = 10) UNIQUE,  
+
+    PRIMARY KEY(RFC_proveedor, Telefono),
+    FOREIGN KEY(RFC_proveedor) REFERENCES proveedor(RFC) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE email_proveedor(
+    RFC_proveedor VARCHAR(13) NOT NULL CHECK(RFC_proveedor ~* '^[a-z0-9]+$') UNIQUE,
+    Email VARCHAR(320) NOT NULL UNIQUE,
+    
+
+    PRIMARY KEY(RFC_proveedor, Email),
+    FOREIGN KEY(RFC_proveedor) REFERENCES proveedor(RFC) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE abastecer (
+    id_Taqueria INT NOT NULL UNIQUE,
+    id_Compra INT NOT NULL UNIQUE,
+
+    PRIMARY KEY(id_Taqueria, id_Compra),
+    FOREIGN KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(id_Compra) REFERENCES compra(id) ON UPDATE CASCADE ON DELETE CASCADE
+
+);
+
+CREATE TABLE inventario (
+    id INT NOT NULL UNIQUE,
+    id_Taqueria INT NOT NULL UNIQUE,
+
+    Tipo VARCHAR(50) CHECK(Tipo <> ''),
+    FechaCaducidad DATE NOT NULL,
+    CantidadRestante INT NOT NULL CHECK(CantidadRestante >= 0),
+
+    PRIMARY KEY(id)
+    FOREIGN KEY(id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE,
+);
+
+
 -- }}}
 
 ----------- Comments -----------
@@ -347,4 +430,36 @@ COMMENT ON TABLE salsa IS 'Almacena la informacion de las salsas';
 
 -- Comentarios de Ingrediente -- {{{ 
 COMMENT ON TABLE ingrediente IS 'Almacena la informacion relevante de los ingredientes para cada plato';
+-- }}}
+
+-- Comentarios de OrganizarMenu -- {{{ 
+COMMENT ON TABLE organizar_menu IS 'Almacena la informacion relevante de como está organizado el menu';
+-- }}}
+
+-- Comentarios de RegistroHistorico -- {{{ 
+COMMENT ON TABLE registro_historico IS 'Almacena la informacion relevante del registro historico de un item';
+-- }}}
+
+-- Comentarios de Compra -- {{{ 
+COMMENT ON TABLE compra IS 'Almacena la informacion relevante de la información de una Compra';
+-- }}}
+
+-- Comentarios de Proveedor -- {{{ 
+COMMENT ON TABLE proveedor IS 'Almacena la informacion relevante de la información de un proveedor';
+-- }}}
+
+-- Comentarios de TelefonoProveedor -- {{{ 
+COMMENT ON TABLE telefono_proveedor IS 'Almacena la informacion relevante del telefono de un proveedor';
+-- }}}
+
+-- Comentarios de EmailProveedor -- {{{ 
+COMMENT ON TABLE email_proveedor IS 'Almacena la informacion relevante del email de un proveedor';
+-- }}}
+
+-- Comentarios de Abastecer -- {{{ 
+COMMENT ON TABLE abastecer IS 'Almacena la informacion sobre la relación abastecer';
+-- }}}
+
+-- Comentarios de Inventario -- {{{ 
+COMMENT ON TABLE inventario IS 'Almacena la informacion sobre el inventario';
 -- }}}
