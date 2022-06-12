@@ -10,11 +10,11 @@ CREATE SCHEMA public;
 CREATE TABLE taqueria (
     id INT NOT NULL UNIQUE,
     RFC VARCHAR(13) NOT NULL CHECK(RFC ~* '^[a-z0-9]+$') UNIQUE,
-    Nombre   VARCHAR(100) NOT NULL CHECK(Nombre <> '' AND Nombre ~* '^[a-z\s]+$'),
+    Nombre   VARCHAR(100) NOT NULL CHECK(Nombre <> ''),
     -- Direccion
     Calle    VARCHAR(50)  NOT NULL,
     Numero   VARCHAR(10)  NOT NULL,
-    Estado   VARCHAR(50)  NOT NULL CHECK(Estado   ~* '^[a-z]+$'),
+    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
     C_Postal VARCHAR(5)   NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
     -- Contacto
     Telefono VARCHAR(10)  NOT NULL CHECK(CHAR_LENGTH(Telefono) = 10) UNIQUE,
@@ -36,7 +36,7 @@ CREATE TABLE parrillero (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z]+$'),
+    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -62,7 +62,7 @@ CREATE TABLE taquero (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z]+$'),
+    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -88,7 +88,7 @@ CREATE TABLE mesero (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z]+$'),
+    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -114,7 +114,7 @@ CREATE TABLE cajero (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z]+$'),
+    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -140,7 +140,7 @@ CREATE TABLE tortillero (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z]+$'),
+    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -166,7 +166,7 @@ CREATE TABLE repartidor (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z]+$'),
+    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -198,7 +198,7 @@ CREATE TABLE cliente (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado ~* '^[a-z]+$'),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
     -- Contacto
     Telefono   VARCHAR(10)  NOT NULL CHECK(CHAR_LENGTH(Telefono) = 10) UNIQUE,
@@ -243,7 +243,7 @@ CREATE TABLE organizar_menu (
 
     PRIMARY KEY (id_Taqueria, id_Categoria),
     FOREIGN KEY (id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (id_Ingrid_Categoriaediente) REFERENCES categoria(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (id_Categoria) REFERENCES categoria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
@@ -318,9 +318,17 @@ CREATE TABLE registro_historico (
     FOREIGN KEY (id_Item) REFERENCES item(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE TABLE proveedor (
+    RFC    VARCHAR(13) NOT NULL CHECK(RFC ~* '^[a-z0-9]+$') UNIQUE,
+    Nombre VARCHAR(50) NOT NULL CHECK(Nombre <> '' AND Nombre ~* '^[a-z]+$'),
+    Servicio TEXT      NOT NULL,
+
+    PRIMARY KEY (RFC)
+);
+
 CREATE TABLE compra (
     id INT NOT NULL UNIQUE,
-    RFC_proveedor INT NOT NULL UNIQUE,
+    RFC_proveedor VARCHAR(13) NOT NULL CHECK(RFC_proveedor  ~* '^[a-z0-9]+$') UNIQUE,
     Marca VARCHAR(50) CHECK(Marca <> ''),
     Tipo  VARCHAR(50) CHECK(Tipo <> ''),
     FechaCompra     DATE NOT NULL CHECK(FechaCompra <= NOW()),
@@ -332,13 +340,7 @@ CREATE TABLE compra (
     FOREIGN KEY (RFC_proveedor) REFERENCES proveedor(RFC) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE proveedor (
-    RFC    VARCHAR(13) NOT NULL CHECK(RFC ~* '^[a-z0-9]+$') UNIQUE,
-    Nombre VARCHAR(50) NOT NULL CHECK(Nombre <> '' AND Nombre ~* '^[a-z]+$'),
-    Servicio TEXT      NOT NULL,
 
-    PRIMARY KEY (RFC)
-);
 
 CREATE TABLE telefono_proveedor(
     RFC_proveedor VARCHAR(13) NOT NULL CHECK(RFC_proveedor ~* '^[a-z0-9]+$') UNIQUE,
@@ -374,8 +376,8 @@ CREATE TABLE inventario (
     FechaCaducidad  DATE NOT NULL,
     CantidadRestante INT NOT NULL CHECK(CantidadRestante >= 0),
 
-    PRIMARY KEY (id)
-    FOREIGN KEY (id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
