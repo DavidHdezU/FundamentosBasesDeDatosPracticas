@@ -14,7 +14,7 @@ CREATE TABLE taqueria (
     -- Direccion
     Calle    VARCHAR(50)  NOT NULL,
     Numero   VARCHAR(10)  NOT NULL,
-    Estado   VARCHAR(50)  NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   <> ''),
     C_Postal VARCHAR(5)   NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND CHAR_LENGTH(C_Postal) = 5),
     -- Contacto
     Telefono VARCHAR(10)  NOT NULL CHECK(CHAR_LENGTH(Telefono) = 10) UNIQUE,
@@ -36,7 +36,7 @@ CREATE TABLE parrillero (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -62,7 +62,7 @@ CREATE TABLE taquero (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -88,7 +88,7 @@ CREATE TABLE mesero (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -114,7 +114,7 @@ CREATE TABLE cajero (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -140,7 +140,7 @@ CREATE TABLE tortillero (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -166,7 +166,7 @@ CREATE TABLE repartidor (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
@@ -198,7 +198,7 @@ CREATE TABLE cliente (
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   <> ''),
     C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
     -- Contacto
     Telefono   VARCHAR(10)  NOT NULL CHECK(CHAR_LENGTH(Telefono) = 10) UNIQUE,
