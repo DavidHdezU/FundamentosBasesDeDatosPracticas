@@ -232,7 +232,7 @@ CREATE TABLE ticket (
 -- Menu     -- {{{
 CREATE TABLE categoria (
     id INT NOT NULL UNIQUE,
-    Nombre VARCHAR(50) NOT NULL CHECK(Nombre <> ''),
+    Nombre VARCHAR(50) NOT NULL CHECK(Nombre <> '') UNIQUE,
 
     PRIMARY KEY(id)
 );
@@ -328,7 +328,7 @@ CREATE TABLE proveedor (
 
 CREATE TABLE compra (
     id INT NOT NULL UNIQUE,
-    RFC_proveedor VARCHAR(13) NOT NULL CHECK(RFC_proveedor  ~* '^[a-z0-9]+$') UNIQUE,
+    RFC_proveedor VARCHAR(13) NOT NULL CHECK(RFC_proveedor  ~* '^[a-z0-9]+$'),
     Marca VARCHAR(50) CHECK(Marca <> ''),
     Tipo  VARCHAR(50) CHECK(Tipo <> ''),
     FechaCompra     DATE NOT NULL CHECK(FechaCompra <= NOW()),
@@ -359,7 +359,7 @@ CREATE TABLE email_proveedor(
 );
 
 CREATE TABLE abastecer (
-    id_Taqueria INT NOT NULL UNIQUE,
+    id_Taqueria INT NOT NULL,
     id_Compra   INT NOT NULL UNIQUE,
 
     PRIMARY KEY (id_Taqueria, id_Compra),
@@ -370,7 +370,7 @@ CREATE TABLE abastecer (
 
 CREATE TABLE inventario (
     id INT NOT NULL UNIQUE,
-    id_Taqueria INT NOT NULL UNIQUE,
+    id_Taqueria INT NOT NULL,
 
     Tipo VARCHAR(50) CHECK(Tipo <> ''),
     FechaCaducidad  DATE NOT NULL,
