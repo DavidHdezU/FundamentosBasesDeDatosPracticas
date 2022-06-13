@@ -2876,5 +2876,30 @@ insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (82, 5, 
 insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (83, 5, 'Torta de bistec', 'Torta relleno de bistec con o sin verdura.', 22);
 insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (84, 5, 'Torta de chorizo', 'Torta relleno de chorizo con o sin verdura.', 24);
 insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (85, 5, 'Torta de lengua', 'Torta relleno de lengua con o sin verdura.', 27);
-
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (86, 6, 'Mole', ' Mole poblano muy rico', 93);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (87, 6, 'Pozole', ' El tradicional pozole que siempre cae bien', 191);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (88, 6, 'Chiles en Nogada', ' Orden de 3 chiles poblano y de relleno puede ser carne de cerdo o res y diversas especias.', 197);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (89, 6, 'Tlayuda', ' La tradicional Tlayuda', 108);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (90, 6, 'Enchiladas', ' Orden de 3 Enchiladas rojas o verdes rellenas de pollo', 150);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (91, 6, 'Aguachile', ' El tradicional Aguachile', 111);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (92, 6, 'Guacamole', ' El tradicional Guacamole con un toque especial', 147);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (93, 6, 'Cochinita pibil', ' La tradicional Cochinita pibil acompañada de ensalada', 77);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (94, 8, 'Agua de limon con chia', 'Refrescante agua de limon con chia', 10);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (95, 8, 'Agua de horchata', 'Refrescante agua de horchata', 12);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (96, 8, 'Agua de jamaica', 'Refrescante agua de jamaica', 30);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (97, 8, 'Agua de tamarindo', 'Refrescante agua de tamarindo', 21);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (98, 8, 'Agua de piña', 'Refrescante agua de piña', 21);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (99, 8, 'Agua de embotellada', 'Refrescante agua de embotellada', 17);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (100, 8, 'Agua de mineral', 'Refrescante agua de mineral', 19);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (101, 8, 'Coca cola', 'Refresco coca cola', 18);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (102, 8, 'Sprite', 'Refresco sprite', 26);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (103, 8, 'Fanta', 'Refresco fanta', 22);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (104, 8, 'Sidral Mundel', 'Refresco sidral mundel', 20);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (105, 8, 'Yoli', 'Refresco yoli', 29);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (106, 8, 'XX Ambar', 'Cerveza xx ambar', 29);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (107, 8, 'Corona', 'Cerveza corona', 24);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (108, 8, 'Tecate', 'Cerveza tecate', 19);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (109, 8, 'Pacifico', 'Cerveza pacifico', 16);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (110, 8, 'Heineken', 'Cerveza heineken', 10);
+insert into item (id, id_Categoria, Nombre, Descripcion, Precio) values (111, 8, 'Modelo', 'Cerveza modelo', 14);
 

@@ -308,7 +308,7 @@ CREATE TABLE utilizar_en_salsa (
 
 CREATE TABLE registro_historico (
     id_Registro INT NOT NULL UNIQUE,
-    id_Item     INT NOT NULL UNIQUE,
+    id_Item     INT NOT NULL,
 
     Precio   DECIMAL NOT NULL CHECK(Precio >= 0),
     Pinsumos DECIMAL NOT NULL CHECK(Pinsumos >= 0),
