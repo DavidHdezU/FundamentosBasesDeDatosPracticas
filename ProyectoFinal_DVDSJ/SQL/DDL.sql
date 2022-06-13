@@ -14,8 +14,8 @@ CREATE TABLE taqueria (
     -- Direccion
     Calle    VARCHAR(50)  NOT NULL,
     Numero   VARCHAR(10)  NOT NULL,
-    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
-    C_Postal VARCHAR(5)   NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
+    Estado   VARCHAR(50)  NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    C_Postal VARCHAR(5)   NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND CHAR_LENGTH(C_Postal) = 5),
     -- Contacto
     Telefono VARCHAR(10)  NOT NULL CHECK(CHAR_LENGTH(Telefono) = 10) UNIQUE,
     Email    VARCHAR(320) NOT NULL UNIQUE,
@@ -30,14 +30,14 @@ CREATE TABLE parrillero (
     RFC  VARCHAR(13) NOT NULL CHECK(RFC  ~* '^[a-z0-9]+$') UNIQUE,
     id_Taqueria  INT NOT NULL,
     -- Nombre completo
-    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z]+$'),
-    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z]+$'),
-    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z]+$'),
+    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z\s]+$'),
+    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z\s]+$'),
+    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z\s]+$'),
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
-    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
     NSS        VARCHAR(11)  NOT NULL CHECK(NSS ~* '^[a-z0-9]+$' AND CHAR_LENGTH(NSS) = 11) UNIQUE,
@@ -56,14 +56,14 @@ CREATE TABLE taquero (
     RFC  VARCHAR(13) NOT NULL CHECK(RFC  ~* '^[a-z0-9]+$') UNIQUE,
     id_Taqueria  INT NOT NULL,
     -- Nombre completo
-    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z]+$'),
-    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z]+$'),
-    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z]+$'),
+    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z\s]+$'),
+    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z\s]+$'),
+    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z\s]+$'),
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
-    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
     NSS        VARCHAR(11)  NOT NULL CHECK(NSS ~* '^[a-z0-9]+$' AND CHAR_LENGTH(NSS) = 11) UNIQUE,
@@ -82,14 +82,14 @@ CREATE TABLE mesero (
     RFC  VARCHAR(13) NOT NULL CHECK(RFC  ~* '^[a-z0-9]+$') UNIQUE,
     id_Taqueria  INT NOT NULL,
     -- Nombre completo
-    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z]+$'),
-    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z]+$'),
-    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z]+$'),
+    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z\s]+$'),
+    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z\s]+$'),
+    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z\s]+$'),
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
-    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
     NSS        VARCHAR(11)  NOT NULL CHECK(NSS ~* '^[a-z0-9]+$' AND CHAR_LENGTH(NSS) = 11) UNIQUE,
@@ -108,14 +108,14 @@ CREATE TABLE cajero (
     RFC  VARCHAR(13) NOT NULL CHECK(RFC  ~* '^[a-z0-9]+$') UNIQUE,
     id_Taqueria  INT NOT NULL,
     -- Nombre completo
-    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z]+$'),
-    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z]+$'),
-    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z]+$'),
+    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z\s]+$'),
+    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z\s]+$'),
+    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z\s]+$'),
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
-    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
     NSS        VARCHAR(11)  NOT NULL CHECK(NSS ~* '^[a-z0-9]+$' AND CHAR_LENGTH(NSS) = 11) UNIQUE,
@@ -134,14 +134,14 @@ CREATE TABLE tortillero (
     RFC  VARCHAR(13) NOT NULL CHECK(RFC  ~* '^[a-z0-9]+$') UNIQUE,
     id_Taqueria  INT NOT NULL,
     -- Nombre completo
-    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z]+$'),
-    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z]+$'),
-    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z]+$'),
+    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z\s]+$'),
+    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z\s]+$'),
+    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z\s]+$'),
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
-    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
     NSS        VARCHAR(11)  NOT NULL CHECK(NSS ~* '^[a-z0-9]+$' AND CHAR_LENGTH(NSS) = 11) UNIQUE,
@@ -160,14 +160,14 @@ CREATE TABLE repartidor (
     RFC  VARCHAR(13) NOT NULL CHECK(RFC  ~* '^[a-z0-9]+$') UNIQUE,
     id_Taqueria  INT NOT NULL,
     -- Nombre completo
-    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z]+$'),
-    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z]+$'),
-    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z]+$'),
+    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z\s]+$'),
+    A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z\s]+$'),
+    A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z\s]+$'),
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50)  NOT NULL CHECK(Estado <> ''),
-    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
 
     Edad INT NOT NULL CHECK(edad >= 18),
     NSS        VARCHAR(11)  NOT NULL CHECK(NSS ~* '^[a-z0-9]+$' AND CHAR_LENGTH(NSS) = 11) UNIQUE,
@@ -192,14 +192,14 @@ CREATE TABLE cliente (
     CURP VARCHAR(18) NOT NULL CHECK(CURP ~* '^[a-z0-9]+$') UNIQUE,
     id_Taqueria INT NOT NULL,
     -- Nombre completo
-    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre <> '' AND Nombre ~* '^[a-z\s]+$'),
+    Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z\s]+$'),
     A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z\s]+$'),
     A_Materno VARCHAR(50) NOT NULL CHECK(A_Materno <> '' AND A_Materno ~* '^[a-z\s]+$'),
     -- Direccion
     Calle    VARCHAR(50) NOT NULL,
     Numero   VARCHAR(10) NOT NULL,
-    Estado   VARCHAR(50) NOT NULL CHECK(Estado <> ''),
-    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$' AND  CHAR_LENGTH(C_Postal) = 5),
+    Estado   VARCHAR(50) NOT NULL CHECK(Estado   ~* '^[a-z\s]+$' AND Estado <> ''),
+    C_Postal VARCHAR(5)  NOT NULL CHECK(C_Postal ~* '^[0-9]+$'   AND  CHAR_LENGTH(C_Postal) = 5),
     -- Contacto
     Telefono   VARCHAR(10)  NOT NULL CHECK(CHAR_LENGTH(Telefono) = 10) UNIQUE,
     Email      VARCHAR(320) NOT NULL UNIQUE,
