@@ -1,0 +1,9 @@
+tipo,id
+Dulce,1
+Bajo,2
+Medio,3
+Alto,4
+Extremo,5
+
+
+items1 = ", Torta de carnitas, Torta al pastor, Torta de barbacoa, Torta de suadero, Torta de cabeza, Torta de tripas, Torta de cecina, Torta de chilorio, Torta de requesón, Torta de pescado, Torta de tuétano, Torta de nopal asado, Torta de chapulines, Torta de cochinita pibil, Torta de bistec, Torta de chorizo, Torta de lengua"
