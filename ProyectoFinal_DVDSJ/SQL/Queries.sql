@@ -36,9 +36,13 @@
  * 
  */
 
-select CURP, Nombre, A_Paterno, A_Materno,
-		count(CURP) "Total de compras"
-from cliente natural join ticket
+
+
+-- OBTENCIÓN DE LOS 15 CLIENTES MÁS FRECUENTES
+SELECT CURP, Nombre, A_Paterno, count(CURP) "Total de compras", SUM(Total) "Gastos totales"
+FROM cliente
+INNER JOIN ticket ON cliente.CURP=ticket.id_Cliente
 group by cliente.CURP
-order by 5 desc
-LIMIT 10;
+order by 4 desc
+LIMIT 15;
+
