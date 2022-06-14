@@ -68,7 +68,7 @@ insert into taqueria (id, RFC, Nombre, Calle, Numero, Estado, C_Postal, Telefono
 insert into taqueria (id, RFC, Nombre, Calle, Numero, Estado, C_Postal, Telefono, Email) values (68, 'VFLE403792QPB', 'Petr', 'Fuller', '492', 'Morelos', '05708', '8323001529', 'pmackereth1v@latimes.com');
 insert into taqueria (id, RFC, Nombre, Calle, Numero, Estado, C_Postal, Telefono, Email) values (69, 'BMEY004693I7V', 'Candide', 'Grover', '72750', 'Nayarit', '34284', '1787844054', 'cceschi1w@jimdo.com');
 insert into taqueria (id, RFC, Nombre, Calle, Numero, Estado, C_Postal, Telefono, Email) values (70, 'OBAW797511TIT', 'Magdalen', 'Westerfield', '468', 'Ciudad de México', '84933', '3372327597', 'mjalland1x@multiply.com');
-insert into taqueria (id, RFC, Nombre, Calle, Numero, Estado, C_Postal, Telefono, Email) values (71, 'QSKT998150R19', 'Barbara-anne', 'Beilfuss', '6551', 'Guerrero', '00275', '5229543319', 'blevane1y@time.com');
+insert into taqueria (id, RFC, Nombre, Calle, Numero, Estado, C_Postal, Telefono, Email) values (71, 'QSKT998150R19', 'Barbara Anne', 'Beilfuss', '6551', 'Guerrero', '00275', '5229543319', 'blevane1y@time.com');
 insert into taqueria (id, RFC, Nombre, Calle, Numero, Estado, C_Postal, Telefono, Email) values (72, 'XICQ5416456KG', 'Amata', 'Brown', '84', 'Hidalgo', '58372', '9988887703', 'aleagas1z@163.com');
 insert into taqueria (id, RFC, Nombre, Calle, Numero, Estado, C_Postal, Telefono, Email) values (73, 'JSBS4532369DW', 'Leonidas', 'Victoria', '717', 'Distrito Federal', '83396', '4422273587', 'llobley20@hud.gov');
 insert into taqueria (id, RFC, Nombre, Calle, Numero, Estado, C_Postal, Telefono, Email) values (74, 'VRCT6098047RM', 'Lukas', 'Pennsylvania', '55', 'San Luis Potosí', '18321', '4166146451', 'lkarlqvist21@mit.edu');
