@@ -46,3 +46,26 @@ group by cliente.CURP
 order by 4 desc
 LIMIT 15;
 
+-- INGRESOS TOTALES DE LAS CON INGRESOS MAYORES O IGUALES A 1000
+SELECT id_Taqueria, SUM(Total) "Ingresos" FROM ticket left join cliente ON ticket.id_Cliente = cliente.CURP
+GROUP BY id_Taqueria
+HAVING SUM(Total) >= 1000
+ORDER BY 2 desc;
+
+-- EMPLEADOS QUE CUMPLEN CON EL PROGRAMA DE ANTIGUEDAD
+SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM taquero
+UNION ALL
+SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM parrillero
+UNION ALL
+SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM mesero
+UNION ALL
+SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM cajero
+UNION ALL
+SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM tortillero
+UNION ALL
+SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM repartidor
+GROUP BY CURP
+HAVING Antiguedad < NOW() - interval '2' year;
+
+
+

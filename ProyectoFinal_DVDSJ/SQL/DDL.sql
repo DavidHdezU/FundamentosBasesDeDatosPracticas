@@ -171,7 +171,7 @@ CREATE TABLE repartidor (
 
     Edad INT NOT NULL CHECK(edad >= 18),
     NSS        VARCHAR(11)  NOT NULL CHECK(NSS ~* '^[a-z0-9]+$' AND CHAR_LENGTH(NSS) = 11) UNIQUE,
-    Antiguedad DATE NOT NULL CHECK(Antiguedad <= NOW()),
+         DATE NOT NULL CHECK(Antiguedad <= NOW()),
     -- Contacto
     Telefono   VARCHAR(10)  NOT NULL CHECK(CHAR_LENGTH(Telefono) = 10) UNIQUE,
     Email      VARCHAR(320) NOT NULL UNIQUE,
