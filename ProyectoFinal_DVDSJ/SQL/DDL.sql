@@ -373,7 +373,7 @@ CREATE TABLE inventario (
     id_Taqueria INT NOT NULL,
 
     Tipo VARCHAR(50) CHECK(Tipo <> ''),
-    FechaCaducidad  DATE NOT NULL,
+    FechaCaducidad   DATE,
     CantidadRestante INT NOT NULL CHECK(CantidadRestante >= 0),
 
     PRIMARY KEY (id),
