@@ -54,18 +54,30 @@ ORDER BY 2 desc;
 
 -- EMPLEADOS QUE CUMPLEN CON EL PROGRAMA DE ANTIGUEDAD
 SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM taquero
-UNION ALL
+WHERE DATE_PART('year', AGE(NOW(), antiguedad)) >= 2
+UNION
 SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM parrillero
-UNION ALL
+WHERE DATE_PART('year', AGE(NOW(), antiguedad)) >= 2
+UNION
 SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM mesero
-UNION ALL
+WHERE DATE_PART('year', AGE(NOW(), antiguedad)) >= 2
+UNION
 SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM cajero
-UNION ALL
+WHERE DATE_PART('year', AGE(NOW(), antiguedad)) >= 2
+UNION
 SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM tortillero
-UNION ALL
+WHERE DATE_PART('year', AGE(NOW(), antiguedad)) >= 2
+UNION
 SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM repartidor
 GROUP BY CURP
 HAVING DATE_PART('year', AGE(NOW(), antiguedad)) >= 2;
+
+
+-- NUMERO DE CLIENTES ATENDIDOS POR SUCURSAL
+SELECT id_taqueria, COUNT(id_taqueria) "Clientes atendidos totales" FROM cliente
+GROUP BY id_taqueria
+ORDER BY 2 desc;
+
 
 
 

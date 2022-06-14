@@ -171,7 +171,7 @@ CREATE TABLE repartidor (
 
     Edad INT NOT NULL CHECK(edad >= 18),
     NSS        VARCHAR(11)  NOT NULL CHECK(NSS ~* '^[a-z0-9]+$' AND CHAR_LENGTH(NSS) = 11) UNIQUE,
-         DATE NOT NULL CHECK(Antiguedad <= NOW()),
+    Antiguedad DATE NOT NULL CHECK(Antiguedad <= NOW()),
     -- Contacto
     Telefono   VARCHAR(10)  NOT NULL CHECK(CHAR_LENGTH(Telefono) = 10) UNIQUE,
     Email      VARCHAR(320) NOT NULL UNIQUE,
@@ -190,7 +190,6 @@ CREATE TABLE repartidor (
 
 CREATE TABLE cliente (
     CURP VARCHAR(18) NOT NULL CHECK(CURP ~* '^[a-z0-9]+$') UNIQUE,
-    id_Taqueria INT NOT NULL,
     -- Nombre completo
     Nombre    VARCHAR(50) NOT NULL CHECK(Nombre    <> '' AND Nombre    ~* '^[a-z\s]+$'),
     A_Paterno VARCHAR(50) NOT NULL CHECK(A_Paterno <> '' AND A_Paterno ~* '^[a-z\s]+$'),
@@ -207,14 +206,14 @@ CREATE TABLE cliente (
     A_Domicilio BOOLEAN NOT NULL,
     Puntos_Taquero_Corazon DECIMAL NOT NULL CHECK(Puntos_Taquero_Corazon >= 0),
 
-    PRIMARY KEY (CURP),
-    FOREIGN KEY (id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE NO ACTION
+    PRIMARY KEY (CURP)
 );
 
 
 CREATE TABLE ticket (
-    id VARCHAR(4) NOT NULL CHECK(id ~* '^[a-z0-9]+$' AND CHAR_LENGTH(id) = 4) UNIQUE,
+    id VARCHAR(8) NOT NULL CHECK(id ~* '^[a-z0-9]+$' AND CHAR_LENGTH(id) = 8) UNIQUE,
     id_Cliente VARCHAR(18) NOT NULL,
+    id_Taqueria INT NOT NULL,
     Fecha DATE NOT NULL CHECK(Fecha <= NOW()),
     RFC_Mesero VARCHAR(13) NOT NULL CHECK(RFC_Mesero ~* '^[a-z0-9]+$'), -- TODO: Asegurar integridad referencial con los RFC de mesero
     -- Metodo de pago
@@ -225,7 +224,8 @@ CREATE TABLE ticket (
     Total DECIMAL NOT NULL CHECK(Total >= 0),
 
     PRIMARY KEY (id),
-    FOREIGN KEY (id_Cliente) REFERENCES cliente(CURP) ON UPDATE CASCADE ON DELETE NO ACTION
+    FOREIGN KEY (id_Cliente) REFERENCES cliente(CURP) ON UPDATE CASCADE ON DELETE NO ACTION,
+    FOREIGN KEY (id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
 
