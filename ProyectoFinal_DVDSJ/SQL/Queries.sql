@@ -65,7 +65,7 @@ SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM tortillero
 UNION ALL
 SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM repartidor
 GROUP BY CURP
-HAVING Antiguedad < NOW() - interval '2' year;
+HAVING DATE_PART('year', AGE(NOW(), antiguedad)) >= 2;
 
 
 
