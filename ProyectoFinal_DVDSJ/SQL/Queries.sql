@@ -191,3 +191,25 @@ GROUP BY
     id_taqueria, id_item
 ORDER BY 
     id_taqueria ASC;
+
+
+-- LOS TRES TACOS MAS VENDIDOS
+SELECT 
+   id,nombre,pv.piezas_vendidas 
+FROM 
+   item 
+JOIN (
+   SELECT 
+      id_item,SUM(cantidad) AS piezas_vendidas 
+   FROM 
+      vender 
+   GROUP BY id_item
+) AS pv 
+ON 
+   id=pv.id_item 
+GROUP BY 
+   item.id,pv.piezas_vendidas 
+HAVING 
+   nombre LIKE '%Taco%' 
+ORDER BY pv.piezas_vendidas DESC LIMIT 3;
+
