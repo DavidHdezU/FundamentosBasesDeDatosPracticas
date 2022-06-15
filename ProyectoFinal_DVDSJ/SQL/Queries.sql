@@ -175,3 +175,25 @@ GROUP BY
     id_taqueria, id_item
 ORDER BY 
     id_taqueria ASC;
+
+
+
+
+-- TACOS AL PASTOR VENDIDOS LOS DIAS LUNES DE ESTE ÚLTIMO MES POR SUCURSAL
+SELECT id_taqueria, nombre, SUM(cantidad) "Tacos al pastor vendidos los lunes del último mes" 
+FROM 
+	(SELECT id_taqueria,id_item, id_ticket, cantidad
+	 FROM
+	 vender JOIN ticket ON vender.id_ticket = ticket.id
+	 GROUP BY id_taqueria,id_item,id_ticket,Fecha
+	 -- VEMOS QUE ESTÉ EN EL RANGO DE ESTE ÚLTIMO MES, QUE SEA LUNES Y QUE EL ID_ITEM = 2, YA QUE COMO LO DEFINIMOS ESTE ID ES EL CORRESPONDIENTE A UN TACO AL PASTOR
+	 HAVING Fecha >= '2022-05-15' AND Fecha <= '2022-06-15' AND EXTRACT(dow from Fecha) = 1 AND id_item = 2
+	 
+	) as tv
+INNER JOIN 
+	taqueria
+ON
+	tv.id_taqueria = taqueria.id
+	
+GROUP BY id_taqueria, nombre
+ORDER BY 2 DESC;
