@@ -480,3 +480,7 @@ COMMENT ON TABLE abastecer IS 'Almacena la informacion sobre la relación abaste
 -- Comentarios de Inventario -- {{{ 
 COMMENT ON TABLE inventario IS 'Almacena la informacion sobre el inventario';
 -- }}}
+
+-- Comentarios de Vender     -- {{{ 
+COMMENT ON TABLE vender IS 'Contiene los datos que relacionan ticket y item';
+-- }}}
