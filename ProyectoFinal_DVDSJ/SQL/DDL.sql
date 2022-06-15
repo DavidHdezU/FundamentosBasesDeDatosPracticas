@@ -399,6 +399,8 @@ CREATE TABLE vender (
 
 -- Comentarios de Taqueria      -- {{{
 COMMENT ON TABLE taqueria IS 'Almacena la informacion de todas las taquerias';
+COMMENT ON TABLE taqueria.id IS 'El id de la taqueria';
+COMMENT ON TABLE taqueria.rfc IS 'El RFC de la taqueria';
 -- }}}
 
 -- Comentarios de Parrillero    -- {{{ 
