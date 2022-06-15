@@ -99,6 +99,7 @@ GROUP BY id_taqueria, Es_Puntos
 HAVING Es_Puntos = true
 ORDER BY 2 DESC;
 
+
 -- INGREDIENTES DE SALSAS CON MAXIMO PICOR
 SELECT                                    
    id_salsa, 
@@ -119,6 +120,7 @@ GROUP BY
 ORDER BY 
    us.id_salsa ASC;
 
+<<<<<<< Updated upstream
 -- INGREDIENTES DE CUALQUIER SALSA
 
 
@@ -137,3 +139,44 @@ GROUP BY
 	id_taqueria, Nombre
 ORDER BY 3 DESC;
 
+=======
+
+-- PLATILLOS DE PASTOR VENDIDOS EN TODAS LAS SUCURSALES
+SELECT 
+   id,nombre,pv.piezas_vendidas,precio 
+FROM 
+   item 
+JOIN 
+   (SELECT id_item,SUM(cantidad) AS piezas_vendidas 
+   FROM vender GROUP BY id_item ORDER BY id_item ASC) AS pv 
+ON 
+   id=pv.id_item 
+GROUP BY 
+   item.id,pv.piezas_vendidas 
+HAVING 
+   nombre LIKE '%pastor%' 
+ORDER BY item.id ASC;
+
+
+-- CERVEZA MODELO VENDIDA POR TAQUERIA EN EL ULTIMO MES
+SELECT 
+    id_taqueria, id_item, SUM(cantidad) AS cerveza_vendida
+FROM (
+    SELECT 
+        id_taqueria,id_item,cantidad 
+    FROM 
+        ticket 
+    JOIN 
+        (SELECT * FROM vender WHERE id_item=111) AS ventas 
+    ON 
+        id=ventas.id_ticket
+    GROUP BY 
+        id_taqueria,id_item,fecha,cantidad
+    HAVING 
+        fecha >= ('now'::timestamp - '1 month'::interval)
+) AS foo 
+GROUP BY 
+    id_taqueria, id_item
+ORDER BY 
+    id_taqueria ASC;
+>>>>>>> Stashed changes

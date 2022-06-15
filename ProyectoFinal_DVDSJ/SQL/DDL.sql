@@ -385,8 +385,7 @@ CREATE TABLE vender (
     id_Ticket VARCHAR(8) NOT NULL CHECK(id_Ticket ~* '^[a-z0-9]+$' AND CHAR_LENGTH(id_Ticket) = 8),
 
     Cantidad   INT NOT NULL,
-    Precio DECIMAL NOT NULL CHECK(Precio >= 0),
-
+    
     PRIMARY KEY (id_Item, id_Ticket),
     FOREIGN KEY (id_Item)   REFERENCES item(id)   ON UPDATE CASCADE ON DELETE NO ACTION,
     FOREIGN KEY (id_Ticket) REFERENCES ticket(id) ON UPDATE CASCADE ON DELETE CASCADE
