@@ -120,3 +120,20 @@ ORDER BY
    us.id_salsa ASC;
 
 -- INGREDIENTES DE CUALQUIER SALSA
+
+
+-- INGRESOS DE CADA TAQUERIA EN EL ULTIMO MES
+SELECT id_taqueria, Nombre, SUM(Total) "Ingresos en el último mes"
+FROM (
+	SELECT 
+		id_taqueria, Nombre , Total
+	FROM
+		ticket INNER JOIN taqueria ON ticket.id_taqueria = taqueria.id
+	GROUP BY id_taqueria, Nombre, Fecha, Total
+	HAVING
+		Fecha >= '2022-05-15' AND Fecha <= '2022-06-15'
+)  AS tk
+GROUP BY
+	id_taqueria, Nombre
+ORDER BY 3 DESC;
+
