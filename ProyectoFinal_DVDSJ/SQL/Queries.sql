@@ -92,5 +92,12 @@ GROUP BY id_taqueria
 ORDER BY 2 DESC
 LIMIT 10;
 
+-- VER QUE TAQUERIAS VENDEN MÁS POR PUNTOS
+SELECT id_taqueria, COUNT(id_taqueria) "Pagos con Puntos Taquero Corazon"
+FROM ticket
+GROUP BY id_taqueria, Es_Puntos
+HAVING Es_Puntos = true
+ORDER BY 2 DESC;
+
 
 
