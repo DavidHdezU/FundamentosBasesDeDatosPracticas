@@ -1,7 +1,7 @@
 -- vim:fileencoding=utf-8:foldmethod=marker
 /*
  * Author: Diego Padilla
- * Version: 22.5.9
+ * Version: 22.5.13
  */
 DROP SCHEMA IF EXISTS public CASCADE;
 CREATE SCHEMA public;
@@ -246,7 +246,6 @@ CREATE TABLE organizar_menu (
     FOREIGN KEY (id_Categoria) REFERENCES categoria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
 CREATE TABLE item (
     id INT NOT NULL UNIQUE,
     id_Categoria   INT  NOT NULL,
@@ -257,7 +256,6 @@ CREATE TABLE item (
     PRIMARY KEY (id),
     FOREIGN KEY (id_Categoria) REFERENCES categoria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
 
 CREATE TABLE salsa (
     id INT NOT NULL UNIQUE,
@@ -274,7 +272,6 @@ CREATE TABLE salsa (
     FOREIGN KEY (id_Categoria) REFERENCES categoria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
 CREATE TABLE ingrediente (
     id INT NOT NULL UNIQUE,
     Nombre VARCHAR(50) NOT NULL CHECK(Nombre <> ''),
@@ -283,7 +280,6 @@ CREATE TABLE ingrediente (
 
     PRIMARY KEY (id)
 );
-
 
 CREATE TABLE utilizar (
     id_Item        INT NOT NULL,
@@ -294,7 +290,6 @@ CREATE TABLE utilizar (
     FOREIGN KEY (id_Item) REFERENCES item(id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (id_Ingrediente) REFERENCES ingrediente(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
 
 CREATE TABLE utilizar_en_salsa (
     id_Salsa       INT NOT NULL,
@@ -317,7 +312,10 @@ CREATE TABLE registro_historico (
     PRIMARY KEY (id_Registro),
     FOREIGN KEY (id_Item) REFERENCES item(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+-- }}}
 
+
+-- Proveedor    -- {{{
 CREATE TABLE proveedor (
     RFC    VARCHAR(13) NOT NULL CHECK(RFC ~* '^[a-z0-9]+$') UNIQUE,
     Nombre VARCHAR(50) NOT NULL CHECK(Nombre <> '' AND Nombre ~* '^[a-z]+$'),
@@ -340,8 +338,6 @@ CREATE TABLE compra (
     FOREIGN KEY (RFC_proveedor) REFERENCES proveedor(RFC) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
-
 CREATE TABLE telefono_proveedor(
     RFC_proveedor VARCHAR(13) NOT NULL CHECK(RFC_proveedor ~* '^[a-z0-9]+$') UNIQUE,
     Telefono      VARCHAR(10) NOT NULL CHECK(CHAR_LENGTH(Telefono) = 10) UNIQUE,  
@@ -357,7 +353,10 @@ CREATE TABLE email_proveedor(
     PRIMARY KEY (RFC_proveedor, Email),
     FOREIGN KEY (RFC_proveedor) REFERENCES proveedor(RFC) ON UPDATE CASCADE ON DELETE CASCADE
 );
+ -- }}}
 
+
+-- Inventario   -- {{{ 
 CREATE TABLE abastecer (
     id_Taqueria INT NOT NULL,
     id_Compra   INT NOT NULL UNIQUE,
@@ -379,7 +378,10 @@ CREATE TABLE inventario (
     PRIMARY KEY (id),
     FOREIGN KEY (id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+-- }}}
 
+
+-- Ventas   -- {{{
 CREATE TABLE vender (
     id_Item   INT        NOT NULL,
     id_Ticket VARCHAR(8) NOT NULL CHECK(id_Ticket ~* '^[a-z0-9]+$' AND CHAR_LENGTH(id_Ticket) = 8),
@@ -390,9 +392,8 @@ CREATE TABLE vender (
     FOREIGN KEY (id_Item)   REFERENCES item(id)   ON UPDATE CASCADE ON DELETE NO ACTION,
     FOREIGN KEY (id_Ticket) REFERENCES ticket(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
-
 -- }}}
+
 
 ----------- Comments -----------
 
