@@ -399,52 +399,52 @@ CREATE TABLE vender (
 
 -- Comentarios de Taqueria      -- {{{
 COMMENT ON TABLE taqueria          IS 'Almacena la informacion de todas las taquerias';
-COMMENT ON TABLE taqueria.id       IS 'El id de la taqueria';
-COMMENT ON TABLE taqueria.rfc      IS 'El RFC de la taqueria';
-COMMENT ON TABLE taqueria.nombre   IS 'Nombre de la taqueria';
-COMMENT ON TABLE taqueria.calle    IS 'Calle donde se encuentra la taqueria';
-COMMENT ON TABLE taqueria.numero   IS 'Numero (direccion) de la taqueria';
-COMMENT ON TABLE taqueria.estado   IS 'Estado donde se ubica la taqueria';
-COMMENT ON TABLE taqueria.c_postal IS 'Codigo Postal de la taqueria';
-COMMENT ON TABLE taqueria.telefono IS 'Numero telefonico de la taqueria';
+COMMENT ON COLUMN taqueria.id       IS 'El id de la taqueria';
+COMMENT ON COLUMN taqueria.rfc      IS 'El RFC de la taqueria';
+COMMENT ON COLUMN taqueria.nombre   IS 'Nombre de la taqueria';
+COMMENT ON COLUMN taqueria.calle    IS 'Calle donde se encuentra la taqueria';
+COMMENT ON COLUMN taqueria.numero   IS 'Numero (direccion) de la taqueria';
+COMMENT ON COLUMN taqueria.estado   IS 'Estado donde se ubica la taqueria';
+COMMENT ON COLUMN taqueria.c_postal IS 'Codigo Postal de la taqueria';
+COMMENT ON COLUMN taqueria.telefono IS 'Numero telefonico de la taqueria';
 -- }}}
 
 -- Comentarios de Parrillero    -- {{{ 
 COMMENT ON TABLE parrillero      IS 'Almacena la informacion de todos los empleados parrilleros';
-COMMENT ON TABLE parrillero.curp IS 'El CURP del parrillero';
-COMMENT ON TABLE parrillero.rfc  IS 'El RFC del parrillero';
-COMMENT ON TABLE parrillero.id_taqueria IS 'ID de la taqueria donde trabaja el parrillero';
-COMMENT ON TABLE parrillero.nombre      IS 'Nombre del parrillero';
-COMMENT ON TABLE parrillero.a_paterno   IS 'Apellido paterno del parrillero';
-COMMENT ON TABLE parrillero.a_materno   IS 'Apellido materno del parrillero';
-COMMENT ON TABLE parrillero.calle       IS 'Calle donde vive el parrillero';
-COMMENT ON TABLE parrillero.numero      IS 'Numero (direccion) donde vive el parrillero';
-COMMENT ON TABLE parrillero.estado      IS 'Estado de donde es originario el parrillero';
-COMMENT ON TABLE parrillero.c_postal    IS 'Codigo postal de donde vive el parrillero';
-COMMENT ON TABLE parrillero.edad        IS 'Edad del parrillero';
-COMMENT ON TABLE parrillero.nss         IS 'Numero de Seguridad Social del parrillero';
-COMMENT ON TABLE parrillero.antiguedad  IS 'Fecha de conratacion del parrillero';
-COMMENT ON TABLE parrillero.telefono    IS 'Numero telefonico del parrillero';
-COMMENT ON TABLE parrillero.email       IS 'Email del parrillero';
+COMMENT ON COLUMN parrillero.curp IS 'El CURP del parrillero';
+COMMENT ON COLUMN parrillero.rfc  IS 'El RFC del parrillero';
+COMMENT ON COLUMN parrillero.id_taqueria IS 'ID de la taqueria donde trabaja el parrillero';
+COMMENT ON COLUMN parrillero.nombre      IS 'Nombre del parrillero';
+COMMENT ON COLUMN parrillero.a_paterno   IS 'Apellido paterno del parrillero';
+COMMENT ON COLUMN parrillero.a_materno   IS 'Apellido materno del parrillero';
+COMMENT ON COLUMN parrillero.calle       IS 'Calle donde vive el parrillero';
+COMMENT ON COLUMN parrillero.numero      IS 'Numero (direccion) donde vive el parrillero';
+COMMENT ON COLUMN parrillero.estado      IS 'Estado de donde es originario el parrillero';
+COMMENT ON COLUMN parrillero.c_postal    IS 'Codigo postal de donde vive el parrillero';
+COMMENT ON COLUMN parrillero.edad        IS 'Edad del parrillero';
+COMMENT ON COLUMN parrillero.nss         IS 'Numero de Seguridad Social del parrillero';
+COMMENT ON COLUMN parrillero.antiguedad  IS 'Fecha de conratacion del parrillero';
+COMMENT ON COLUMN parrillero.telefono    IS 'Numero telefonico del parrillero';
+COMMENT ON COLUMN parrillero.email       IS 'Email del parrillero';
 -- }}}
 
 -- Comentarios de Taquero      -- {{{ 
 COMMENT ON TABLE taquero      IS 'Almacena la informacion de todos los empleados taqueros';
-COMMENT ON TABLE taquero.curp IS 'El CURP del taquero';
-COMMENT ON TABLE taquero.rfc  IS 'El RFC del taquero';
-COMMENT ON TABLE taquero.id_taqueria IS 'ID de la taqueria donde trabaja el taquero';
-COMMENT ON TABLE taquero.nombre      IS 'Nombre del taquero';
-COMMENT ON TABLE taquero.a_paterno   IS 'Apellido paterno del taquero';
-COMMENT ON TABLE taquero.a_materno   IS 'Apellido materno del taquero';
-COMMENT ON TABLE taquero.calle       IS 'Calle donde vive el taquero';
-COMMENT ON TABLE taquero.numero      IS 'Numero (direccion) donde vive el taquero';
-COMMENT ON TABLE taquero.estado      IS 'Estado de donde es originario el taquero';
-COMMENT ON TABLE taquero.c_postal    IS 'Codigo postal de donde vive el taquero';
-COMMENT ON TABLE taquero.edad        IS 'Edad del taquero';
-COMMENT ON TABLE taquero.nss         IS 'Numero de Seguridad Social del taquero';
-COMMENT ON TABLE taquero.antiguedad  IS 'Fecha de conratacion del taquero';
-COMMENT ON TABLE taquero.telefono    IS 'Numero telefonico del taquero';
-COMMENT ON TABLE taquero.email       IS 'Email del taquero';
+COMMENT ON COLUMN taquero.curp IS 'El CURP del taquero';
+COMMENT ON COLUMN taquero.rfc  IS 'El RFC del taquero';
+COMMENT ON COLUMN taquero.id_taqueria IS 'ID de la taqueria donde trabaja el taquero';
+COMMENT ON COLUMN taquero.nombre      IS 'Nombre del taquero';
+COMMENT ON COLUMN taquero.a_paterno   IS 'Apellido paterno del taquero';
+COMMENT ON COLUMN taquero.a_materno   IS 'Apellido materno del taquero';
+COMMENT ON COLUMN taquero.calle       IS 'Calle donde vive el taquero';
+COMMENT ON COLUMN taquero.numero      IS 'Numero (direccion) donde vive el taquero';
+COMMENT ON COLUMN taquero.estado      IS 'Estado de donde es originario el taquero';
+COMMENT ON COLUMN taquero.c_postal    IS 'Codigo postal de donde vive el taquero';
+COMMENT ON COLUMN taquero.edad        IS 'Edad del taquero';
+COMMENT ON COLUMN taquero.nss         IS 'Numero de Seguridad Social del taquero';
+COMMENT ON COLUMN taquero.antiguedad  IS 'Fecha de conratacion del taquero';
+COMMENT ON COLUMN taquero.telefono    IS 'Numero telefonico del taquero';
+COMMENT ON COLUMN taquero.email       IS 'Email del taquero';
 -- }}}
 
 -- Comentarios de Mesero      -- {{{ 
