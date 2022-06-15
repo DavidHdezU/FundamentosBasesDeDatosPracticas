@@ -38,7 +38,7 @@
 
 
 
--- OBTENCIÓN DE LOS 15 CLIENTES MÁS FRECUENTES
+-- OBTENER LOS 15 CLIENTES MÁS FRECUENTES
 SELECT CURP, Nombre, A_Paterno, count(CURP) "Total de compras", SUM(Total) "Gastos totales"
 FROM cliente
 INNER JOIN ticket ON cliente.CURP=ticket.id_Cliente
@@ -46,7 +46,7 @@ GROUP BY cliente.CURP
 ORDER BY 4 desc
 LIMIT 15;
 
--- INGRESOS TOTALES DE LAS 
+-- INGRESOS TOTALES DE LAS TAQUERIAS
 SELECT id_Taqueria, SUM(Total) "Ingresos" FROM ticket
 GROUP BY id_Taqueria
 ORDER BY 1;
@@ -99,7 +99,7 @@ GROUP BY id_taqueria, Es_Puntos
 HAVING Es_Puntos = true
 ORDER BY 2 DESC;
 
--- INGREDIENTES DE SALSAS
+-- INGREDIENTES DE SALSAS CON MAXIMO PICOR
 SELECT                                    
    id_salsa, 
    sls.nombre,
@@ -118,3 +118,5 @@ GROUP BY
    us.id_salsa, sls.nombre 
 ORDER BY 
    us.id_salsa ASC;
+
+-- INGREDIENTES DE CUALQUIER SALSA
