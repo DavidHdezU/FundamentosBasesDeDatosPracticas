@@ -99,5 +99,22 @@ GROUP BY id_taqueria, Es_Puntos
 HAVING Es_Puntos = true
 ORDER BY 2 DESC;
 
-
-
+-- INGREDIENTES DE SALSAS
+SELECT                                    
+   id_salsa, 
+   sls.nombre,
+   array_to_string(array_agg(array[ing.nombre]), ', ') AS ingredientes
+FROM 
+   utilizar_en_salsa AS us 
+JOIN 
+   ingrediente AS ing
+   ON us.id_ingrediente = ing.id 
+JOIN 
+   salsa AS sls 
+   ON us.id_salsa = sls.id
+WHERE 
+   sls.picor='Extremo'
+GROUP BY 
+   us.id_salsa, sls.nombre 
+ORDER BY 
+   us.id_salsa ASC;
