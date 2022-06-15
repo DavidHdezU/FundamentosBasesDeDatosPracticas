@@ -136,8 +136,24 @@ GROUP BY
 	id_taqueria, Nombre
 ORDER BY 3 DESC;
 
+SELECT id_taqueria, Nombre, SUM(Total) "Ingresos en el último mes"
+FROM (
+	SELECT 
+		id_taqueria, Nombre , Total
+	FROM
+		ticket INNER JOIN taqueria ON ticket.id_taqueria = taqueria.id
+	GROUP BY 
+      id_taqueria, Nombre, Fecha, Total
+   HAVING
+      fecha >= date_trunc('month', current_date - interval '1 month')
+      AND fecha < date_trunc('month', current_date)
+)  AS tk
+GROUP BY
+	id_taqueria, Nombre
+ORDER BY 3 DESC;
 
--- PLATILLOS DE PASTOR VENDIDOS EN TODAS LAS SUCURSALES
+
+-- PLATILLOS DE CARNITAS VENDIDOS EN TODAS LAS SUCURSALES
 SELECT 
    id,nombre,pv.piezas_vendidas,precio 
 FROM 
@@ -150,7 +166,7 @@ ON
 GROUP BY 
    item.id,pv.piezas_vendidas 
 HAVING 
-   nombre LIKE '%pastor%' 
+   nombre LIKE '%carnitas%' 
 ORDER BY item.id ASC;
 
 
