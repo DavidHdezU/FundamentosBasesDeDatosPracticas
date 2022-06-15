@@ -46,10 +46,12 @@ GROUP BY cliente.CURP
 ORDER BY 4 desc
 LIMIT 15;
 
+
 -- INGRESOS TOTALES DE LAS TAQUERIAS
 SELECT id_Taqueria, SUM(Total) "Ingresos" FROM ticket
 GROUP BY id_Taqueria
 ORDER BY 1;
+
 
 -- EMPLEADOS QUE CUMPLEN CON EL PROGRAMA DE ANTIGUEDAD
 SELECT CURP, id_Taqueria, Nombre, A_Paterno, Antiguedad FROM taquero
@@ -77,6 +79,7 @@ SELECT id_taqueria, COUNT(id_taqueria) "Clientes atendidos totales" FROM ticket
 GROUP BY id_taqueria
 ORDER BY 2 DESC;
 
+
 -- 20 MESEROS CON MÁS CLIENTES ATENDIDOS
 SELECT RFC, Nombre, A_Paterno, A_Materno, Telefono, Email, COUNT(RFC_mesero) "Clientes atendidos" 
 FROM mesero INNER JOIN ticket ON mesero.RFC = ticket.RFC_mesero
@@ -84,13 +87,14 @@ GROUP BY RFC, Nombre, A_Paterno, A_Materno, Telefono, Email
 ORDER BY 7 DESC
 LIMIT 20;
 
--- LAS 10 TAQUERIAS QUE HAN TENIDO QUE ABASTECERSE MÁS EN EL ULTIMO MES (BETWEEN 2022-05-14 2022-06-14)
 
+-- LAS 10 TAQUERIAS QUE HAN TENIDO QUE ABASTECERSE MÁS EN EL ULTIMO MES (BETWEEN 2022-05-14 2022-06-14)
 SELECT id_taqueria, SUM(PrecioCompra) "Gastos totales en abastencimiento"
 FROM abastecer INNER JOIN compra ON compra.id = abastecer.id_Compra
 GROUP BY id_taqueria
 ORDER BY 2 DESC
 LIMIT 10;
+
 
 -- VER QUE TAQUERIAS VENDEN MÁS POR PUNTOS
 SELECT id_taqueria, COUNT(id_taqueria) "Pagos con Puntos Taquero Corazon"
@@ -131,22 +135,6 @@ FROM (
 	GROUP BY id_taqueria, Nombre, Fecha, Total
 	HAVING
 		Fecha >= '2022-05-15' AND Fecha <= '2022-06-15'
-)  AS tk
-GROUP BY
-	id_taqueria, Nombre
-ORDER BY 3 DESC;
-
-SELECT id_taqueria, Nombre, SUM(Total) "Ingresos en el último mes"
-FROM (
-	SELECT 
-		id_taqueria, Nombre , Total
-	FROM
-		ticket INNER JOIN taqueria ON ticket.id_taqueria = taqueria.id
-	GROUP BY 
-      id_taqueria, Nombre, Fecha, Total
-   HAVING
-      fecha >= date_trunc('month', current_date - interval '1 month')
-      AND fecha < date_trunc('month', current_date)
 )  AS tk
 GROUP BY
 	id_taqueria, Nombre
@@ -193,8 +181,6 @@ ORDER BY
     id_taqueria ASC;
 
 
-
-
 -- TACOS AL PASTOR VENDIDOS LOS DIAS LUNES DE ESTE ÚLTIMO MES POR SUCURSAL
 SELECT id_taqueria, nombre, SUM(cantidad) "Tacos al pastor vendidos los lunes del último mes" 
 FROM 
@@ -213,6 +199,7 @@ ON
 	
 GROUP BY id_taqueria, nombre
 ORDER BY 2 DESC;
+
 
 -- LOS TRES TACOS MAS VENDIDOS
 SELECT 
@@ -234,9 +221,8 @@ HAVING
    nombre LIKE '%Taco%' 
 ORDER BY pv.piezas_vendidas DESC LIMIT 3;
 
-<<<<<<< Updated upstream
--- TOP 10 PRODUCTOS MÁS VENDIDOS EN LO QUE VA DEL AÑO
 
+-- TOP 10 PRODUCTOS MÁS VENDIDOS EN LO QUE VA DEL AÑO
 SELECT id_item, nombre, SUM(cantidad) "Cantidad de piezas vendidas en el transcurso de año"
 FROM 
 	(SELECT id_item, cantidad
@@ -254,7 +240,7 @@ GROUP BY id_item, nombre
 ORDER BY 3 DESC
 LIMIT 10;
 
-=======
+
 -- TACOS MAS VENDIDOS EN CIERTA SUCURSAL
 SELECT 
    id_taqueria,nombre,SUM(cantidad) AS total
@@ -281,4 +267,3 @@ AS foo
 ON ticket.id = foo.id_ticket
 GROUP BY id_taqueria,nombre
 ORDER BY id_taqueria ASC,total DESC;
->>>>>>> Stashed changes
