@@ -9,11 +9,11 @@ CREATE OR REPLACE FUNCTION default_data()
     BEGIN
         IF (TG_OP = 'INSERT') THEN 
             INSERT INTO 
-                cliente(CURP, id_Taqueria, Nombre, A_Paterno, A_Materno,
+                cliente(CURP, Nombre, A_Paterno, A_Materno,
                         Calle, Numero, Estado, C_Postal, Telefono, 
                         Email, A_Domicilio, Puntos_Taquero_Corazon)
             VALUES 
-                (NEW.RFC, NEW.id, NEW.Nombre, 'Ricos', 'Tacos', NEW.Calle,
+                (NEW.RFC, NEW.Nombre, 'Ricos', 'Tacos', NEW.Calle,
                 NEW.Numero, NEW.Estado, NEW.C_Postal, NEW.Telefono,
                 NEW.Email, FALSE, 0);
 
@@ -22,11 +22,11 @@ CREATE OR REPLACE FUNCTION default_data()
             DELETE FROM cliente AS clnt WHERE clnt.CURP = OLD.RFC;
             -- Crear un cliente default nuevo
             INSERT INTO 
-                cliente(CURP, id_Taqueria, Nombre, A_Paterno, A_Materno,
+                cliente(CURP, Nombre, A_Paterno, A_Materno,
                         Calle, Numero, Estado, C_Postal, Telefono, 
                         Email, A_Domicilio, Puntos_Taquero_Corazon)
             VALUES 
-                (NEW.RFC, NEW.id, NEW.Nombre, 'Ricos', 'Tacos', NEW.Calle,
+                (NEW.RFC, NEW.Nombre, 'Ricos', 'Tacos', NEW.Calle,
                 NEW.Numero, NEW.Estado, NEW.C_Postal, NEW.Telefono,
                 NEW.Email, FALSE, 0);
         END IF;
