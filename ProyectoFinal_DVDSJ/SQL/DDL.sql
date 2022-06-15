@@ -398,9 +398,15 @@ CREATE TABLE vender (
 ----------- Comments -----------
 
 -- Comentarios de Taqueria      -- {{{
-COMMENT ON TABLE taqueria IS 'Almacena la informacion de todas las taquerias';
-COMMENT ON TABLE taqueria.id IS 'El id de la taqueria';
-COMMENT ON TABLE taqueria.rfc IS 'El RFC de la taqueria';
+COMMENT ON TABLE taqueria          IS 'Almacena la informacion de todas las taquerias';
+COMMENT ON TABLE taqueria.id       IS 'El id de la taqueria';
+COMMENT ON TABLE taqueria.rfc      IS 'El RFC de la taqueria';
+COMMENT ON TABLE taqueria.nombre   IS 'Nombre de la taqueria';
+COMMENT ON TABLE taqueria.calle    IS 'Calle donde se encuentra la taqueria';
+COMMENT ON TABLE taqueria.numero   IS 'Numero de la taqueria';
+COMMENT ON TABLE taqueria.estado   IS 'Estado donde se ubica la taqueria';
+COMMENT ON TABLE taqueria.c_postal IS 'Codigo Postal de la taqueria';
+COMMENT ON TABLE taqueria.telefono IS 'Numero telefonico de la taqueria';
 -- }}}
 
 -- Comentarios de Parrillero    -- {{{ 
