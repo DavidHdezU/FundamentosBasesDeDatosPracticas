@@ -234,6 +234,7 @@ HAVING
    nombre LIKE '%Taco%' 
 ORDER BY pv.piezas_vendidas DESC LIMIT 3;
 
+<<<<<<< Updated upstream
 -- TOP 10 PRODUCTOS MÁS VENDIDOS EN LO QUE VA DEL AÑO
 
 SELECT id_item, nombre, SUM(cantidad) "Cantidad de piezas vendidas en el transcurso de año"
@@ -253,3 +254,31 @@ GROUP BY id_item, nombre
 ORDER BY 3 DESC
 LIMIT 10;
 
+=======
+-- TACOS MAS VENDIDOS EN CIERTA SUCURSAL
+SELECT 
+   id_taqueria,nombre,SUM(cantidad) AS total
+FROM 
+   ticket
+JOIN 
+   (SELECT id_ticket,id_item,nombre,cantidad FROM vender JOIN item as it ON id_item=it.id GROUP BY id_ticket,id_item,nombre HAVING nombre LIKE '%Taco%'
+   ORDER BY cantidad DESC) 
+AS foo
+ON ticket.id = foo.id_ticket
+WHERE id_taqueria=1
+GROUP BY id_taqueria,nombre
+ORDER BY total DESC;
+
+-- TACOS MAS VENDIDOS POR SUCURSAL  
+SELECT 
+   id_taqueria,nombre,SUM(cantidad) AS total
+FROM 
+   ticket
+JOIN 
+   (SELECT id_ticket,id_item,nombre,cantidad FROM vender JOIN item as it ON id_item=it.id GROUP BY id_ticket,id_item,nombre HAVING nombre LIKE '%Taco%'
+   ORDER BY cantidad DESC)          
+AS foo
+ON ticket.id = foo.id_ticket
+GROUP BY id_taqueria,nombre
+ORDER BY id_taqueria ASC,total DESC;
+>>>>>>> Stashed changes
