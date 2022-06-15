@@ -119,11 +119,7 @@ GROUP BY
    us.id_salsa, sls.nombre 
 ORDER BY 
    us.id_salsa ASC;
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
--- INGREDIENTES DE CUALQUIER SALSA
-
+   
 
 -- INGRESOS DE CADA TAQUERIA EN EL ULTIMO MES
 SELECT id_taqueria, Nombre, SUM(Total) "Ingresos en el último mes"
@@ -140,9 +136,6 @@ GROUP BY
 	id_taqueria, Nombre
 ORDER BY 3 DESC;
 
-=======
-=======
->>>>>>> Stashed changes
 
 -- PLATILLOS DE PASTOR VENDIDOS EN TODAS LAS SUCURSALES
 SELECT 
@@ -181,9 +174,4 @@ FROM (
 GROUP BY 
     id_taqueria, id_item
 ORDER BY 
-<<<<<<< Updated upstream
     id_taqueria ASC;
->>>>>>> Stashed changes
-=======
-    id_taqueria ASC;
->>>>>>> Stashed changes
