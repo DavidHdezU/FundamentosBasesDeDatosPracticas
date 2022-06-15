@@ -136,8 +136,24 @@ GROUP BY
 	id_taqueria, Nombre
 ORDER BY 3 DESC;
 
+SELECT id_taqueria, Nombre, SUM(Total) "Ingresos en el último mes"
+FROM (
+	SELECT 
+		id_taqueria, Nombre , Total
+	FROM
+		ticket INNER JOIN taqueria ON ticket.id_taqueria = taqueria.id
+	GROUP BY 
+      id_taqueria, Nombre, Fecha, Total
+   HAVING
+      fecha >= date_trunc('month', current_date - interval '1 month')
+      AND fecha < date_trunc('month', current_date)
+)  AS tk
+GROUP BY
+	id_taqueria, Nombre
+ORDER BY 3 DESC;
 
--- PLATILLOS DE PASTOR VENDIDOS EN TODAS LAS SUCURSALES
+
+-- PLATILLOS DE CARNITAS VENDIDOS EN TODAS LAS SUCURSALES
 SELECT 
    id,nombre,pv.piezas_vendidas,precio 
 FROM 
@@ -150,7 +166,7 @@ ON
 GROUP BY 
    item.id,pv.piezas_vendidas 
 HAVING 
-   nombre LIKE '%pastor%' 
+   nombre LIKE '%carnitas%' 
 ORDER BY item.id ASC;
 
 
@@ -197,3 +213,43 @@ ON
 	
 GROUP BY id_taqueria, nombre
 ORDER BY 2 DESC;
+
+-- LOS TRES TACOS MAS VENDIDOS
+SELECT 
+   id,nombre,pv.piezas_vendidas 
+FROM 
+   item 
+JOIN (
+   SELECT 
+      id_item,SUM(cantidad) AS piezas_vendidas 
+   FROM 
+      vender 
+   GROUP BY id_item
+) AS pv 
+ON 
+   id=pv.id_item 
+GROUP BY 
+   item.id,pv.piezas_vendidas 
+HAVING 
+   nombre LIKE '%Taco%' 
+ORDER BY pv.piezas_vendidas DESC LIMIT 3;
+
+-- TOP 10 PRODUCTOS MÁS VENDIDOS EN LO QUE VA DEL AÑO
+
+SELECT id_item, nombre, SUM(cantidad) "Cantidad de piezas vendidas en el transcurso de año"
+FROM 
+	(SELECT id_item, cantidad
+	 FROM
+	 vender JOIN ticket ON vender.id_ticket = ticket.id
+	 GROUP BY id_item, cantidad,Fecha
+	 -- VEMOS QUE ESTÉ EN EL RANGO DE ESTE ÚLTIMO MES, QUE SEA LUNES Y QUE EL ID_ITEM = 2, YA QUE COMO LO DEFINIMOS ESTE ID ES EL CORRESPONDIENTE A UN TACO AL PASTOR
+	 HAVING Fecha >= '2022-01-01' AND Fecha <= NOW()
+	) as tv
+JOIN
+	item
+ON
+	tv.id_item = item.id
+GROUP BY id_item, nombre
+ORDER BY 3 DESC
+LIMIT 10;
+
