@@ -121,6 +121,7 @@ ORDER BY
    us.id_salsa ASC;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 -- INGREDIENTES DE CUALQUIER SALSA
 
 
@@ -140,6 +141,8 @@ GROUP BY
 ORDER BY 3 DESC;
 
 =======
+=======
+>>>>>>> Stashed changes
 
 -- PLATILLOS DE PASTOR VENDIDOS EN TODAS LAS SUCURSALES
 SELECT 
@@ -178,5 +181,9 @@ FROM (
 GROUP BY 
     id_taqueria, id_item
 ORDER BY 
+<<<<<<< Updated upstream
+    id_taqueria ASC;
+>>>>>>> Stashed changes
+=======
     id_taqueria ASC;
 >>>>>>> Stashed changes
