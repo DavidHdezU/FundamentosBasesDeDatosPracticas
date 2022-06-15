@@ -380,9 +380,9 @@ CREATE TABLE inventario (
     FOREIGN KEY (id_Taqueria) REFERENCES taqueria(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE venta (
+CREATE TABLE vender (
     id_Item   INT        NOT NULL,
-    id_Ticket VARCHAR(8) NOT NULL CHECK(id ~* '^[a-z0-9]+$' AND CHAR_LENGTH(id) = 8),
+    id_Ticket VARCHAR(8) NOT NULL CHECK(id_Ticket ~* '^[a-z0-9]+$' AND CHAR_LENGTH(id_Ticket) = 8),
 
     Cantidad   INT NOT NULL,
     Precio DECIMAL NOT NULL CHECK(Precio >= 0),
