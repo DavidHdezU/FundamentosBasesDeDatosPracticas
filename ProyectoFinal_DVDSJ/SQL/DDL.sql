@@ -309,7 +309,6 @@ CREATE TABLE registro_historico (
     Pinsumos DECIMAL NOT NULL CHECK(Pinsumos >= 0),
     Fecha    DATE    NOT NULL CHECK(Fecha <= NOW()),
     
-    PRIMARY KEY (id_Registro),
     FOREIGN KEY (id_Item) REFERENCES item(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 -- }}}
