@@ -407,11 +407,11 @@ COMMENT ON COLUMN taqueria.Numero   IS 'Numero (direccion) de la taqueria';
 COMMENT ON COLUMN taqueria.Estado   IS 'Estado donde se ubica la taqueria';
 COMMENT ON COLUMN taqueria.C_Postal IS 'Codigo Postal de la taqueria';
 COMMENT ON COLUMN taqueria.Telefono IS 'Numero telefonico de la taqueria';
-COMMENT ON COLUMN taqueria.Email    IS 'Email de la taquería'
+COMMENT ON COLUMN taqueria.Email    IS 'Email de la taquería';
 -- }}}
 
 -- Comentarios de Parrillero    -- {{{ 
-COMMENT ON TABLE parrillero              IS 'Almacena la informacion de todos los empleados parrilleros';
+COMMENT ON TABLE  parrillero              IS 'Almacena la informacion de todos los empleados parrilleros';
 COMMENT ON COLUMN parrillero.CURP        IS 'El CURP del parrillero';
 COMMENT ON COLUMN parrillero.RFC         IS 'El RFC del parrillero';
 COMMENT ON COLUMN parrillero.id_Taqueria IS 'ID de la taqueria donde trabaja el parrillero';
