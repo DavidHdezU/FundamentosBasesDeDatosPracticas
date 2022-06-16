@@ -3,7 +3,7 @@
  * Version: 22.6.15
  */
 
--- Para insertar un nuevo platillo, que te pida la "receta" e inserte en lass tablas correspondientes
+-- -- SP para manejar los INSERT de un nuevo platillo, pide la "receta" e inserta en las tablas correspondientes
 CREATE OR REPLACE PROCEDURE nuevo_item (
     id_platillo     INT,
     Categoria       INT,
@@ -42,3 +42,23 @@ BEGIN
 
 END;
 $$ LANGUAGE plpgsql;
+
+
+-- SP para manejar los DELETE de items
+CREATE OR REPLACE PROCEDURE item_delete (idItem INT)
+AS $$
+BEGIN
+    -- Borra de la relacion Utilizar
+    DELETE FROM utilizar AS util WHERE util.id_item = idItem;
+    -- Borra de Item
+    DELETE FROM item AS it WHERE it.id = idItem;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Comments --
+-- SP nuevo_item
+COMMENT ON PROCEDURE nuevo_item IS 'Inserta un nuevo platillo, pide la receta [[id ingred, cantidad]] e inserta en las tablas correspondientes'
+
+-- SP item_delete
+COMMENT ON PROCEDURE item_delete IS 'Elimina un item junto con sus referencias'
