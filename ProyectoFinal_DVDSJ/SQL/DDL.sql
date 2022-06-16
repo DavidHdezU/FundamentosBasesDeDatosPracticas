@@ -604,12 +604,6 @@ COMMENT ON COLUMN utilizar.id_Ingrediente  IS 'ID del ingrediente';
 COMMENT ON COLUMN utilizar.Cantidad    IS 'Cantidad usada';
 -- }}}
 
--- Comentarios de utilizarEnSalsa -- {{{ 
-COMMENT ON TABLE utilizarEnSalsa IS 'Utiliza una cantidad específica de ingrediente en un item';
-COMMENT ON COLUMN utilizarEnSalsa.id_Salsa    IS 'ID la salsa a preparar';
-COMMENT ON COLUMN utilizarEnSalsa.id_Ingrediente  IS 'ID del ingrediente';
-COMMENT ON COLUMN utilizarEnSalsa.Cantidad    IS 'Cantidad usada';
--- }}}
 
 -- Comentarios de RegistroHistorico -- {{{ 
 COMMENT ON TABLE registro_historico IS 'Almacena la informacion relevante del registro historico de un item';
