@@ -398,127 +398,279 @@ CREATE TABLE vender (
 ----------- Comments -----------
 
 -- Comentarios de Taqueria      -- {{{
-COMMENT ON TABLE taqueria          IS 'Almacena la informacion de todas las taquerias';
+COMMENT ON TABLE taqueria           IS 'Almacena la informacion de todas las taquerias';
 COMMENT ON COLUMN taqueria.id       IS 'El id de la taqueria';
-COMMENT ON COLUMN taqueria.rfc      IS 'El RFC de la taqueria';
-COMMENT ON COLUMN taqueria.nombre   IS 'Nombre de la taqueria';
-COMMENT ON COLUMN taqueria.calle    IS 'Calle donde se encuentra la taqueria';
-COMMENT ON COLUMN taqueria.numero   IS 'Numero (direccion) de la taqueria';
-COMMENT ON COLUMN taqueria.estado   IS 'Estado donde se ubica la taqueria';
-COMMENT ON COLUMN taqueria.c_postal IS 'Codigo Postal de la taqueria';
-COMMENT ON COLUMN taqueria.telefono IS 'Numero telefonico de la taqueria';
+COMMENT ON COLUMN taqueria.RFC      IS 'El RFC de la taqueria';
+COMMENT ON COLUMN taqueria.Nombre   IS 'Nombre de la taqueria';
+COMMENT ON COLUMN taqueria.Calle    IS 'Calle donde se encuentra la taqueria';
+COMMENT ON COLUMN taqueria.Numero   IS 'Numero (direccion) de la taqueria';
+COMMENT ON COLUMN taqueria.Estado   IS 'Estado donde se ubica la taqueria';
+COMMENT ON COLUMN taqueria.C_Postal IS 'Codigo Postal de la taqueria';
+COMMENT ON COLUMN taqueria.Telefono IS 'Numero telefonico de la taqueria';
+COMMENT ON COLUMN taqueria.Email    IS 'Email de la taquería'
 -- }}}
 
 -- Comentarios de Parrillero    -- {{{ 
-COMMENT ON TABLE parrillero      IS 'Almacena la informacion de todos los empleados parrilleros';
-COMMENT ON COLUMN parrillero.curp IS 'El CURP del parrillero';
-COMMENT ON COLUMN parrillero.rfc  IS 'El RFC del parrillero';
-COMMENT ON COLUMN parrillero.id_taqueria IS 'ID de la taqueria donde trabaja el parrillero';
-COMMENT ON COLUMN parrillero.nombre      IS 'Nombre del parrillero';
-COMMENT ON COLUMN parrillero.a_paterno   IS 'Apellido paterno del parrillero';
-COMMENT ON COLUMN parrillero.a_materno   IS 'Apellido materno del parrillero';
-COMMENT ON COLUMN parrillero.calle       IS 'Calle donde vive el parrillero';
-COMMENT ON COLUMN parrillero.numero      IS 'Numero (direccion) donde vive el parrillero';
-COMMENT ON COLUMN parrillero.estado      IS 'Estado de donde es originario el parrillero';
-COMMENT ON COLUMN parrillero.c_postal    IS 'Codigo postal de donde vive el parrillero';
-COMMENT ON COLUMN parrillero.edad        IS 'Edad del parrillero';
-COMMENT ON COLUMN parrillero.nss         IS 'Numero de Seguridad Social del parrillero';
-COMMENT ON COLUMN parrillero.antiguedad  IS 'Fecha de conratacion del parrillero';
-COMMENT ON COLUMN parrillero.telefono    IS 'Numero telefonico del parrillero';
-COMMENT ON COLUMN parrillero.email       IS 'Email del parrillero';
+COMMENT ON TABLE parrillero              IS 'Almacena la informacion de todos los empleados parrilleros';
+COMMENT ON COLUMN parrillero.CURP        IS 'El CURP del parrillero';
+COMMENT ON COLUMN parrillero.RFC         IS 'El RFC del parrillero';
+COMMENT ON COLUMN parrillero.id_Taqueria IS 'ID de la taqueria donde trabaja el parrillero';
+COMMENT ON COLUMN parrillero.Nombre      IS 'Nombre del parrillero';
+COMMENT ON COLUMN parrillero.A_Paterno   IS 'Apellido paterno del parrillero';
+COMMENT ON COLUMN parrillero.A_Materno   IS 'Apellido materno del parrillero';
+COMMENT ON COLUMN parrillero.Calle       IS 'Calle donde vive el parrillero';
+COMMENT ON COLUMN parrillero.Numero      IS 'Numero (direccion) donde vive el parrillero';
+COMMENT ON COLUMN parrillero.Estado      IS 'Estado de donde es originario el parrillero';
+COMMENT ON COLUMN parrillero.C_Postal    IS 'Codigo postal de donde vive el parrillero';
+COMMENT ON COLUMN parrillero.Edad        IS 'Edad del parrillero';
+COMMENT ON COLUMN parrillero.NSS         IS 'Numero de Seguridad Social del parrillero';
+COMMENT ON COLUMN parrillero.Antiguedad  IS 'Fecha de conratacion del parrillero';
+COMMENT ON COLUMN parrillero.Telefono    IS 'Numero telefonico del parrillero';
+COMMENT ON COLUMN parrillero.Email       IS 'Email del parrillero';
 -- }}}
 
 -- Comentarios de Taquero      -- {{{ 
 COMMENT ON TABLE taquero      IS 'Almacena la informacion de todos los empleados taqueros';
-COMMENT ON COLUMN taquero.curp IS 'El CURP del taquero';
-COMMENT ON COLUMN taquero.rfc  IS 'El RFC del taquero';
-COMMENT ON COLUMN taquero.id_taqueria IS 'ID de la taqueria donde trabaja el taquero';
-COMMENT ON COLUMN taquero.nombre      IS 'Nombre del taquero';
-COMMENT ON COLUMN taquero.a_paterno   IS 'Apellido paterno del taquero';
-COMMENT ON COLUMN taquero.a_materno   IS 'Apellido materno del taquero';
-COMMENT ON COLUMN taquero.calle       IS 'Calle donde vive el taquero';
-COMMENT ON COLUMN taquero.numero      IS 'Numero (direccion) donde vive el taquero';
-COMMENT ON COLUMN taquero.estado      IS 'Estado de donde es originario el taquero';
-COMMENT ON COLUMN taquero.c_postal    IS 'Codigo postal de donde vive el taquero';
-COMMENT ON COLUMN taquero.edad        IS 'Edad del taquero';
-COMMENT ON COLUMN taquero.nss         IS 'Numero de Seguridad Social del taquero';
-COMMENT ON COLUMN taquero.antiguedad  IS 'Fecha de conratacion del taquero';
-COMMENT ON COLUMN taquero.telefono    IS 'Numero telefonico del taquero';
-COMMENT ON COLUMN taquero.email       IS 'Email del taquero';
+COMMENT ON COLUMN taquero.CURP IS 'El CURP del taquero';
+COMMENT ON COLUMN taquero.RFC  IS 'El RFC del taquero';
+COMMENT ON COLUMN taquero.id_Taqueria IS 'ID de la taqueria donde trabaja el taquero';
+COMMENT ON COLUMN taquero.Nombre      IS 'Nombre del taquero';
+COMMENT ON COLUMN taquero.A_Paterno   IS 'Apellido paterno del taquero';
+COMMENT ON COLUMN taquero.A_Materno   IS 'Apellido materno del taquero';
+COMMENT ON COLUMN taquero.Calle       IS 'Calle donde vive el taquero';
+COMMENT ON COLUMN taquero.Numero      IS 'Numero (direccion) donde vive el taquero';
+COMMENT ON COLUMN taquero.Estado      IS 'Estado de donde es originario el taquero';
+COMMENT ON COLUMN taquero.C_Postal    IS 'Codigo postal de donde vive el taquero';
+COMMENT ON COLUMN taquero.Edad        IS 'Edad del taquero';
+COMMENT ON COLUMN taquero.NSS         IS 'Numero de Seguridad Social del taquero';
+COMMENT ON COLUMN taquero.Antiguedad  IS 'Fecha de conratacion del taquero';
+COMMENT ON COLUMN taquero.Telefono    IS 'Numero telefonico del taquero';
+COMMENT ON COLUMN taquero.Email       IS 'Email del taquero';
 -- }}}
 
 -- Comentarios de Mesero      -- {{{ 
 COMMENT ON TABLE mesero IS 'Almacena la informacion de todos los empleados meseros';
+COMMENT ON COLUMN mesero.CURP IS 'El CURP del mesero';
+COMMENT ON COLUMN mesero.RFC  IS 'El RFC del mesero';
+COMMENT ON COLUMN mesero.id_Taqueria IS 'ID de la taqueria donde trabaja el mesero';
+COMMENT ON COLUMN mesero.Nombre      IS 'Nombre del mesero';
+COMMENT ON COLUMN mesero.A_Paterno   IS 'Apellido paterno del mesero';
+COMMENT ON COLUMN mesero.A_Materno   IS 'Apellido materno del mesero';
+COMMENT ON COLUMN mesero.Calle       IS 'Calle donde vive el mesero';
+COMMENT ON COLUMN mesero.Numero      IS 'Numero (direccion) donde vive el mesero';
+COMMENT ON COLUMN mesero.Estado      IS 'Estado de donde es originario el mesero';
+COMMENT ON COLUMN mesero.C_Postal    IS 'Codigo postal de donde vive el mesero';
+COMMENT ON COLUMN mesero.Edad        IS 'Edad del mesero';
+COMMENT ON COLUMN mesero.NSS         IS 'Numero de Seguridad Social del mesero';
+COMMENT ON COLUMN mesero.Antiguedad  IS 'Fecha de conratacion del mesero';
+COMMENT ON COLUMN mesero.Telefono    IS 'Numero telefonico del mesero';
+COMMENT ON COLUMN mesero.Email       IS 'Email del mesero';
 -- }}}
 
 -- Comentarios de Cajero      -- {{{ 
 COMMENT ON TABLE cajero IS 'Almacena la informacion de todos los empleados cajeros';
+COMMENT ON COLUMN cajero.CURP IS 'El CURP del cajero';
+COMMENT ON COLUMN cajero.RFC  IS 'El RFC del cajero';
+COMMENT ON COLUMN cajero.id_Taqueria IS 'ID de la taqueria donde trabaja el cajero';
+COMMENT ON COLUMN cajero.Nombre      IS 'Nombre del cajero';
+COMMENT ON COLUMN cajero.A_Paterno   IS 'Apellido paterno del cajero';
+COMMENT ON COLUMN cajero.A_Materno   IS 'Apellido materno del cajero';
+COMMENT ON COLUMN cajero.Calle       IS 'Calle donde vive el cajero';
+COMMENT ON COLUMN cajero.Numero      IS 'Numero (direccion) donde vive el cajero';
+COMMENT ON COLUMN cajero.Estado      IS 'Estado de donde es originario el cajero';
+COMMENT ON COLUMN cajero.C_Postal    IS 'Codigo postal de donde vive el cajero';
+COMMENT ON COLUMN cajero.Edad        IS 'Edad del cajero';
+COMMENT ON COLUMN cajero.NSS         IS 'Numero de Seguridad Social del cajero';
+COMMENT ON COLUMN cajero.Antiguedad  IS 'Fecha de conratacion del cajero';
+COMMENT ON COLUMN cajero.Telefono    IS 'Numero telefonico del cajero';
+COMMENT ON COLUMN cajero.Email       IS 'Email del cajero';
 -- }}}
 
 -- Comentarios de Tortillero  -- {{{ 
 COMMENT ON TABLE tortillero IS 'Almacena la informacion de todos los empleados tortilleros';
+COMMENT ON COLUMN tortillero.CURP IS 'El CURP del tortillero';
+COMMENT ON COLUMN tortillero.RFC  IS 'El RFC del tortillero';
+COMMENT ON COLUMN tortillero.id_Taqueria IS 'ID de la taqueria donde trabaja el tortillero';
+COMMENT ON COLUMN tortillero.Nombre      IS 'Nombre del tortillero';
+COMMENT ON COLUMN tortillero.A_Paterno   IS 'Apellido paterno del tortillero';
+COMMENT ON COLUMN tortillero.A_Materno   IS 'Apellido materno del tortillero';
+COMMENT ON COLUMN tortillero.Calle       IS 'Calle donde vive el tortillero';
+COMMENT ON COLUMN tortillero.Numero      IS 'Numero (direccion) donde vive el tortillero';
+COMMENT ON COLUMN tortillero.Estado      IS 'Estado de donde es originario el tortillero';
+COMMENT ON COLUMN tortillero.C_Postal    IS 'Codigo postal de donde vive el tortillero';
+COMMENT ON COLUMN tortillero.Edad        IS 'Edad del tortillero';
+COMMENT ON COLUMN tortillero.NSS         IS 'Numero de Seguridad Social del tortillero';
+COMMENT ON COLUMN tortillero.Antiguedad  IS 'Fecha de conratacion del tortillero';
+COMMENT ON COLUMN tortillero.Telefono    IS 'Numero telefonico del tortillero';
+COMMENT ON COLUMN tortillero.Email       IS 'Email del tortillero';
 -- }}}
 
 -- Comentarios de Repartidor  -- {{{ 
 COMMENT ON TABLE repartidor IS 'Almacena la informacion de todos los empleados repartidores';
+COMMENT ON COLUMN repartidor.CURP IS 'El CURP del repartidor';
+COMMENT ON COLUMN repartidor.RFC  IS 'El RFC del repartidor';
+COMMENT ON COLUMN repartidor.id_Taqueria IS 'ID de la taqueria donde trabaja el repartidor';
+COMMENT ON COLUMN repartidor.Nombre      IS 'Nombre del repartidor';
+COMMENT ON COLUMN repartidor.A_Paterno   IS 'Apellido paterno del repartidor';
+COMMENT ON COLUMN repartidor.A_Materno   IS 'Apellido materno del repartidor';
+COMMENT ON COLUMN repartidor.Calle       IS 'Calle donde vive el repartidor';
+COMMENT ON COLUMN repartidor.Numero      IS 'Numero (direccion) donde vive el repartidor';
+COMMENT ON COLUMN repartidor.Estado      IS 'Estado de donde es originario el repartidor';
+COMMENT ON COLUMN repartidor.C_Postal    IS 'Codigo postal de donde vive el repartidor';
+COMMENT ON COLUMN repartidor.Edad        IS 'Edad del repartidor';
+COMMENT ON COLUMN repartidor.NSS         IS 'Numero de Seguridad Social del repartidor';
+COMMENT ON COLUMN repartidor.Antiguedad  IS 'Fecha de conratacion del repartidor';
+COMMENT ON COLUMN repartidor.Telefono    IS 'Numero telefonico del repartidor';
+COMMENT ON COLUMN repartidor.Email       IS 'Email del repartidor';
+COMMENT ON COLUMN repartidor.tieneTransportePropio IS 'Booleano que pregunta si el repartidor tiene vehículo personal';
+COMMENT ON COLUMN repartidor.marca       IS 'Marca del transporte del repartidor';
+COMMENT ON COLUMN repartidor.modelo      IS 'Modelo del transporte del repartidor';
+COMMENT ON COLUMN repartidor.tipo        IS 'Tipo de transporte del repartidor; Bicleta ó motocileta';
 -- }}}
 
 -- Comentarios de Cliente     -- {{{ 
 COMMENT ON TABLE cliente IS 'Almacena la informacion de todos los clientes';
+COMMENT ON COLUMN cliente.CURP IS 'El CURP del cliente';
+COMMENT ON COLUMN cliente.Nombre      IS 'Nombre del cliente';
+COMMENT ON COLUMN cliente.A_Paterno   IS 'Apellido paterno del cliente';
+COMMENT ON COLUMN cliente.A_Materno   IS 'Apellido materno del cliente';
+COMMENT ON COLUMN cliente.Calle       IS 'Calle donde vive el cliente';
+COMMENT ON COLUMN cliente.Numero      IS 'Numero (direccion) donde vive el cliente';
+COMMENT ON COLUMN cliente.Estado      IS 'Estado de donde es originario el cliente';
+COMMENT ON COLUMN cliente.C_Postal    IS 'Codigo postal de donde vive el cliente';
+COMMENT ON COLUMN cliente.Telefono    IS 'Numero telefonico del cliente';
+COMMENT ON COLUMN cliente.Email       IS 'Email del cliente';
+COMMENT ON COLUMN cliente.A_Domicilio IS 'Booleano que verifica si la compra del cliente es a domicilio';
+COMMENT ON COLUMN cliente.Puntos_Taquero_Corazon IS 'Número de puntos que tiene el cliente en la Taquería';
+
 -- }}}
 
 -- Comentarios de Ticket      -- {{{ 
 COMMENT ON TABLE ticket IS 'Almacena la informacion de todos los tickets de consumo';
+COMMENT ON COLUMN ticket.id          IS 'ID del ticket de la compra';
+COMMENT ON COLUMN ticket.id_Cliente  IS 'ID del cliente que realizó la compra';
+COMMENT ON COLUMN ticket.Fecha       IS 'Fecha de la compra';
+COMMENT ON COLUMN ticket.RFC_Mesero  IS 'RFC del mesero que tomó la orden de los clientes';
+COMMENT ON COLUMN ticket.Es_Efectivo IS 'Indica si el pago del ticket fue realizado con efectivo';
+COMMENT ON COLUMN ticket.Es_Tarjeta  IS 'Indica si el pago del ticket fue realizado con tarjeta';
+COMMENT ON COLUMN ticket.Es_Puntos   IS 'Indica si el pago del ticket fue realizado con puntos de cliente';
+COMMENT ON COLUMN ticket.Total       IS 'Total de precio a pagar';
 -- }}}
 
 -- Comentarios de Categoria   -- {{{ 
 COMMENT ON TABLE categoria IS 'Almacena la informacion de las categorias del menu del restaurante';
--- }}}
-
--- Comentarios de Item        -- {{{ 
-COMMENT ON TABLE item IS 'Almacena la informacion de todos los items del menu';
--- }}}
-
--- Comentarios de Salsa       -- {{{ 
-COMMENT ON TABLE salsa IS 'Almacena la informacion de las salsas';
--- }}}
-
--- Comentarios de Ingrediente -- {{{ 
-COMMENT ON TABLE ingrediente IS 'Almacena la informacion relevante de los ingredientes para cada plato';
+COMMENT ON COLUMN categoria.id     IS 'Id de la categoría';
+COMMENT ON COLUMN categoria.Nombre IS 'Nombre de la categoría en el menú';
 -- }}}
 
 -- Comentarios de OrganizarMenu -- {{{ 
 COMMENT ON TABLE organizar_menu IS 'Almacena la informacion relevante de como está organizado el menu';
+COMMENT ON COLUMN organizar_menu.id_Taqueria  IS 'ID de la taquería de la cual se organizará el menú';
+COMMENT ON COLUMN organizar_menu.id_Categoria IS 'ID de la categoría organizada';
+-- }}}
+
+-- Comentarios de Item        -- {{{ 
+COMMENT ON TABLE item IS 'Almacena la informacion de todos los items del menu';
+COMMENT ON COLUMN item.id  IS 'ID del item';
+COMMENT ON COLUMN item.id_Categoria IS 'ID de la categoría en la que se encuentra el item';
+COMMENT ON COLUMN item.Nombre       IS 'Nombre del item en el menu';
+COMMENT ON COLUMN item.Descripcion  IS 'Decripción del item en el menú';
+COMMENT ON COLUMN item.Precio       IS 'Precio del item';
+-- }}}
+
+-- Comentarios de Salsa       -- {{{ 
+COMMENT ON TABLE salsa IS 'Almacena la informacion de las salsas';
+COMMENT ON COLUMN salsa.id             IS 'ID de la salsa';
+COMMENT ON COLUMN salsa.id_Categoria   IS 'ID de la categoría en la que se encuentra la salsa';
+COMMENT ON COLUMN salsa.Nombre         IS 'Nombre de la salsa';
+COMMENT ON COLUMN salsa.Recomendacion  IS 'Recomendación para acompañar la salsa';
+COMMENT ON COLUMN salsa.Picor          IS 'Nivel de picor de la salsa';
+COMMENT ON COLUMN salsa.Precio250      IS 'Precio si se sirven menos de 250 ml de salsa';
+COMMENT ON COLUMN salsa.Precio500      IS 'Precio si se sirven menos de 500 ml de salsa';
+COMMENT ON COLUMN salsa.Precio1000     IS 'Precio si se sirven menos de 1L de salsa';
+-- }}}
+
+-- Comentarios de Ingrediente -- {{{ 
+COMMENT ON TABLE ingrediente IS 'Almacena la informacion relevante de los ingredientes para cada plato';
+COMMENT ON COLUMN ingrediente.id      IS 'ID del ingrediente';
+COMMENT ON COLUMN ingrediente.Nombre  IS 'Nombre del item en el menu';
+COMMENT ON COLUMN ingrediente.Tipo    IS 'Tipo de ingrediente';
+COMMENT ON COLUMN ingrediente.Precio  IS 'Precio del ingrediente';
+-- }}}
+
+-- Comentarios de Utilizar -- {{{ 
+COMMENT ON TABLE utilizar IS 'Utiliza una cantidad específica de ingrediente en un item';
+COMMENT ON COLUMN utilizar.id_Item     IS 'ID del item donde se utilizará el ingrediente';
+COMMENT ON COLUMN utilizar.id_Ingrediente  IS 'ID del ingrediente';
+COMMENT ON COLUMN utilizar.Cantidad    IS 'Cantidad usada';
+-- }}}
+
+-- Comentarios de utilizarEnSalsa -- {{{ 
+COMMENT ON TABLE utilizarEnSalsa IS 'Utiliza una cantidad específica de ingrediente en un item';
+COMMENT ON COLUMN utilizarEnSalsa.id_Salsa    IS 'ID la salsa a preparar';
+COMMENT ON COLUMN utilizarEnSalsa.id_Ingrediente  IS 'ID del ingrediente';
+COMMENT ON COLUMN utilizarEnSalsa.Cantidad    IS 'Cantidad usada';
 -- }}}
 
 -- Comentarios de RegistroHistorico -- {{{ 
 COMMENT ON TABLE registro_historico IS 'Almacena la informacion relevante del registro historico de un item';
--- }}}
-
--- Comentarios de Compra -- {{{ 
-COMMENT ON TABLE compra IS 'Almacena la informacion relevante de la información de una Compra';
+COMMENT ON COLUMN registro_historico.id_Registro IS 'ID único del registro';
+COMMENT ON COLUMN registro_historico.id_Item     IS 'ID del item al cuál pertenece el registro';
+COMMENT ON COLUMN registro_historico.Precio      IS 'Precio del item en la fecha de registro';
+COMMENT ON COLUMN registro_historico.Pinsumos    IS 'Precio de los insumos para elaborar el item';
+COMMENT ON COLUMN registro_historico.Fecha       IS 'Fecha en la que se realizó el registro';
 -- }}}
 
 -- Comentarios de Proveedor -- {{{ 
 COMMENT ON TABLE proveedor IS 'Almacena la informacion relevante de la información de un proveedor';
+COMMENT ON COLUMN proveedor.RFC      IS 'RFC del proveedor';
+COMMENT ON COLUMN proveedor.Nombre   IS 'Nombre del provedor';
+COMMENT ON COLUMN proveedor.Servicio IS 'Descripción del servicio que efectuó el proveedor';
 -- }}}
 
+-- Comentarios de Compra -- {{{ 
+COMMENT ON TABLE compra IS 'Almacena la informacion relevante de la información de una Compra';
+COMMENT ON COLUMN compra.id               IS 'ID de la compra';
+COMMENT ON COLUMN compra.RFC_proveedor    IS 'RFC del proveedor que realizó la compra';
+COMMENT ON COLUMN compra.Marca            IS 'Marca de los productos comprados';
+COMMENT ON COLUMN compra.Tipo             IS 'Tipo de los items comprados';
+COMMENT ON COLUMN compra.FechaCompra      IS 'Fecha en que se realizó la compra';
+COMMENT ON COLUMN compra.FechaCaducidad   IS 'Fecha de caducidad de los productos comprados';
+COMMENT ON COLUMN compra.CantidadComprada IS 'Cantidad de producto comprado';
+COMMENT ON COLUMN compra.PrecioCompra     IS 'Precio que se pagó por la compra';
+-- }}}
+
+
 -- Comentarios de TelefonoProveedor -- {{{ 
-COMMENT ON TABLE telefono_proveedor IS 'Almacena la informacion relevante del telefono de un proveedor';
+COMMENT ON TABLE telefono_proveedor                IS 'Almacena la informacion relevante del telefono de un proveedor';
+COMMENT ON COLUMN telefono_proveedor.RFC_proveedor IS 'RFC del proveedor';
+COMMENT ON COLUMN telefono_proveedor.Telefono      IS 'Teléfono del proveedor';
 -- }}}
 
 -- Comentarios de EmailProveedor -- {{{ 
-COMMENT ON TABLE email_proveedor IS 'Almacena la informacion relevante del email de un proveedor';
+COMMENT ON TABLE email_proveedor                IS 'Almacena la informacion relevante del email de un proveedor';
+COMMENT ON COLUMN email_proveedor.RFC_proveedor IS 'RFC del proveedor';
+COMMENT ON COLUMN email_proveedor.Email         IS 'Teléfono del proveedor';
 -- }}}
 
 -- Comentarios de Abastecer -- {{{ 
-COMMENT ON TABLE abastecer IS 'Almacena la informacion sobre la relación abastecer';
+COMMENT ON TABLE abastecer              IS 'Almacena la informacion sobre la relación abastecer';
+COMMENT ON COLUMN abastecer.id_Taqueria IS 'ID de la taquería a abastecer';
+COMMENT ON COLUMN abastecer.id_Compra   IS 'ID de la compra de abastecimiento';
 -- }}}
 
 -- Comentarios de Inventario -- {{{ 
-COMMENT ON TABLE inventario IS 'Almacena la informacion sobre el inventario';
+COMMENT ON TABLE inventario                   IS 'Almacena la informacion sobre el inventario';
+COMMENT ON COLUMN inventario.id               IS 'ID del inventario de las taquerías';
+COMMENT ON COLUMN inventario.id_Taqueria      IS 'ID de la taquería cuyo inventario es este';
+COMMENT ON COLUMN inventario.Tipo             IS 'Tipo de producto en el inventario';
+COMMENT ON COLUMN inventario.FechaCaducidad   IS 'Fecha de caducidad del producto en el inventario';
+COMMENT ON COLUMN inventario.CantidadRestante IS 'Cantidad restante de productos en el inventario';
 -- }}}
 
 -- Comentarios de Vender     -- {{{ 
-COMMENT ON TABLE vender IS 'Contiene los datos que relacionan ticket y item';
+COMMENT ON TABLE vender            IS 'Contiene los datos que relacionan ticket y item';
+COMMENT ON COLUMN vender.id_Item   IS 'ID del item que se vendió';
+COMMENT ON COLUMN vender.id_Ticket IS 'ID del ticket de la compra';
+COMMENT ON COLUMN vender.Cantidad  IS 'Cantidad de item vendido';
 -- }}}
