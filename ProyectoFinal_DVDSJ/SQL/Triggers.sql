@@ -40,3 +40,32 @@ CREATE OR REPLACE TRIGGER usuario_default
     ON taqueria
     FOR EACH ROW
     EXECUTE PROCEDURE default_data();
+
+
+CREATE OR REPLACE FUNCTION modifica_historico()
+    RETURNS TRIGGER AS 
+    $$
+    BEGIN
+        INSERT INTO 
+            registro_historico (id_item,precio,pinsumos,fecha)
+        SELECT id,precio,costo,('now' AT TIME ZONE 'CST')::timestamp::date 
+        FROM item AS it
+        JOIN (
+        SELECT 
+            id_item,
+            SUM(round((precio / 1000) * cantidad, 2)) AS costo 
+        FROM utilizar 
+        JOIN ingrediente ON id=utilizar.id_ingrediente 
+        GROUP BY id_item
+        ) AS cst
+        ON it.id=cst.id_item WHERE id = NEW.id GROUP BY id,costo;
+
+        RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER al_historico
+    AFTER UPDATE
+    ON item
+    FOR EACH ROW 
+    EXECUTE PROCEDURE modifica_historico();
