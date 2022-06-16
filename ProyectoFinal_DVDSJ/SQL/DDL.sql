@@ -302,7 +302,7 @@ CREATE TABLE utilizar_en_salsa (
 );
 
 CREATE TABLE registro_historico (
-    id_Registro INT NOT NULL UNIQUE,
+    id_Registro SERIAL PRIMARY KEY,
     id_Item     INT NOT NULL,
 
     Precio   DECIMAL NOT NULL CHECK(Precio >= 0),
