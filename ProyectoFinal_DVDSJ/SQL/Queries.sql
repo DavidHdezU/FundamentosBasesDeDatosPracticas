@@ -48,8 +48,10 @@ LIMIT 15;
 
 
 -- INGRESOS TOTALES DE LAS TAQUERIAS
-SELECT id_Taqueria, SUM(Total) "Ingresos" FROM ticket
-GROUP BY id_Taqueria
+SELECT id_taqueria, Nombre, SUM(Total) "Ingresos" 
+FROM ticket INNER JOIN taqueria 
+ON ticket.id_taqueria = taqueria.id
+GROUP BY id_Taqueria, Nombre
 ORDER BY 1;
 
 
@@ -75,9 +77,11 @@ HAVING DATE_PART('year', AGE(NOW(), antiguedad)) >= 2;
 
 
 -- NUMERO DE CLIENTES ATENDIDOS POR SUCURSAL
-SELECT id_taqueria, COUNT(id_taqueria) "Clientes atendidos totales" FROM ticket
-GROUP BY id_taqueria
-ORDER BY 2 DESC;
+SELECT id_taqueria, Nombre, COUNT(id_taqueria) "Clientes atendidos totales" 
+FROM ticket INNER JOIN taqueria
+ON ticket.id_taqueria = taqueria.id
+GROUP BY id_taqueria, Nombre
+ORDER BY 3 DESC;
 
 
 -- 20 MESEROS CON MÁS CLIENTES ATENDIDOS
@@ -88,7 +92,7 @@ ORDER BY 7 DESC
 LIMIT 20;
 
 
--- LAS 10 TAQUERIAS QUE HAN TENIDO QUE ABASTECERSE MÁS EN EL ULTIMO MES (BETWEEN 2022-05-14 2022-06-14)
+-- LAS 10 TAQUERIAS QUE HAN TENIDO QUE ABASTECERSE MÁS 
 SELECT id_taqueria, SUM(PrecioCompra) "Gastos totales en abastencimiento"
 FROM abastecer INNER JOIN compra ON compra.id = abastecer.id_Compra
 GROUP BY id_taqueria
@@ -97,11 +101,12 @@ LIMIT 10;
 
 
 -- VER QUE TAQUERIAS VENDEN MÁS POR PUNTOS
-SELECT id_taqueria, COUNT(id_taqueria) "Pagos con Puntos Taquero Corazon"
-FROM ticket
-GROUP BY id_taqueria, Es_Puntos
+SELECT id_taqueria, Nombre, COUNT(id_taqueria) "Pagos con Puntos Taquero Corazon"
+FROM ticket INNER JOIN taqueria
+ON ticket.id_taqueria = taqueria.id
+GROUP BY id_taqueria, Nombre, Es_Puntos
 HAVING Es_Puntos = true
-ORDER BY 2 DESC;
+ORDER BY 3 DESC;
 
 
 -- INGREDIENTES DE SALSAS CON MAXIMO PICOR
